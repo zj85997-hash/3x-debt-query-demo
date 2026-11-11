@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>债权信息查询 · 演示</title><link rel="stylesheet" href="/style.css"><script type="module" src="/app.js"></script></head>
+<body>
+<header><div class="bar"><a class="brand" href="/"><span aria-hidden="true">查</span>债权信息查询</a><span class="tag">模拟环境</span></div></header>
+<main>
+  <div class="intro"><h1>查询本人债权信息</h1><p>核对已授权台账和可用的债权转让线索。</p></div>
+  <div class="grid">
+    <section class="card">
+      <h2>发起查询</h2>
+      <form id="query-form">
+        <label class="field">模拟核验场景<select id="profile" required><option value="">加载演示场景…</option></select></label>
+        <details><summary>查看查询说明</summary><p>演示仅使用虚构记录。选择模拟身份后，系统保存授权版本和查询状态。预约回访需要单独同意。</p></details>
+        <label class="check"><input id="accepted" type="checkbox" required> 我已阅读并同意查询说明</label>
+        <button id="submit" type="submit">模拟核验并查询</button>
+      </form>
+      <p id="form-error" class="error" role="alert"></p>
+    </section>
+    <section class="card result" aria-live="polite" id="result"><h2>查询结果</h2><p class="muted">完成模拟核验后，结果会显示在这里。</p></section>
+  </div>
+  <section class="card appointments" id="candidate-panel">
+    <h2>公告候选检索</h2>
+    <p class="muted">测试单条命中、重名冲突与无结果。请选择下方样例填充。</p>
+    <div class="sample-buttons">
+      <button class="secondary sample" type="button" data-name="样例甲" data-tail="0067">单条样例</button>
+      <button class="secondary sample" type="button" data-name="样例重名" data-tail="8042">重名样例</button>
+      <button class="secondary sample" type="button" data-name="样例甲" data-tail="9999">未命中样例</button>
+    </div>
+    <form id="candidate-form">
+      <div class="candidate-fields">
+        <label class="field">虚构姓名<input id="sample-name" required maxlength="10" placeholder="样例甲"></label>
+        <label class="field">证件末四位<input id="sample-tail" required maxlength="4" placeholder="0067" autocomplete="off"></label>
+      </div>
+      <label class="check"><input id="candidate-accepted" type="checkbox" required> 我已阅读并同意查询说明</label>
+      <button type="submit" id="candidate-submit">检索公告候选</button>
+    </form>
+    <p id="candidate-output" class="feedback" role="status"></p>
+  </section>
+  <section class="card appointments" id="appointments" hidden><h2>我的回访预约</h2><div id="requests"></div></section>
+</main>
+<footer>页面仅用于演示。请勿提交真实身份证、手机号或债务资料。</footer>
+</body></html>

@@ -1,0 +1,9 @@
+{
+  "pages": ["pages/index/index"],
+  "window": {
+    "navigationBarTitleText": "债权信息查询",
+    "navigationBarBackgroundColor": "#f4f7f4",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f4f7f4"
+  }
+}

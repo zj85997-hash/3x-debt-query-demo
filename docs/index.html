@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>3X 债权公告候选查询 Demo</title>
+  <link rel="stylesheet" href="./style.css"><script type="module" src="./app.js"></script>
+</head>
+<body>
+<header><div class="bar"><a class="brand" href="./"><span aria-hidden="true">查</span>债权公告候选查询</a><span class="tag">3X 战队 Demo</span></div></header>
+<main>
+  <div class="intro"><h1>按姓名和证件尾号检索公告候选</h1><p>使用虚构数据，检验单条命中、同名同尾号冲突与未命中。</p></div>
+  <div class="grid">
+    <section class="card">
+      <h2>查询样例</h2>
+      <p>选一个样例自动填写。查询在当前浏览器运行。</p>
+      <div class="sample-buttons">
+        <button type="button" class="secondary" data-name="样例甲" data-tail="0067">单条命中</button>
+        <button type="button" class="secondary" data-name="样例*00000" data-tail="0042">多条候选</button>
+        <button type="button" class="secondary" data-name="样例甲" data-tail="9999">未命中</button>
+      </div>
+      <form id="lookup">
+        <label class="field">虚构姓名<input id="name" required maxlength="10" placeholder="样例甲" autocomplete="off"></label>
+        <label class="field">证件末四位<input id="tail" required maxlength="4" placeholder="0067" autocomplete="off"></label>
+        <button type="submit" id="search" disabled>检索候选</button>
+      </form>
+    </section>
+    <section class="card result" aria-live="polite"><h2>查询结果</h2><p id="status" class="muted">正在加载测试数据…</p><div id="evidence"></div></section>
+  </div>
+</main>
+<footer>GitHub Pages 静态预览。姓名和证件尾号均为虚构测试值。 <a href="https://github.com/zj85997-hash/3x-debt-query-demo">查看完整源码</a></footer>
+</body>
+</html>

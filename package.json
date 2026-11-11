@@ -1,0 +1,19 @@
+{
+  "name": "debt-query-demo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node server.mjs",
+    "local": "node scripts/local.mjs",
+    "seed": "node scripts/seed.mjs",
+    "verify": "node scripts/verify.mjs",
+    "load": "node scripts/load.mjs"
+  },
+  "dependencies": {
+    "mysql2": "3.24.6"
+  }
+}
