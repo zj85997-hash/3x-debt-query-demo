@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>运行大盘 · 债权信息查询</title>
+  <link rel="stylesheet" href="/assets/ops.css">
+  <script type="module" src="/assets/ops.js"></script>
+</head>
+<body class="viz-root">
+<header class="bar">
+  <div class="bar-inner">
+    <div class="bar-title">
+      <h1>运行大盘</h1>
+      <span class="muted" id="day"></span>
+    </div>
+    <div class="bar-side">
+      <span class="status" id="overall" data-level="idle"><span class="status-icon" aria-hidden="true"></span><span class="status-text">连接中…</span></span>
+      <button type="button" class="btn-ghost" id="theme" aria-label="切换主题">跟随系统</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <form class="card gate" id="gate" hidden>
+    <h2>请输入运营令牌</h2>
+    <p class="muted">本机环境启动时，终端会打印带令牌的大盘地址（.local/v2/secrets.json 里的 OPS_TOKEN）。</p>
+    <div class="gate-row">
+      <input id="gate-token" type="password" autocomplete="off" placeholder="OPS_TOKEN" aria-label="运营令牌">
+      <button type="submit" class="btn-solid">进入</button>
+    </div>
+    <p class="gate-error" id="gate-error" role="alert"></p>
+  </form>
+
+  <div id="board" hidden>
+    <!-- 筛选条：只有一行，作用于下方全部图表 -->
+    <div class="filters">
+      <span class="muted">时间窗口</span>
+      <div class="seg" id="range" role="group" aria-label="时间窗口">
+        <button type="button" data-sec="60">近 1 分钟</button>
+        <button type="button" data-sec="120" class="is-on">近 2 分钟</button>
+        <button type="button" data-sec="300">近 5 分钟</button>
+      </div>
+      <span class="muted filters-right" id="updated"></span>
+    </div>
+
+    <section class="tiles" id="tiles" aria-label="关键指标"></section>
+
+    <section class="grid2">
+      <figure class="card chart" id="chart-rps"></figure>
+      <figure class="card chart" id="chart-lat"></figure>
+    </section>
+
+    <section class="grid2">
+      <div class="card">
+        <div class="card-head"><h2>实例负载</h2><span class="muted">近 10 秒各进程承接的请求占比</span></div>
+        <div id="instances" class="meter-list"></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h2>依赖与保护</h2><span class="muted">保护动作为启动以来累计</span></div>
+        <ul id="deps" class="deps"></ul>
+        <dl id="protect" class="protect"></dl>
+      </div>
+    </section>
+
+    <section class="grid2">
+      <figure class="card" id="funnel-card">
+        <div class="card-head"><h2>今日业务漏斗</h2><button type="button" class="btn-ghost btn-xs" data-table="funnel">表格视图</button></div>
+        <div id="funnel" class="funnel"></div>
+        <table id="funnel-table" class="data-table" hidden></table>
+        <p class="side-figures muted" id="funnel-side"></p>
+      </figure>
+      <figure class="card" id="outcome-card">
+        <div class="card-head"><h2>今日查询结果分布</h2><button type="button" class="btn-ghost btn-xs" data-table="outcome">表格视图</button></div>
+        <div id="outcome"></div>
+        <table id="outcome-table" class="data-table" hidden></table>
+      </figure>
+    </section>
+
+    <section class="card">
+      <div class="card-head"><h2>接口明细</h2><span class="muted">每秒请求与耗时为近 10 秒</span></div>
+      <div class="table-scroll">
+        <table class="data-table" id="routes">
+          <thead><tr><th>接口</th><th class="num">累计请求</th><th class="num">每秒</th><th class="num">P95 耗时</th><th class="num">被保护拒绝</th><th class="num">服务端错误</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-head"><h2>动态开关</h2><span class="muted">不发版即可调整系统行为，即时广播到全部进程（最迟 2 秒）</span></div>
+      <div id="flags" class="flags"></div>
+    </section>
+  </div>
+</main>
+</body>
+</html>

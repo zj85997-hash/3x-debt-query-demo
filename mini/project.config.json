@@ -1,8 +1,8 @@
 {
-  "description": "个人债权信息查询演示",
-  "projectname": "debt-query-demo",
+  "description": "个人债权信息查询（Demo）",
+  "projectname": "debt-query-mini",
   "appid": "touristappid",
   "compileType": "miniprogram",
   "miniprogramRoot": "./",
-  "setting": {"urlCheck": false, "es6": true}
+  "setting": {"urlCheck": false, "es6": true, "enhance": true, "minified": true}
 }

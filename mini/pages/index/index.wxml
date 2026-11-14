@@ -1,63 +1,143 @@
 <view class="page">
-  <view class="eyebrow">模拟环境</view>
-  <view class="title">查询本人债权信息</view>
-  <view class="muted lead">核对授权台账和可用的债权转让线索。</view>
-  <view class="card">
-    <view class="heading">发起查询</view>
-    <picker mode="selector" range="{{labels}}" value="{{selection < 0 ? 0 : selection}}" bindchange="select">
-      <view class="input">{{selection < 0 ? '请选择模拟核验场景' : labels[selection]}}</view>
-    </picker>
-    <view class="switch"><switch checked="{{accepted}}" bindchange="accept" color="#105e52" /><text>我同意查询说明</text></view>
-    <view class="muted hint">仅使用虚构记录，保存授权版本和查询状态。回访另行确认。</view>
-    <button bindtap="search" loading="{{busy}}" disabled="{{busy}}">模拟核验并查询</button>
-    <view wx:if="{{error}}" class="error">{{error}}</view>
-  </view>
-  <view class="card" wx:if="{{result}}">
-    <view class="heading">{{result.title}}</view>
-    <view class="muted">{{result.description}}</view>
-    <view wx:for="{{result.records}}" wx:key="loan_date" class="record">
-      <view>{{item.agency}}</view>
-      <view class="muted">原贷款方 {{item.origin}} · {{item.loan_date}}</view>
-      <view>贷款本金 ¥{{item.principalText}} · 欠款本息 ¥{{item.balanceText}}</view>
-      <view class="muted">数据日期 {{item.as_of}}</view>
+  <view class="topline">
+    <view class="steps">
+      <view class="step {{step === 1 ? 'on' : 'done'}}">1 核验身份</view>
+      <view class="step {{step === 2 ? 'on' : step > 2 ? 'done' : ''}}">2 查看结果</view>
+      <view class="step {{step === 3 ? 'on' : ''}}">3 人工协助</view>
     </view>
-    <block wx:if="{{result.state === 'history'}}">
-      <view class="record">历史转让 {{result.noticeDate}} · ¥{{result.amountText}}</view>
-      <button class="secondary" bindtap="unlock" disabled="{{busy || detail}}">模拟 ¥9.90 解锁详情</button>
-      <view wx:if="{{detail}}" class="record">
-        <view>出让方 {{detail.origin}}</view><view>历史受让方 {{detail.receiver}}</view>
-        <view>来源 {{detail.source_ref}}</view><view>{{detail.contact}}</view>
-        <view class="muted">模拟解锁成功，未发生扣款。</view>
+    <view wx:if="{{demo}}" class="env">演示环境 · 虚构数据</view>
+  </view>
+
+  <!-- 第一步：本人核验 -->
+  <block wx:if="{{step === 1}}">
+    <view class="hero">
+      <view class="h1">查询本人债权信息</view>
+      <view class="lead">核对已授权的债权台账与债权转让记录，查清楚"我的这笔欠款现在归谁、该联系谁"。</view>
+      <view class="trust"><text>仅限本人查询</text><text>不保存明文证件号</text><text>每次查询留痕</text></view>
+    </view>
+    <view class="card">
+      <view class="h2">本人身份核验</view>
+      <view class="label">姓名</view>
+      <input class="input" placeholder="与证件一致的姓名" maxlength="20" value="{{name}}" bindinput="onName" />
+      <view class="label">居民身份证号码</view>
+      <input class="input mono" placeholder="18 位证件号码" maxlength="18" type="idcard" value="{{idNo}}" bindinput="onIdNo" />
+      <checkbox-group bindchange="onAccept" class="check">
+        <label><checkbox value="yes" checked="{{accepted}}" color="#123a8f" />我已阅读并同意</label>
+        <text class="link" bindtap="togglePolicy">《查询说明与授权》</text>
+      </checkbox-group>
+      <view wx:if="{{showPolicy && policy}}" class="policy">
+        <view wx:for="{{policy.items}}" wx:key="*this" class="policy-item">{{index + 1}}. {{item}}</view>
+        <view class="muted small">文本版本 {{policy.version}}</view>
       </view>
-    </block>
-    <view class="actions" wx:if="{{result.state !== 'unavailable'}}">
-      <view class="heading">申请人工协助</view>
-      <picker mode="selector" range="{{windowOptions}}" value="{{windowIndex}}" bindchange="selectWindow">
-        <view class="input">{{windowOptions[windowIndex]}}</view>
-      </picker>
-      <view class="switch"><switch checked="{{contact}}" bindchange="contact" color="#105e52" /><text>我自愿申请回访（模拟）</text></view>
-      <button bindtap="book" disabled="{{busy}}">提交预约</button>
-      <view wx:if="{{message}}" class="hint">{{message}}</view>
+      <view wx:if="{{error}}" class="error">{{error}}</view>
+      <button class="primary" bindtap="submit" loading="{{busy}}" disabled="{{busy || !ready}}">{{busy && busyText ? busyText : '核验并查询'}}</button>
+      <view wx:if="{{demo}}" class="muted small center">演示环境只接受下方"演示身份"，请勿输入真实姓名或证件号码。</view>
+    </view>
+    <view class="card" wx:if="{{personas.length}}">
+      <view class="h2">演示身份 <text class="muted small">点选即可自动填写</text></view>
+      <view class="personas">
+        <view wx:for="{{personas}}" wx:key="id" class="persona" data-i="{{index}}" bindtap="fillPersona">
+          <view class="persona-title">{{item.label}}</view>
+          <view class="muted small">{{item.hint}}</view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 第二、三步：结果与人工协助 -->
+  <block wx:else>
+    <view class="identity">
+      <view>
+        <view class="who">{{profile.nameMasked}}</view>
+        <view class="muted small mono">{{profile.idMasked}}</view>
+      </view>
+      <view class="pill ok">已核验</view>
+    </view>
+
+    <view class="card">
+      <view class="result-head">
+        <view class="h2">{{head[1]}}</view>
+        <view class="pill {{result.state}}">{{head[0]}}</view>
+      </view>
+      <view class="desc">{{head[2]}}</view>
+
+      <view wx:for="{{result.records}}" wx:key="loanDate" class="record">
+        <view class="record-title">债务 {{result.records.length > 1 ? index + 1 : ''}}<text class="muted small">数据时点 {{item.asOf}}</text></view>
+        <view class="row"><text>债权主体</text><text>{{item.holder}}</text></view>
+        <view class="row"><text>原贷款方</text><text>{{item.originator}}</text></view>
+        <view class="row"><text>贷款日期</text><text>{{item.loanDate}}</text></view>
+        <view class="row"><text>贷款本金</text><text class="mono">{{item.principalText}}</text></view>
+        <view class="row"><text>欠款本息</text><text class="mono">{{item.balanceText}}</text></view>
+      </view>
+      <view wx:if="{{result.state === 'own'}}" class="note">金额为数据时点的台账记录，实际应还金额以服务机构复核为准。</view>
+
+      <view wx:for="{{result.transfers}}" wx:key="recordId" class="record">
+        <view class="record-title">转让记录 {{result.transfers.length > 1 ? index + 1 : ''}}<text wx:if="{{item.detail}}" class="pill ok">已解锁</text></view>
+        <block wx:if="{{item.detail}}">
+          <view class="row"><text>欠款人</text><text>{{item.detail.debtor}}</text></view>
+          <view class="row"><text>债权出让方（贷款方）</text><text>{{item.detail.transferor}}</text></view>
+          <view class="row"><text>债权受让方（新债权人）</text><text>{{item.detail.transferee}}</text></view>
+          <view class="row"><text>转让日期</text><text>{{item.detail.transferDate}}</text></view>
+          <view class="row"><text>转让金额</text><text class="mono">{{item.detail.amountText}}</text></view>
+          <view class="row"><text>受让方联系方式</text><text>{{item.detail.contact}}</text></view>
+        </block>
+        <block wx:else>
+          <view class="row"><text>是否已转让</text><text>是</text></view>
+          <view class="row"><text>转让日期</text><text>{{item.transferDate}}</text></view>
+          <view class="row"><text>转让金额</text><text class="mono">{{item.amountText}}</text></view>
+          <view class="row locked"><text>出让方 / 受让方 / 联系方式</text><text>付费后可见</text></view>
+          <button class="pay" size="mini" data-i="{{index}}" bindtap="unlock" disabled="{{busy}}">{{item.unlocked ? '查看完整信息' : price + ' 解锁'}}</button>
+        </block>
+      </view>
+      <view wx:if="{{result.state === 'history'}}" class="note">转让记录反映的是历史事件，当前债权状态请以受让方答复为准。</view>
+      <view wx:if="{{result.state === 'candidate' && result.ambiguous}}" class="note">现有公告资料不足以区分相关记录，系统不会任选其一作为你的结果。</view>
+      <button wx:if="{{result.state === 'unavailable'}}" class="soft" bindtap="retry" disabled="{{busy}}">重新查询</button>
+      <view wx:if="{{result.queryId}}" class="muted small mono">查询编号 {{result.queryId}}</view>
+    </view>
+
+    <view class="card" wx:if="{{result.state !== 'unavailable' && !booked}}">
+      <view class="h2">申请人工协助</view>
+      <view class="desc">{{contactPolicy}}</view>
+      <view class="windows">
+        <view wx:for="{{windows}}" wx:key="*this" class="window {{windowIndex === index ? 'on' : ''}}" data-i="{{index}}" bindtap="onWindow">{{item}}</view>
+      </view>
+      <checkbox-group bindchange="onContactAccept" class="check">
+        <label><checkbox value="yes" checked="{{contactAccepted}}" color="#123a8f" />我同意工作人员在所选时段与我联系（可随时撤回）</label>
+      </checkbox-group>
+      <button class="soft" bindtap="book" disabled="{{busy}}">提交预约</button>
+    </view>
+
+    <view class="card" wx:if="{{tickets.length}}">
+      <view class="h2">我的预约</view>
+      <view wx:for="{{tickets}}" wx:key="id" class="ticket">
+        <view>
+          <view>{{item.timeWindow}}</view>
+          <view class="muted small">{{item.timeText}}</view>
+        </view>
+        <view class="ticket-side">
+          <text class="pill {{item.status}}">{{item.statusText}}</text>
+          <button wx:if="{{item.status === 'pending'}}" size="mini" class="ghost" data-id="{{item.id}}" bindtap="withdraw" disabled="{{busy}}">取消</button>
+        </view>
+      </view>
+    </view>
+    <button class="ghost" bindtap="restart">退出并重新查询</button>
+  </block>
+
+  <view class="foot muted small">
+    <view wx:if="{{operator}}">运营主体：{{operator}}</view>
+    <view>本页面不代表任何官方登记或征信机构。查询结果限于已收录范围，未查到不代表不存在欠款或未发生转让。</view>
+  </view>
+
+  <!-- 收银台（演示环境为模拟支付） -->
+  <view class="mask" wx:if="{{cashier}}" catchtap="closeCashier">
+    <view class="sheet" catchtap="">
+      <view class="h2">确认支付</view>
+      <view wx:if="{{demo}}" class="demo-banner">模拟收银台 · 演示环境不会产生真实扣款</view>
+      <view class="amount">{{cashier.amountText}}</view>
+      <view class="desc center">债权转让详情解锁</view>
+      <view class="fields"><view wx:for="{{cashier.fields}}" wx:key="*this">· {{item}}</view></view>
+      <button class="pay block" bindtap="pay">确认支付{{demo ? '（模拟）' : ''}}</button>
+      <view class="center small pay-state">{{payState}}</view>
     </view>
   </view>
-  <view class="card" wx:if="{{requests.length}}">
-    <view class="heading">我的预约</view>
-    <view wx:for="{{requests}}" wx:key="id" class="record">
-      <view>{{item.time_window}} · {{item.stateText}}</view>
-      <button wx:if="{{item.state === 'pending'}}" size="mini" class="secondary" data-id="{{item.id}}" bindtap="withdraw" disabled="{{busy}}">取消预约</button>
-    </view>
-  </view>
-  <view class="card">
-    <view class="heading">公告候选检索</view>
-    <view class="muted hint">请选择虚构样例后检索。</view>
-    <button size="mini" class="secondary" data-name="样例甲" data-tail="0067" bindtap="fillSample">单条样例</button>
-    <button size="mini" class="secondary" data-name="样例重名" data-tail="8042" bindtap="fillSample">重名样例</button>
-    <button size="mini" class="secondary" data-name="样例甲" data-tail="9999" bindtap="fillSample">未命中</button>
-    <input class="input sample-input" placeholder="虚构姓名" maxlength="10" value="{{sampleName}}" bindinput="inputName"/>
-    <input class="input sample-input" placeholder="证件末四位" maxlength="4" value="{{sampleTail}}" bindinput="inputTail"/>
-    <view class="switch"><switch checked="{{sampleAccepted}}" bindchange="acceptSample" color="#105e52" /><text>我同意查询说明</text></view>
-    <button bindtap="searchCandidate" loading="{{sampleBusy}}" disabled="{{sampleBusy}}">检索公告候选</button>
-    <view class="hint" wx:if="{{sampleMessage}}">{{sampleMessage}}</view>
-  </view>
-  <view class="muted hint">演示环境请勿提交真实身份或债务资料。</view>
 </view>

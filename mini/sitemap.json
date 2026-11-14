@@ -1,0 +1,1 @@
+{"desc": "查询结果属于个人信息，页面不允许被微信索引", "rules": [{"action": "disallow", "page": "*"}]}

@@ -1,0 +1,2448 @@
+{
+  "date": "2026-11-12T02:48:32.172Z",
+  "target": "V1（Codex 原 Demo，main@37f4d4b）",
+  "base": "http://127.0.0.1:8930",
+  "host": {
+    "cpu": "Apple M4 · 10 核",
+    "mem": "16 GB",
+    "os": "darwin arm64",
+    "node": "v24.19.0"
+  },
+  "howToReproduce": "在 main 分支执行 npm ci && npm run local 启动旧版；另在 arch-v2 分支执行 node bench/plans/v1-baseline.mjs（工作目录需为旧版目录，以读取 .local/mysql.pid）",
+  "notes": [
+    "阶段 B、C2 的 503 全部来自旧版本机网关（failKinds 中带 @gateway），不是 API 进程。",
+    "网关崩溃根因的直接证据见 timeWaitEvidence：500 在途时网关到两个 API 实例的连接每秒新建约 1500 条，8 秒内 TIME_WAIT 套接字累计约 1.19 万，逼近本机 16384 个临时端口上限。",
+    "阶段 D、E 的首次运行受上一阶段端口耗尽影响（压测端 EADDRNOTAVAIL），已作废；此处收录的是冷却后的重跑结果。",
+    "directSingleInstance 为绕过网关、直连单个 API 实例的结果；X250 首次运行在第 12 秒出现一次全体请求挂起超过 10 秒（服务端日志 11 次 PROTOCOL_SEQUENCE_TIMEOUT），X250b 为复测。"
+  ],
+  "phases": [
+    {
+      "name": "A 旧口径复现：500 会话 · 思考 2–4s · 只读",
+      "mode": "loop",
+      "vus": 500,
+      "durationMs": 30000,
+      "think": [
+        2000,
+        4000
+      ],
+      "rampMs": 2000,
+      "loadThreads": 3,
+      "elapsedSeconds": 30,
+      "peakInFlight": 4,
+      "total": {
+        "requests": 5077,
+        "ok": 5077,
+        "fail": 0,
+        "successRate": 1,
+        "rps": 169.2,
+        "p50": 2,
+        "p90": 3.1,
+        "p95": 3.4,
+        "p99": 4.6,
+        "max": 21.9,
+        "status": {
+          "200": 5077
+        },
+        "failKinds": {}
+      },
+      "metrics": {
+        "_setup": {
+          "requests": 0,
+          "ok": 0,
+          "fail": 0,
+          "successRate": null,
+          "rps": 0,
+          "p50": null,
+          "p90": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "status": {},
+          "failKinds": {}
+        },
+        "candidate-search": {
+          "requests": 1685,
+          "ok": 1685,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 56.2,
+          "p50": 1.9,
+          "p90": 3,
+          "p95": 3.4,
+          "p99": 4.7,
+          "max": 10.7,
+          "status": {
+            "200": 1685
+          },
+          "failKinds": {}
+        },
+        "query": {
+          "requests": 3392,
+          "ok": 3392,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 113.1,
+          "p50": 2,
+          "p90": 3.1,
+          "p95": 3.5,
+          "p99": 4.6,
+          "max": 21.9,
+          "status": {
+            "200": 3392
+          },
+          "failKinds": {}
+        }
+      },
+      "timeline": [
+        {
+          "s": 0,
+          "ok": 249,
+          "fail": 0
+        },
+        {
+          "s": 1,
+          "ok": 251,
+          "fail": 0
+        },
+        {
+          "s": 2,
+          "ok": 73,
+          "fail": 0
+        },
+        {
+          "s": 3,
+          "ok": 182,
+          "fail": 0
+        },
+        {
+          "s": 4,
+          "ok": 190,
+          "fail": 0
+        },
+        {
+          "s": 5,
+          "ok": 137,
+          "fail": 0
+        },
+        {
+          "s": 6,
+          "ok": 181,
+          "fail": 0
+        },
+        {
+          "s": 7,
+          "ok": 162,
+          "fail": 0
+        },
+        {
+          "s": 8,
+          "ok": 169,
+          "fail": 0
+        },
+        {
+          "s": 9,
+          "ok": 161,
+          "fail": 0
+        },
+        {
+          "s": 10,
+          "ok": 167,
+          "fail": 0
+        },
+        {
+          "s": 11,
+          "ok": 168,
+          "fail": 0
+        },
+        {
+          "s": 12,
+          "ok": 169,
+          "fail": 0
+        },
+        {
+          "s": 13,
+          "ok": 165,
+          "fail": 0
+        },
+        {
+          "s": 14,
+          "ok": 163,
+          "fail": 0
+        },
+        {
+          "s": 15,
+          "ok": 174,
+          "fail": 0
+        },
+        {
+          "s": 16,
+          "ok": 157,
+          "fail": 0
+        },
+        {
+          "s": 17,
+          "ok": 171,
+          "fail": 0
+        },
+        {
+          "s": 18,
+          "ok": 163,
+          "fail": 0
+        },
+        {
+          "s": 19,
+          "ok": 177,
+          "fail": 0
+        },
+        {
+          "s": 20,
+          "ok": 171,
+          "fail": 0
+        },
+        {
+          "s": 21,
+          "ok": 144,
+          "fail": 0
+        },
+        {
+          "s": 22,
+          "ok": 170,
+          "fail": 0
+        },
+        {
+          "s": 23,
+          "ok": 168,
+          "fail": 0
+        },
+        {
+          "s": 24,
+          "ok": 162,
+          "fail": 0
+        },
+        {
+          "s": 25,
+          "ok": 157,
+          "fail": 0
+        },
+        {
+          "s": 26,
+          "ok": 181,
+          "fail": 0
+        },
+        {
+          "s": 27,
+          "ok": 156,
+          "fail": 0
+        },
+        {
+          "s": 28,
+          "ok": 163,
+          "fail": 0
+        },
+        {
+          "s": 29,
+          "ok": 176,
+          "fail": 0
+        }
+      ],
+      "id": "A"
+    },
+    {
+      "name": "B 500 个请求持续在途 · 无思考时间 · 只读",
+      "mode": "loop",
+      "vus": 500,
+      "durationMs": 20000,
+      "think": [
+        0,
+        0
+      ],
+      "rampMs": 0,
+      "loadThreads": 3,
+      "elapsedSeconds": 20,
+      "peakInFlight": 500,
+      "total": {
+        "requests": 1488624,
+        "ok": 70853,
+        "fail": 1417771,
+        "successRate": 0.0476,
+        "rps": 74412.6,
+        "p50": 30.2,
+        "p90": 61.3,
+        "p95": 121.4,
+        "p99": 232.5,
+        "max": 394.8,
+        "status": {
+          "200": 70853,
+          "503": 1417771
+        },
+        "failKinds": {
+          "503:unavailable@gateway": 1417771
+        }
+      },
+      "metrics": {
+        "_setup": {
+          "requests": 0,
+          "ok": 0,
+          "fail": 0,
+          "successRate": null,
+          "rps": 0,
+          "p50": null,
+          "p90": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "status": {},
+          "failKinds": {}
+        },
+        "query": {
+          "requests": 991417,
+          "ok": 45626,
+          "fail": 945791,
+          "successRate": 0.04602,
+          "rps": 49558.5,
+          "p50": 31.3,
+          "p90": 63.9,
+          "p95": 123.5,
+          "p99": 236.8,
+          "max": 394.8,
+          "status": {
+            "200": 45626,
+            "503": 945791
+          },
+          "failKinds": {
+            "503:unavailable@gateway": 945791
+          }
+        },
+        "candidate-search": {
+          "requests": 497207,
+          "ok": 25227,
+          "fail": 471980,
+          "successRate": 0.05074,
+          "rps": 24854.1,
+          "p50": 28.7,
+          "p90": 56.5,
+          "p95": 118.7,
+          "p99": 142,
+          "max": 282.5,
+          "status": {
+            "200": 25227,
+            "503": 471980
+          },
+          "failKinds": {
+            "503:unavailable@gateway": 471980
+          }
+        }
+      },
+      "timeline": [
+        {
+          "s": 0,
+          "ok": 7911,
+          "fail": 0
+        },
+        {
+          "s": 1,
+          "ok": 7592,
+          "fail": 0
+        },
+        {
+          "s": 2,
+          "ok": 14687,
+          "fail": 0
+        },
+        {
+          "s": 3,
+          "ok": 14537,
+          "fail": 0
+        },
+        {
+          "s": 4,
+          "ok": 15949,
+          "fail": 0
+        },
+        {
+          "s": 5,
+          "ok": 8828,
+          "fail": 38372
+        },
+        {
+          "s": 6,
+          "ok": 96,
+          "fail": 95780
+        },
+        {
+          "s": 7,
+          "ok": 96,
+          "fail": 96679
+        },
+        {
+          "s": 8,
+          "ok": 96,
+          "fail": 96689
+        },
+        {
+          "s": 9,
+          "ok": 96,
+          "fail": 97528
+        },
+        {
+          "s": 10,
+          "ok": 96,
+          "fail": 99656
+        },
+        {
+          "s": 11,
+          "ok": 98,
+          "fail": 99422
+        },
+        {
+          "s": 12,
+          "ok": 96,
+          "fail": 98899
+        },
+        {
+          "s": 13,
+          "ok": 97,
+          "fail": 98716
+        },
+        {
+          "s": 14,
+          "ok": 96,
+          "fail": 100039
+        },
+        {
+          "s": 15,
+          "ok": 98,
+          "fail": 99458
+        },
+        {
+          "s": 16,
+          "ok": 96,
+          "fail": 98873
+        },
+        {
+          "s": 17,
+          "ok": 96,
+          "fail": 98371
+        },
+        {
+          "s": 18,
+          "ok": 96,
+          "fail": 99642
+        },
+        {
+          "s": 19,
+          "ok": 96,
+          "fail": 99147
+        }
+      ],
+      "id": "B"
+    },
+    {
+      "name": "C 500 人完整旅程 · 每步思考 1–3s（含登录/解锁/预约写入）",
+      "mode": "loop",
+      "vus": 500,
+      "durationMs": 40000,
+      "think": [
+        1000,
+        3000
+      ],
+      "rampMs": 3000,
+      "loadThreads": 3,
+      "elapsedSeconds": 47.39,
+      "peakInFlight": 5,
+      "total": {
+        "requests": 16913,
+        "ok": 16913,
+        "fail": 0,
+        "successRate": 1,
+        "rps": 356.9,
+        "p50": 1,
+        "p90": 1.9,
+        "p95": 2.3,
+        "p99": 3.3,
+        "max": 39.8,
+        "status": {
+          "200": 13695,
+          "201": 3218
+        },
+        "failKinds": {}
+      },
+      "metrics": {
+        "_setup": {
+          "requests": 0,
+          "ok": 0,
+          "fail": 0,
+          "successRate": null,
+          "rps": 0,
+          "p50": null,
+          "p90": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "status": {},
+          "failKinds": {}
+        },
+        "session": {
+          "requests": 3218,
+          "ok": 3218,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 67.9,
+          "p50": 0.7,
+          "p90": 1.2,
+          "p95": 1.4,
+          "p99": 1.8,
+          "max": 20.4,
+          "status": {
+            "200": 3218
+          },
+          "failKinds": {}
+        },
+        "query": {
+          "requests": 3218,
+          "ok": 3218,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 67.9,
+          "p50": 1.5,
+          "p90": 2.5,
+          "p95": 2.9,
+          "p99": 4,
+          "max": 39.8,
+          "status": {
+            "200": 3218
+          },
+          "failKinds": {}
+        },
+        "callback": {
+          "requests": 3218,
+          "ok": 3218,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 67.9,
+          "p50": 1.2,
+          "p90": 2.1,
+          "p95": 2.5,
+          "p99": 3.9,
+          "max": 34.4,
+          "status": {
+            "201": 3218
+          },
+          "failKinds": {}
+        },
+        "callback-list": {
+          "requests": 3218,
+          "ok": 3218,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 67.9,
+          "p50": 0.7,
+          "p90": 1.1,
+          "p95": 1.3,
+          "p99": 1.6,
+          "max": 28.3,
+          "status": {
+            "200": 3218
+          },
+          "failKinds": {}
+        },
+        "withdraw": {
+          "requests": 3218,
+          "ok": 3218,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 67.9,
+          "p50": 0.9,
+          "p90": 1.3,
+          "p95": 1.4,
+          "p99": 2.2,
+          "max": 6.5,
+          "status": {
+            "200": 3218
+          },
+          "failKinds": {}
+        },
+        "unlock": {
+          "requests": 823,
+          "ok": 823,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 17.4,
+          "p50": 1.4,
+          "p90": 2.5,
+          "p95": 2.7,
+          "p99": 3.4,
+          "max": 7.2,
+          "status": {
+            "200": 823
+          },
+          "failKinds": {}
+        }
+      },
+      "timeline": [
+        {
+          "s": 0,
+          "ok": 166,
+          "fail": 0
+        },
+        {
+          "s": 1,
+          "ok": 203,
+          "fail": 0
+        },
+        {
+          "s": 2,
+          "ok": 322,
+          "fail": 0
+        },
+        {
+          "s": 3,
+          "ok": 272,
+          "fail": 0
+        },
+        {
+          "s": 4,
+          "ok": 443,
+          "fail": 0
+        },
+        {
+          "s": 5,
+          "ok": 529,
+          "fail": 0
+        },
+        {
+          "s": 6,
+          "ok": 449,
+          "fail": 0
+        },
+        {
+          "s": 7,
+          "ok": 423,
+          "fail": 0
+        },
+        {
+          "s": 8,
+          "ok": 333,
+          "fail": 0
+        },
+        {
+          "s": 9,
+          "ok": 326,
+          "fail": 0
+        },
+        {
+          "s": 10,
+          "ok": 376,
+          "fail": 0
+        },
+        {
+          "s": 11,
+          "ok": 475,
+          "fail": 0
+        },
+        {
+          "s": 12,
+          "ok": 427,
+          "fail": 0
+        },
+        {
+          "s": 13,
+          "ok": 446,
+          "fail": 0
+        },
+        {
+          "s": 14,
+          "ok": 359,
+          "fail": 0
+        },
+        {
+          "s": 15,
+          "ok": 382,
+          "fail": 0
+        },
+        {
+          "s": 16,
+          "ok": 342,
+          "fail": 0
+        },
+        {
+          "s": 17,
+          "ok": 433,
+          "fail": 0
+        },
+        {
+          "s": 18,
+          "ok": 460,
+          "fail": 0
+        },
+        {
+          "s": 19,
+          "ok": 452,
+          "fail": 0
+        },
+        {
+          "s": 20,
+          "ok": 394,
+          "fail": 0
+        },
+        {
+          "s": 21,
+          "ok": 365,
+          "fail": 0
+        },
+        {
+          "s": 22,
+          "ok": 408,
+          "fail": 0
+        },
+        {
+          "s": 23,
+          "ok": 374,
+          "fail": 0
+        },
+        {
+          "s": 24,
+          "ok": 426,
+          "fail": 0
+        },
+        {
+          "s": 25,
+          "ok": 407,
+          "fail": 0
+        },
+        {
+          "s": 26,
+          "ok": 435,
+          "fail": 0
+        },
+        {
+          "s": 27,
+          "ok": 415,
+          "fail": 0
+        },
+        {
+          "s": 28,
+          "ok": 378,
+          "fail": 0
+        },
+        {
+          "s": 29,
+          "ok": 357,
+          "fail": 0
+        },
+        {
+          "s": 30,
+          "ok": 417,
+          "fail": 0
+        },
+        {
+          "s": 31,
+          "ok": 423,
+          "fail": 0
+        },
+        {
+          "s": 32,
+          "ok": 443,
+          "fail": 0
+        },
+        {
+          "s": 33,
+          "ok": 402,
+          "fail": 0
+        },
+        {
+          "s": 34,
+          "ok": 387,
+          "fail": 0
+        },
+        {
+          "s": 35,
+          "ok": 383,
+          "fail": 0
+        },
+        {
+          "s": 36,
+          "ok": 387,
+          "fail": 0
+        },
+        {
+          "s": 37,
+          "ok": 420,
+          "fail": 0
+        },
+        {
+          "s": 38,
+          "ok": 377,
+          "fail": 0
+        },
+        {
+          "s": 39,
+          "ok": 457,
+          "fail": 0
+        }
+      ],
+      "id": "C"
+    },
+    {
+      "name": "C2 500 人完整旅程 · 无思考时间（极限）",
+      "mode": "loop",
+      "vus": 500,
+      "durationMs": 20000,
+      "think": [
+        0,
+        0
+      ],
+      "rampMs": 0,
+      "loadThreads": 3,
+      "elapsedSeconds": 20.01,
+      "peakInFlight": 500,
+      "total": {
+        "requests": 1307032,
+        "ok": 63163,
+        "fail": 1243869,
+        "successRate": 0.04833,
+        "rps": 65332,
+        "p50": 31.2,
+        "p90": 60.2,
+        "p95": 86.9,
+        "p99": 142.5,
+        "max": 206.6,
+        "status": {
+          "200": 51439,
+          "201": 11724,
+          "503": 1243869
+        },
+        "failKinds": {
+          "503:unavailable": 1241710,
+          "503:unavailable@gateway": 2159
+        }
+      },
+      "metrics": {
+        "_setup": {
+          "requests": 0,
+          "ok": 0,
+          "fail": 0,
+          "successRate": null,
+          "rps": 0,
+          "p50": null,
+          "p90": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "status": {},
+          "failKinds": {}
+        },
+        "session": {
+          "requests": 1255146,
+          "ok": 13436,
+          "fail": 1241710,
+          "successRate": 0.0107,
+          "rps": 62738.5,
+          "p50": 25.6,
+          "p90": 48.4,
+          "p95": 56.7,
+          "p99": 107.2,
+          "max": 142.7,
+          "status": {
+            "200": 13436,
+            "503": 1241710
+          },
+          "failKinds": {
+            "503:unavailable": 1241710
+          }
+        },
+        "query": {
+          "requests": 13436,
+          "ok": 11865,
+          "fail": 1571,
+          "successRate": 0.88308,
+          "rps": 671.6,
+          "p50": 40.9,
+          "p90": 103.6,
+          "p95": 133,
+          "p99": 187.7,
+          "max": 206.6,
+          "status": {
+            "200": 11865,
+            "503": 1571
+          },
+          "failKinds": {
+            "503:unavailable@gateway": 1571
+          }
+        },
+        "callback": {
+          "requests": 11865,
+          "ok": 11724,
+          "fail": 141,
+          "successRate": 0.98812,
+          "rps": 593.1,
+          "p50": 31.8,
+          "p90": 55.2,
+          "p95": 70,
+          "p99": 128.7,
+          "max": 149.5,
+          "status": {
+            "201": 11724,
+            "503": 141
+          },
+          "failKinds": {
+            "503:unavailable@gateway": 141
+          }
+        },
+        "callback-list": {
+          "requests": 11865,
+          "ok": 11619,
+          "fail": 246,
+          "successRate": 0.97927,
+          "rps": 593.1,
+          "p50": 30.4,
+          "p90": 52.1,
+          "p95": 62.7,
+          "p99": 121.1,
+          "max": 149.3,
+          "status": {
+            "200": 11619,
+            "503": 246
+          },
+          "failKinds": {
+            "503:unavailable@gateway": 246
+          }
+        },
+        "unlock": {
+          "requests": 2996,
+          "ok": 2975,
+          "fail": 21,
+          "successRate": 0.99299,
+          "rps": 149.8,
+          "p50": 38.1,
+          "p90": 66.8,
+          "p95": 114.4,
+          "p99": 162.1,
+          "max": 173.5,
+          "status": {
+            "200": 2975,
+            "503": 21
+          },
+          "failKinds": {
+            "503:unavailable@gateway": 21
+          }
+        },
+        "withdraw": {
+          "requests": 11724,
+          "ok": 11544,
+          "fail": 180,
+          "successRate": 0.98465,
+          "rps": 586,
+          "p50": 30.9,
+          "p90": 53.3,
+          "p95": 64.9,
+          "p99": 126.7,
+          "max": 149.7,
+          "status": {
+            "200": 11544,
+            "503": 180
+          },
+          "failKinds": {
+            "503:unavailable@gateway": 180
+          }
+        }
+      },
+      "timeline": [
+        {
+          "s": 0,
+          "ok": 9819,
+          "fail": 0
+        },
+        {
+          "s": 1,
+          "ok": 14212,
+          "fail": 0
+        },
+        {
+          "s": 2,
+          "ok": 13450,
+          "fail": 0
+        },
+        {
+          "s": 3,
+          "ok": 15285,
+          "fail": 0
+        },
+        {
+          "s": 4,
+          "ok": 8935,
+          "fail": 25310
+        },
+        {
+          "s": 5,
+          "ok": 96,
+          "fail": 82881
+        },
+        {
+          "s": 6,
+          "ok": 96,
+          "fail": 80727
+        },
+        {
+          "s": 7,
+          "ok": 96,
+          "fail": 77604
+        },
+        {
+          "s": 8,
+          "ok": 96,
+          "fail": 79822
+        },
+        {
+          "s": 9,
+          "ok": 96,
+          "fail": 76057
+        },
+        {
+          "s": 10,
+          "ok": 106,
+          "fail": 85606
+        },
+        {
+          "s": 11,
+          "ok": 96,
+          "fail": 85615
+        },
+        {
+          "s": 12,
+          "ok": 96,
+          "fail": 83454
+        },
+        {
+          "s": 13,
+          "ok": 96,
+          "fail": 85165
+        },
+        {
+          "s": 14,
+          "ok": 98,
+          "fail": 86433
+        },
+        {
+          "s": 15,
+          "ok": 96,
+          "fail": 77824
+        },
+        {
+          "s": 16,
+          "ok": 97,
+          "fail": 86217
+        },
+        {
+          "s": 17,
+          "ok": 103,
+          "fail": 61488
+        },
+        {
+          "s": 18,
+          "ok": 96,
+          "fail": 84259
+        },
+        {
+          "s": 19,
+          "ok": 98,
+          "fail": 84907
+        }
+      ],
+      "id": "C2"
+    },
+    {
+      "name": "D 洪峰：500 人同一时刻发起完整旅程",
+      "mode": "once",
+      "vus": 500,
+      "durationMs": 0,
+      "think": [
+        0,
+        0
+      ],
+      "rampMs": 0,
+      "loadThreads": 3,
+      "elapsedSeconds": 0.28,
+      "peakInFlight": 500,
+      "total": {
+        "requests": 2625,
+        "ok": 2625,
+        "fail": 0,
+        "successRate": 1,
+        "rps": 9341.6,
+        "p50": 5.2,
+        "p90": 142.6,
+        "p95": 187.9,
+        "p99": 232.4,
+        "max": 256.9,
+        "status": {
+          "200": 2125,
+          "201": 500
+        },
+        "failKinds": {}
+      },
+      "metrics": {
+        "_setup": {
+          "requests": 0,
+          "ok": 0,
+          "fail": 0,
+          "successRate": null,
+          "rps": 0,
+          "p50": null,
+          "p90": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "status": {},
+          "failKinds": {}
+        },
+        "session": {
+          "requests": 500,
+          "ok": 500,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 1779.4,
+          "p50": 143.5,
+          "p90": 228.1,
+          "p95": 232.5,
+          "p99": 242.1,
+          "max": 256.9,
+          "status": {
+            "200": 500
+          },
+          "failKinds": {}
+        },
+        "query": {
+          "requests": 500,
+          "ok": 500,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 1779.4,
+          "p50": 4.6,
+          "p90": 22.8,
+          "p95": 24.4,
+          "p99": 26,
+          "max": 27.2,
+          "status": {
+            "200": 500
+          },
+          "failKinds": {}
+        },
+        "unlock": {
+          "requests": 125,
+          "ok": 125,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 444.8,
+          "p50": 4.2,
+          "p90": 15.9,
+          "p95": 20.9,
+          "p99": 29.2,
+          "max": 29.5,
+          "status": {
+            "200": 125
+          },
+          "failKinds": {}
+        },
+        "callback": {
+          "requests": 500,
+          "ok": 500,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 1779.4,
+          "p50": 3.8,
+          "p90": 14.5,
+          "p95": 17.7,
+          "p99": 28.4,
+          "max": 28.6,
+          "status": {
+            "201": 500
+          },
+          "failKinds": {}
+        },
+        "callback-list": {
+          "requests": 500,
+          "ok": 500,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 1779.4,
+          "p50": 3.3,
+          "p90": 11.9,
+          "p95": 15.8,
+          "p99": 21.2,
+          "max": 27.7,
+          "status": {
+            "200": 500
+          },
+          "failKinds": {}
+        },
+        "withdraw": {
+          "requests": 500,
+          "ok": 500,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 1779.4,
+          "p50": 3.2,
+          "p90": 10.4,
+          "p95": 13.7,
+          "p99": 18.3,
+          "max": 21.3,
+          "status": {
+            "200": 500
+          },
+          "failKinds": {}
+        }
+      },
+      "id": "D"
+    },
+    {
+      "name": "E 枚举攻击：单会话 50 并发遍历 1 万个尾号",
+      "mode": "loop",
+      "vus": 50,
+      "durationMs": 15000,
+      "think": [
+        0,
+        0
+      ],
+      "rampMs": 0,
+      "loadThreads": 1,
+      "elapsedSeconds": 15.06,
+      "peakInFlight": 50,
+      "total": {
+        "requests": 10000,
+        "ok": 10000,
+        "fail": 0,
+        "successRate": 1,
+        "rps": 663.8,
+        "p50": 3.4,
+        "p90": 7.5,
+        "p95": 9.1,
+        "p99": 104.6,
+        "max": 108.6,
+        "status": {
+          "200": 10000
+        },
+        "failKinds": {}
+      },
+      "metrics": {
+        "_setup": {
+          "requests": 0,
+          "ok": 0,
+          "fail": 0,
+          "successRate": null,
+          "rps": 0,
+          "p50": null,
+          "p90": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "status": {},
+          "failKinds": {}
+        },
+        "enumerate": {
+          "requests": 10000,
+          "ok": 10000,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 663.8,
+          "p50": 3.4,
+          "p90": 7.5,
+          "p95": 9.1,
+          "p99": 104.6,
+          "max": 108.6,
+          "status": {
+            "200": 10000
+          },
+          "failKinds": {}
+        },
+        "_hit": {
+          "requests": 2,
+          "ok": 2,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 0.1,
+          "p50": 2.2,
+          "p90": 3,
+          "p95": 3,
+          "p99": 3,
+          "max": 3,
+          "status": {
+            "200": 2
+          },
+          "failKinds": {}
+        }
+      },
+      "timeline": [
+        {
+          "s": 0,
+          "ok": 8498,
+          "fail": 0
+        },
+        {
+          "s": 1,
+          "ok": 1504,
+          "fail": 0
+        },
+        {
+          "s": 2,
+          "ok": 0,
+          "fail": 0
+        },
+        {
+          "s": 3,
+          "ok": 0,
+          "fail": 0
+        },
+        {
+          "s": 4,
+          "ok": 0,
+          "fail": 0
+        },
+        {
+          "s": 5,
+          "ok": 0,
+          "fail": 0
+        },
+        {
+          "s": 6,
+          "ok": 0,
+          "fail": 0
+        },
+        {
+          "s": 7,
+          "ok": 0,
+          "fail": 0
+        },
+        {
+          "s": 8,
+          "ok": 0,
+          "fail": 0
+        },
+        {
+          "s": 9,
+          "ok": 0,
+          "fail": 0
+        },
+        {
+          "s": 10,
+          "ok": 0,
+          "fail": 0
+        },
+        {
+          "s": 11,
+          "ok": 0,
+          "fail": 0
+        },
+        {
+          "s": 12,
+          "ok": 0,
+          "fail": 0
+        },
+        {
+          "s": 13,
+          "ok": 0,
+          "fail": 0
+        },
+        {
+          "s": 14,
+          "ok": 0,
+          "fail": 0
+        }
+      ],
+      "id": "E"
+    },
+    {
+      "name": "G 故障注入：数据库停顿 6 秒（200 人只读负载下）",
+      "mode": "loop",
+      "vus": 200,
+      "durationMs": 24000,
+      "think": [
+        200,
+        600
+      ],
+      "rampMs": 0,
+      "loadThreads": 3,
+      "elapsedSeconds": 24,
+      "peakInFlight": 200,
+      "total": {
+        "requests": 9351,
+        "ok": 9155,
+        "fail": 196,
+        "successRate": 0.97904,
+        "rps": 389.6,
+        "p50": 1.2,
+        "p90": 2.2,
+        "p95": 3.3,
+        "p99": 5808.2,
+        "max": 5981.8,
+        "status": {
+          "200": 9155,
+          "503": 195,
+          "ECONNRESET": 1
+        },
+        "failKinds": {
+          "503:unavailable@api": 24,
+          "503:unavailable@gateway": 171,
+          "ECONNRESET@gateway": 1
+        }
+      },
+      "metrics": {
+        "_setup": {
+          "requests": 0,
+          "ok": 0,
+          "fail": 0,
+          "successRate": null,
+          "rps": 0,
+          "p50": null,
+          "p90": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "status": {},
+          "failKinds": {}
+        },
+        "query": {
+          "requests": 6257,
+          "ok": 6123,
+          "fail": 134,
+          "successRate": 0.97858,
+          "rps": 260.7,
+          "p50": 1.2,
+          "p90": 2.2,
+          "p95": 3.5,
+          "p99": 5796,
+          "max": 5981.8,
+          "status": {
+            "200": 6123,
+            "503": 133,
+            "ECONNRESET": 1
+          },
+          "failKinds": {
+            "503:unavailable@api": 16,
+            "503:unavailable@gateway": 117,
+            "ECONNRESET@gateway": 1
+          }
+        },
+        "candidate-search": {
+          "requests": 3094,
+          "ok": 3032,
+          "fail": 62,
+          "successRate": 0.97996,
+          "rps": 128.9,
+          "p50": 1.2,
+          "p90": 2.2,
+          "p95": 3.2,
+          "p99": 5825,
+          "max": 5967.5,
+          "status": {
+            "200": 3032,
+            "503": 62
+          },
+          "failKinds": {
+            "503:unavailable@api": 8,
+            "503:unavailable@gateway": 54
+          }
+        }
+      },
+      "timeline": [
+        {
+          "s": 0,
+          "ok": 604,
+          "fail": 0
+        },
+        {
+          "s": 1,
+          "ok": 487,
+          "fail": 0
+        },
+        {
+          "s": 2,
+          "ok": 505,
+          "fail": 0
+        },
+        {
+          "s": 3,
+          "ok": 498,
+          "fail": 0
+        },
+        {
+          "s": 4,
+          "ok": 500,
+          "fail": 0
+        },
+        {
+          "s": 5,
+          "ok": 502,
+          "fail": 0
+        },
+        {
+          "s": 6,
+          "ok": 0,
+          "fail": 1
+        },
+        {
+          "s": 7,
+          "ok": 0,
+          "fail": 0
+        },
+        {
+          "s": 8,
+          "ok": 0,
+          "fail": 0
+        },
+        {
+          "s": 9,
+          "ok": 0,
+          "fail": 71
+        },
+        {
+          "s": 10,
+          "ok": 0,
+          "fail": 64
+        },
+        {
+          "s": 11,
+          "ok": 0,
+          "fail": 60
+        },
+        {
+          "s": 12,
+          "ok": 586,
+          "fail": 0
+        },
+        {
+          "s": 13,
+          "ok": 503,
+          "fail": 0
+        },
+        {
+          "s": 14,
+          "ok": 500,
+          "fail": 0
+        },
+        {
+          "s": 15,
+          "ok": 494,
+          "fail": 0
+        },
+        {
+          "s": 16,
+          "ok": 510,
+          "fail": 0
+        },
+        {
+          "s": 17,
+          "ok": 490,
+          "fail": 0
+        },
+        {
+          "s": 18,
+          "ok": 483,
+          "fail": 0
+        },
+        {
+          "s": 19,
+          "ok": 502,
+          "fail": 0
+        },
+        {
+          "s": 20,
+          "ok": 498,
+          "fail": 0
+        },
+        {
+          "s": 21,
+          "ok": 496,
+          "fail": 0
+        },
+        {
+          "s": 22,
+          "ok": 501,
+          "fail": 0
+        },
+        {
+          "s": 23,
+          "ok": 496,
+          "fail": 0
+        }
+      ],
+      "side": {
+        "injected": "SIGSTOP mysqld 6s at t=6s",
+        "pid": 54426
+      },
+      "id": "G"
+    },
+    {
+      "name": "F 故障注入：强杀一个 API 实例（200 人只读负载下）",
+      "mode": "loop",
+      "vus": 200,
+      "durationMs": 24000,
+      "think": [
+        200,
+        600
+      ],
+      "rampMs": 0,
+      "loadThreads": 3,
+      "elapsedSeconds": 24,
+      "peakInFlight": 200,
+      "total": {
+        "requests": 12029,
+        "ok": 12028,
+        "fail": 1,
+        "successRate": 0.99992,
+        "rps": 501.1,
+        "p50": 1.2,
+        "p90": 2.1,
+        "p95": 2.6,
+        "p99": 32.5,
+        "max": 38.3,
+        "status": {
+          "200": 12028,
+          "503": 1
+        },
+        "failKinds": {
+          "503:unavailable@gateway": 1
+        }
+      },
+      "metrics": {
+        "_setup": {
+          "requests": 0,
+          "ok": 0,
+          "fail": 0,
+          "successRate": null,
+          "rps": 0,
+          "p50": null,
+          "p90": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "status": {},
+          "failKinds": {}
+        },
+        "query": {
+          "requests": 8056,
+          "ok": 8056,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 335.6,
+          "p50": 1.2,
+          "p90": 2.1,
+          "p95": 2.6,
+          "p99": 33.4,
+          "max": 38.3,
+          "status": {
+            "200": 8056
+          },
+          "failKinds": {}
+        },
+        "candidate-search": {
+          "requests": 3973,
+          "ok": 3972,
+          "fail": 1,
+          "successRate": 0.99975,
+          "rps": 165.5,
+          "p50": 1.2,
+          "p90": 2,
+          "p95": 2.6,
+          "p99": 32.2,
+          "max": 36.6,
+          "status": {
+            "200": 3972,
+            "503": 1
+          },
+          "failKinds": {
+            "503:unavailable@gateway": 1
+          }
+        }
+      },
+      "timeline": [
+        {
+          "s": 0,
+          "ok": 582,
+          "fail": 0
+        },
+        {
+          "s": 1,
+          "ok": 505,
+          "fail": 0
+        },
+        {
+          "s": 2,
+          "ok": 496,
+          "fail": 0
+        },
+        {
+          "s": 3,
+          "ok": 505,
+          "fail": 0
+        },
+        {
+          "s": 4,
+          "ok": 477,
+          "fail": 0
+        },
+        {
+          "s": 5,
+          "ok": 499,
+          "fail": 0
+        },
+        {
+          "s": 6,
+          "ok": 482,
+          "fail": 0
+        },
+        {
+          "s": 7,
+          "ok": 510,
+          "fail": 0
+        },
+        {
+          "s": 8,
+          "ok": 488,
+          "fail": 1
+        },
+        {
+          "s": 9,
+          "ok": 494,
+          "fail": 0
+        },
+        {
+          "s": 10,
+          "ok": 506,
+          "fail": 0
+        },
+        {
+          "s": 11,
+          "ok": 507,
+          "fail": 0
+        },
+        {
+          "s": 12,
+          "ok": 505,
+          "fail": 0
+        },
+        {
+          "s": 13,
+          "ok": 493,
+          "fail": 0
+        },
+        {
+          "s": 14,
+          "ok": 496,
+          "fail": 0
+        },
+        {
+          "s": 15,
+          "ok": 511,
+          "fail": 0
+        },
+        {
+          "s": 16,
+          "ok": 492,
+          "fail": 0
+        },
+        {
+          "s": 17,
+          "ok": 500,
+          "fail": 0
+        },
+        {
+          "s": 18,
+          "ok": 500,
+          "fail": 0
+        },
+        {
+          "s": 19,
+          "ok": 501,
+          "fail": 0
+        },
+        {
+          "s": 20,
+          "ok": 501,
+          "fail": 0
+        },
+        {
+          "s": 21,
+          "ok": 489,
+          "fail": 0
+        },
+        {
+          "s": 22,
+          "ok": 495,
+          "fail": 0
+        },
+        {
+          "s": 23,
+          "ok": 488,
+          "fail": 0
+        }
+      ],
+      "side": {
+        "injected": "SIGKILL api-a at t=8s",
+        "pid": 54431,
+        "restartedBySupervisor": false
+      },
+      "id": "F"
+    }
+  ],
+  "directSingleInstance": [
+    {
+      "date": "2026-11-12T02:51:34.766Z",
+      "base": "http://127.0.0.1:8931",
+      "name": "直连单实例 8931 · 250 在途",
+      "mode": "loop",
+      "vus": 250,
+      "durationMs": 12000,
+      "think": [
+        0,
+        0
+      ],
+      "rampMs": 0,
+      "loadThreads": 3,
+      "elapsedSeconds": 46.91,
+      "peakInFlight": 250,
+      "total": {
+        "requests": 124142,
+        "ok": 123892,
+        "fail": 250,
+        "successRate": 0.99799,
+        "rps": 2646.5,
+        "p50": 16.2,
+        "p90": 36.2,
+        "p95": 52.2,
+        "p99": 134.6,
+        "max": 382,
+        "status": {
+          "200": 123892,
+          "CLIENT_TIMEOUT": 249,
+          "ECONNRESET": 1
+        },
+        "failKinds": {
+          "CLIENT_TIMEOUT@gateway": 249,
+          "ECONNRESET@gateway": 1
+        }
+      },
+      "metrics": {
+        "_setup": {
+          "requests": 0,
+          "ok": 0,
+          "fail": 0,
+          "successRate": null,
+          "rps": 0,
+          "p50": null,
+          "p90": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "status": {},
+          "failKinds": {}
+        },
+        "query": {
+          "requests": 75521,
+          "ok": 75353,
+          "fail": 168,
+          "successRate": 0.99778,
+          "rps": 1610,
+          "p50": 18,
+          "p90": 41.9,
+          "p95": 56.4,
+          "p99": 141.2,
+          "max": 382,
+          "status": {
+            "200": 75353,
+            "CLIENT_TIMEOUT": 167,
+            "ECONNRESET": 1
+          },
+          "failKinds": {
+            "CLIENT_TIMEOUT@gateway": 167,
+            "ECONNRESET@gateway": 1
+          }
+        },
+        "candidate-search": {
+          "requests": 48621,
+          "ok": 48539,
+          "fail": 82,
+          "successRate": 0.99831,
+          "rps": 1036.5,
+          "p50": 12.8,
+          "p90": 31.2,
+          "p95": 38.7,
+          "p99": 125,
+          "max": 359.8,
+          "status": {
+            "200": 48539,
+            "CLIENT_TIMEOUT": 82
+          },
+          "failKinds": {
+            "CLIENT_TIMEOUT@gateway": 82
+          }
+        }
+      },
+      "timeline": [
+        {
+          "s": 0,
+          "ok": 13526,
+          "fail": 0
+        },
+        {
+          "s": 1,
+          "ok": 12085,
+          "fail": 0
+        },
+        {
+          "s": 2,
+          "ok": 14277,
+          "fail": 0
+        },
+        {
+          "s": 3,
+          "ok": 13086,
+          "fail": 0
+        },
+        {
+          "s": 4,
+          "ok": 4678,
+          "fail": 0
+        },
+        {
+          "s": 5,
+          "ok": 4674,
+          "fail": 0
+        },
+        {
+          "s": 6,
+          "ok": 10238,
+          "fail": 0
+        },
+        {
+          "s": 7,
+          "ok": 15723,
+          "fail": 0
+        },
+        {
+          "s": 8,
+          "ok": 8494,
+          "fail": 0
+        },
+        {
+          "s": 9,
+          "ok": 11474,
+          "fail": 0
+        },
+        {
+          "s": 10,
+          "ok": 13332,
+          "fail": 0
+        },
+        {
+          "s": 11,
+          "ok": 2305,
+          "fail": 0
+        }
+      ],
+      "id": "X250"
+    },
+    {
+      "date": "2026-11-12T02:51:49.567Z",
+      "base": "http://127.0.0.1:8931",
+      "name": "直连单实例 8931 · 500 在途",
+      "mode": "loop",
+      "vus": 500,
+      "durationMs": 12000,
+      "think": [
+        0,
+        0
+      ],
+      "rampMs": 0,
+      "loadThreads": 3,
+      "elapsedSeconds": 12.12,
+      "peakInFlight": 500,
+      "total": {
+        "requests": 102283,
+        "ok": 102283,
+        "fail": 0,
+        "successRate": 1,
+        "rps": 8438.5,
+        "p50": 36.6,
+        "p90": 145.1,
+        "p95": 167.7,
+        "p99": 298.4,
+        "max": 573.2,
+        "status": {
+          "200": 102283
+        },
+        "failKinds": {}
+      },
+      "metrics": {
+        "_setup": {
+          "requests": 0,
+          "ok": 0,
+          "fail": 0,
+          "successRate": null,
+          "rps": 0,
+          "p50": null,
+          "p90": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "status": {},
+          "failKinds": {}
+        },
+        "query": {
+          "requests": 61683,
+          "ok": 61683,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 5088.9,
+          "p50": 41.2,
+          "p90": 151.2,
+          "p95": 176.5,
+          "p99": 326.8,
+          "max": 573.2,
+          "status": {
+            "200": 61683
+          },
+          "failKinds": {}
+        },
+        "candidate-search": {
+          "requests": 40600,
+          "ok": 40600,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 3349.6,
+          "p50": 29.4,
+          "p90": 134.3,
+          "p95": 153.8,
+          "p99": 276.9,
+          "max": 512,
+          "status": {
+            "200": 40600
+          },
+          "failKinds": {}
+        }
+      },
+      "timeline": [
+        {
+          "s": 0,
+          "ok": 9106,
+          "fail": 0
+        },
+        {
+          "s": 1,
+          "ok": 15243,
+          "fail": 0
+        },
+        {
+          "s": 2,
+          "ok": 13308,
+          "fail": 0
+        },
+        {
+          "s": 3,
+          "ok": 9407,
+          "fail": 0
+        },
+        {
+          "s": 4,
+          "ok": 6424,
+          "fail": 0
+        },
+        {
+          "s": 5,
+          "ok": 9746,
+          "fail": 0
+        },
+        {
+          "s": 6,
+          "ok": 10364,
+          "fail": 0
+        },
+        {
+          "s": 7,
+          "ok": 3157,
+          "fail": 0
+        },
+        {
+          "s": 8,
+          "ok": 2727,
+          "fail": 0
+        },
+        {
+          "s": 9,
+          "ok": 8130,
+          "fail": 0
+        },
+        {
+          "s": 10,
+          "ok": 6679,
+          "fail": 0
+        },
+        {
+          "s": 11,
+          "ok": 7492,
+          "fail": 0
+        }
+      ],
+      "id": "X500"
+    },
+    {
+      "date": "2026-11-12T02:52:04.092Z",
+      "base": "http://127.0.0.1:8931",
+      "name": "直连单实例 8931 · 1000 在途",
+      "mode": "loop",
+      "vus": 1000,
+      "durationMs": 12000,
+      "think": [
+        0,
+        0
+      ],
+      "rampMs": 0,
+      "loadThreads": 3,
+      "elapsedSeconds": 12.03,
+      "peakInFlight": 1000,
+      "total": {
+        "requests": 689953,
+        "ok": 9568,
+        "fail": 680385,
+        "successRate": 0.01387,
+        "rps": 57333.6,
+        "p50": 688.6,
+        "p90": 1042.3,
+        "p95": 1113.7,
+        "p99": 1147.2,
+        "max": 1245.5,
+        "status": {
+          "200": 9568,
+          "503": 680385
+        },
+        "failKinds": {
+          "503:unavailable@api": 680385
+        }
+      },
+      "metrics": {
+        "_setup": {
+          "requests": 0,
+          "ok": 0,
+          "fail": 0,
+          "successRate": null,
+          "rps": 0,
+          "p50": null,
+          "p90": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "status": {},
+          "failKinds": {}
+        },
+        "query": {
+          "requests": 439809,
+          "ok": 6016,
+          "fail": 433793,
+          "successRate": 0.01368,
+          "rps": 36547.2,
+          "p50": 760.6,
+          "p90": 1091.1,
+          "p95": 1129.8,
+          "p99": 1152,
+          "max": 1245.5,
+          "status": {
+            "200": 6016,
+            "503": 433793
+          },
+          "failKinds": {
+            "503:unavailable@api": 433793
+          }
+        },
+        "candidate-search": {
+          "requests": 250144,
+          "ok": 3552,
+          "fail": 246592,
+          "successRate": 0.0142,
+          "rps": 20786.4,
+          "p50": 673.6,
+          "p90": 756.9,
+          "p95": 793.9,
+          "p99": 890.2,
+          "max": 918.8,
+          "status": {
+            "200": 3552,
+            "503": 246592
+          },
+          "failKinds": {
+            "503:unavailable@api": 246592
+          }
+        }
+      },
+      "timeline": [
+        {
+          "s": 0,
+          "ok": 2351,
+          "fail": 39299
+        },
+        {
+          "s": 1,
+          "ok": 756,
+          "fail": 57228
+        },
+        {
+          "s": 2,
+          "ok": 530,
+          "fail": 54673
+        },
+        {
+          "s": 3,
+          "ok": 639,
+          "fail": 56649
+        },
+        {
+          "s": 4,
+          "ok": 610,
+          "fail": 58234
+        },
+        {
+          "s": 5,
+          "ok": 587,
+          "fail": 58154
+        },
+        {
+          "s": 6,
+          "ok": 651,
+          "fail": 57564
+        },
+        {
+          "s": 7,
+          "ok": 623,
+          "fail": 59897
+        },
+        {
+          "s": 8,
+          "ok": 555,
+          "fail": 59976
+        },
+        {
+          "s": 9,
+          "ok": 600,
+          "fail": 61118
+        },
+        {
+          "s": 10,
+          "ok": 629,
+          "fail": 60463
+        },
+        {
+          "s": 11,
+          "ok": 519,
+          "fail": 56648
+        }
+      ],
+      "id": "X1000"
+    },
+    {
+      "date": "2026-11-12T02:53:57.140Z",
+      "base": "http://127.0.0.1:8931",
+      "name": "直连单实例 8931 · 250 在途 · 采样",
+      "mode": "loop",
+      "vus": 250,
+      "durationMs": 20000,
+      "think": [
+        0,
+        0
+      ],
+      "rampMs": 0,
+      "loadThreads": 3,
+      "elapsedSeconds": 20.02,
+      "peakInFlight": 250,
+      "total": {
+        "requests": 238883,
+        "ok": 238883,
+        "fail": 0,
+        "successRate": 1,
+        "rps": 11931.6,
+        "p50": 17,
+        "p90": 31.9,
+        "p95": 43.3,
+        "p99": 123.8,
+        "max": 147,
+        "status": {
+          "200": 238883
+        },
+        "failKinds": {}
+      },
+      "metrics": {
+        "_setup": {
+          "requests": 0,
+          "ok": 0,
+          "fail": 0,
+          "successRate": null,
+          "rps": 0,
+          "p50": null,
+          "p90": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "status": {},
+          "failKinds": {}
+        },
+        "candidate-search": {
+          "requests": 93588,
+          "ok": 93588,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 4674.5,
+          "p50": 13.6,
+          "p90": 27,
+          "p95": 34.4,
+          "p99": 119.6,
+          "max": 137.3,
+          "status": {
+            "200": 93588
+          },
+          "failKinds": {}
+        },
+        "query": {
+          "requests": 145295,
+          "ok": 145295,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 7257.1,
+          "p50": 18.8,
+          "p90": 35.8,
+          "p95": 47.6,
+          "p99": 126.5,
+          "max": 147,
+          "status": {
+            "200": 145295
+          },
+          "failKinds": {}
+        }
+      },
+      "timeline": [
+        {
+          "s": 0,
+          "ok": 8199,
+          "fail": 0
+        },
+        {
+          "s": 1,
+          "ok": 8687,
+          "fail": 0
+        },
+        {
+          "s": 2,
+          "ok": 13362,
+          "fail": 0
+        },
+        {
+          "s": 3,
+          "ok": 7523,
+          "fail": 0
+        },
+        {
+          "s": 4,
+          "ok": 10795,
+          "fail": 0
+        },
+        {
+          "s": 5,
+          "ok": 13970,
+          "fail": 0
+        },
+        {
+          "s": 6,
+          "ok": 11277,
+          "fail": 0
+        },
+        {
+          "s": 7,
+          "ok": 13604,
+          "fail": 0
+        },
+        {
+          "s": 8,
+          "ok": 12975,
+          "fail": 0
+        },
+        {
+          "s": 9,
+          "ok": 12287,
+          "fail": 0
+        },
+        {
+          "s": 10,
+          "ok": 13780,
+          "fail": 0
+        },
+        {
+          "s": 11,
+          "ok": 13562,
+          "fail": 0
+        },
+        {
+          "s": 12,
+          "ok": 14650,
+          "fail": 0
+        },
+        {
+          "s": 13,
+          "ok": 14082,
+          "fail": 0
+        },
+        {
+          "s": 14,
+          "ok": 10441,
+          "fail": 0
+        },
+        {
+          "s": 15,
+          "ok": 12601,
+          "fail": 0
+        },
+        {
+          "s": 16,
+          "ok": 12224,
+          "fail": 0
+        },
+        {
+          "s": 17,
+          "ok": 9467,
+          "fail": 0
+        },
+        {
+          "s": 18,
+          "ok": 12480,
+          "fail": 0
+        },
+        {
+          "s": 19,
+          "ok": 12667,
+          "fail": 0
+        }
+      ],
+      "id": "X250b"
+    }
+  ],
+  "timeWaitEvidence": {
+    "what": "经网关 500 在途 8 秒期间，每秒统计一次处于 TIME_WAIT 的套接字数量（按目标端口）",
+    "samples": [
+      "t=1s TIME_WAIT 到 8930(客户端→网关)=0 到 8931=0 到 8932=0",
+      "t=2s TIME_WAIT 到 8930(客户端→网关)=0 到 8931=255 到 8932=292",
+      "t=3s TIME_WAIT 到 8930(客户端→网关)=0 到 8931=1166 到 8932=1187",
+      "t=4s TIME_WAIT 到 8930(客户端→网关)=0 到 8931=1818 到 8932=1806",
+      "t=5s TIME_WAIT 到 8930(客户端→网关)=0 到 8931=3006 到 8932=2877",
+      "t=6s TIME_WAIT 到 8930(客户端→网关)=0 到 8931=4227 到 8932=4152",
+      "t=7s TIME_WAIT 到 8930(客户端→网关)=0 到 8931=4547 到 8932=4462",
+      "t=8s TIME_WAIT 到 8930(客户端→网关)=0 到 8931=5299 到 8932=5191",
+      "t=9s TIME_WAIT 到 8930(客户端→网关)=0 到 8931=5775 到 8932=5457",
+      "t=10s TIME_WAIT 到 8930(客户端→网关)=500 到 8931=6099 到 8932=5772",
+      "t=11s TIME_WAIT 到 8930(客户端→网关)=500 到 8931=6099 到 8932=5772",
+      "t=12s TIME_WAIT 到 8930(客户端→网关)=500 到 8931=6099 到 8932=5772"
+    ]
+  },
+  "dbObservation": {
+    "query_events_rows": 406696,
+    "query_events_data_mb": 77.8,
+    "query_events_index_mb": 64.0,
+    "innodb_buffer_pool_size_mb": 128,
+    "note": "审计表（随机 UUID 主键、每次查询同步写一行）在约 40 万行时数据加索引 142MB，已超过默认 128MB 缓冲池"
+  }
+}

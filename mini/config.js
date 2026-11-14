@@ -1,2 +1,4 @@
-// Local developer tools only. Use the approved HTTPS service domain for device integration.
-module.exports = {baseUrl:'http://127.0.0.1:8930'};
+// 小程序连接的服务地址。
+// 微信开发者工具里调试：连本机 npm run dev 启动的服务（需在"详情 → 本地设置"勾选"不校验合法域名"）。
+// 真机与正式环境：换成已在小程序后台登记的 HTTPS 合法域名。
+module.exports = {baseUrl: 'http://127.0.0.1:8800'};

@@ -1,0 +1,5459 @@
+{
+  "date": "2026-11-13T04:07:17.455Z",
+  "target": "V2",
+  "base": "http://127.0.0.1:8800",
+  "host": {
+    "cpu": "Apple M4 · 10 核",
+    "mem": "16 GB",
+    "os": "darwin arm64",
+    "node": "v24.19.0"
+  },
+  "load": {
+    "vus": 300,
+    "think": [
+      500,
+      1500
+    ],
+    "durationMs": 40000,
+    "injectAtMs": 10000
+  },
+  "unhandledErrorsInLog": 0,
+  "drills": [
+    {
+      "name": "D1 滚动重启（模拟发布）",
+      "mode": "loop",
+      "vus": 300,
+      "durationMs": 40000,
+      "think": [
+        500,
+        1500
+      ],
+      "rampMs": 3000,
+      "loadThreads": 3,
+      "elapsedSeconds": 48.53,
+      "peakInFlight": 27,
+      "maxTimerGapMs": 503,
+      "suspended": false,
+      "total": {
+        "requests": 15363,
+        "ok": 15363,
+        "soft": 0,
+        "fail": 0,
+        "successRate": 1,
+        "rps": 316.5,
+        "p50": 1.2,
+        "p90": 164.9,
+        "p95": 276.6,
+        "p99": 359.8,
+        "max": 405.7,
+        "status": {
+          "200": 12927,
+          "201": 2436
+        },
+        "failKinds": {}
+      },
+      "metrics": {
+        "_setup": {
+          "requests": 0,
+          "ok": 0,
+          "soft": 0,
+          "fail": 0,
+          "successRate": null,
+          "rps": 0,
+          "p50": null,
+          "p90": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "status": {},
+          "failKinds": {}
+        },
+        "session": {
+          "requests": 2436,
+          "ok": 2436,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 50.2,
+          "p50": 0.7,
+          "p90": 1.3,
+          "p95": 1.7,
+          "p99": 3.1,
+          "max": 32.3,
+          "status": {
+            "200": 2436
+          },
+          "failKinds": {}
+        },
+        "step:session": {
+          "requests": 2436,
+          "ok": 2436,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 50.2,
+          "p50": 0.7,
+          "p90": 1.3,
+          "p95": 1.7,
+          "p99": 3.1,
+          "max": 32.3,
+          "status": {},
+          "failKinds": {}
+        },
+        "verify": {
+          "requests": 2436,
+          "ok": 2436,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 50.2,
+          "p50": 210.6,
+          "p90": 346.7,
+          "p95": 365.1,
+          "p99": 379.3,
+          "max": 405.7,
+          "status": {
+            "200": 2436
+          },
+          "failKinds": {}
+        },
+        "step:verify": {
+          "requests": 2436,
+          "ok": 2436,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 50.2,
+          "p50": 210.7,
+          "p90": 346.7,
+          "p95": 365.1,
+          "p99": 379.3,
+          "max": 405.7,
+          "status": {},
+          "failKinds": {}
+        },
+        "query": {
+          "requests": 2436,
+          "ok": 2436,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 50.2,
+          "p50": 1.5,
+          "p90": 2.3,
+          "p95": 2.8,
+          "p99": 5.2,
+          "max": 65.1,
+          "status": {
+            "200": 2436
+          },
+          "failKinds": {}
+        },
+        "step:query": {
+          "requests": 2436,
+          "ok": 2436,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 50.2,
+          "p50": 1.5,
+          "p90": 2.4,
+          "p95": 2.8,
+          "p99": 5.2,
+          "max": 65.2,
+          "status": {},
+          "failKinds": {}
+        },
+        "order.create": {
+          "requests": 498,
+          "ok": 498,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 10.3,
+          "p50": 50.6,
+          "p90": 83.2,
+          "p95": 88.8,
+          "p99": 92.5,
+          "max": 93.7,
+          "status": {
+            "200": 498
+          },
+          "failKinds": {}
+        },
+        "step:order.create": {
+          "requests": 498,
+          "ok": 498,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 10.3,
+          "p50": 50.6,
+          "p90": 83.2,
+          "p95": 88.8,
+          "p99": 92.5,
+          "max": 93.7,
+          "status": {},
+          "failKinds": {}
+        },
+        "note:already_unlocked": {
+          "requests": 163,
+          "ok": 163,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 3.4,
+          "p50": 0,
+          "p90": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "status": {},
+          "failKinds": {}
+        },
+        "record": {
+          "requests": 498,
+          "ok": 498,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 10.3,
+          "p50": 0.5,
+          "p90": 0.9,
+          "p95": 1.2,
+          "p99": 3.5,
+          "max": 31.1,
+          "status": {
+            "200": 498
+          },
+          "failKinds": {}
+        },
+        "step:record": {
+          "requests": 498,
+          "ok": 498,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 10.3,
+          "p50": 0.5,
+          "p90": 0.9,
+          "p95": 1.2,
+          "p99": 3.5,
+          "max": 31.1,
+          "status": {},
+          "failKinds": {}
+        },
+        "callback.create": {
+          "requests": 2436,
+          "ok": 2436,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 50.2,
+          "p50": 1.5,
+          "p90": 2.4,
+          "p95": 3.1,
+          "p99": 7.5,
+          "max": 64,
+          "status": {
+            "201": 2436
+          },
+          "failKinds": {}
+        },
+        "step:callback.create": {
+          "requests": 2436,
+          "ok": 2436,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 50.2,
+          "p50": 1.5,
+          "p90": 2.5,
+          "p95": 3.1,
+          "p99": 7.5,
+          "max": 64,
+          "status": {},
+          "failKinds": {}
+        },
+        "callback.list": {
+          "requests": 2436,
+          "ok": 2436,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 50.2,
+          "p50": 0.5,
+          "p90": 0.8,
+          "p95": 1,
+          "p99": 1.5,
+          "max": 10.7,
+          "status": {
+            "200": 2436
+          },
+          "failKinds": {}
+        },
+        "step:callback.list": {
+          "requests": 2436,
+          "ok": 2436,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 50.2,
+          "p50": 0.5,
+          "p90": 0.8,
+          "p95": 1,
+          "p99": 1.5,
+          "max": 10.7,
+          "status": {},
+          "failKinds": {}
+        },
+        "journey": {
+          "requests": 2436,
+          "ok": 2436,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 50.2,
+          "p50": 3886.2,
+          "p90": 5593.6,
+          "p95": 6369.8,
+          "p99": 7351.1,
+          "max": 8547.8,
+          "status": {},
+          "failKinds": {}
+        },
+        "order.pay": {
+          "requests": 335,
+          "ok": 335,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 6.9,
+          "p50": 1.3,
+          "p90": 1.9,
+          "p95": 2.3,
+          "p99": 9.2,
+          "max": 19.6,
+          "status": {
+            "200": 335
+          },
+          "failKinds": {}
+        },
+        "step:order.pay": {
+          "requests": 335,
+          "ok": 335,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 6.9,
+          "p50": 1.3,
+          "p90": 2,
+          "p95": 2.3,
+          "p99": 9.2,
+          "max": 19.7,
+          "status": {},
+          "failKinds": {}
+        },
+        "order.status": {
+          "requests": 676,
+          "ok": 676,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 13.9,
+          "p50": 0.6,
+          "p90": 1.2,
+          "p95": 1.6,
+          "p99": 7.6,
+          "max": 39.8,
+          "status": {
+            "200": 676
+          },
+          "failKinds": {}
+        },
+        "step:order.status": {
+          "requests": 676,
+          "ok": 676,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 13.9,
+          "p50": 0.6,
+          "p90": 1.2,
+          "p95": 1.6,
+          "p99": 7.6,
+          "max": 39.8,
+          "status": {},
+          "failKinds": {}
+        },
+        "step:pay.confirmed": {
+          "requests": 335,
+          "ok": 335,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 6.9,
+          "p50": 252.2,
+          "p90": 253.8,
+          "p95": 254.5,
+          "p99": 505.3,
+          "max": 547.3,
+          "status": {},
+          "failKinds": {}
+        },
+        "callback.withdraw": {
+          "requests": 1176,
+          "ok": 1176,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 24.2,
+          "p50": 1.4,
+          "p90": 2.3,
+          "p95": 2.9,
+          "p99": 5.1,
+          "max": 47.7,
+          "status": {
+            "200": 1176
+          },
+          "failKinds": {}
+        },
+        "step:callback.withdraw": {
+          "requests": 1176,
+          "ok": 1176,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 24.2,
+          "p50": 1.4,
+          "p90": 2.3,
+          "p95": 2.9,
+          "p99": 5.1,
+          "max": 47.7,
+          "status": {},
+          "failKinds": {}
+        }
+      },
+      "distinct": {
+        "paidOrders": 335
+      },
+      "timeline": [
+        {
+          "s": 0,
+          "ok": 104,
+          "fail": 0
+        },
+        {
+          "s": 1,
+          "ok": 181,
+          "fail": 0
+        },
+        {
+          "s": 2,
+          "ok": 296,
+          "fail": 0
+        },
+        {
+          "s": 3,
+          "ok": 342,
+          "fail": 0
+        },
+        {
+          "s": 4,
+          "ok": 392,
+          "fail": 0
+        },
+        {
+          "s": 5,
+          "ok": 424,
+          "fail": 0
+        },
+        {
+          "s": 6,
+          "ok": 386,
+          "fail": 0
+        },
+        {
+          "s": 7,
+          "ok": 322,
+          "fail": 0
+        },
+        {
+          "s": 8,
+          "ok": 412,
+          "fail": 0
+        },
+        {
+          "s": 9,
+          "ok": 415,
+          "fail": 0
+        },
+        {
+          "s": 10,
+          "ok": 390,
+          "fail": 0
+        },
+        {
+          "s": 11,
+          "ok": 350,
+          "fail": 0
+        },
+        {
+          "s": 12,
+          "ok": 339,
+          "fail": 0
+        },
+        {
+          "s": 13,
+          "ok": 335,
+          "fail": 0
+        },
+        {
+          "s": 14,
+          "ok": 375,
+          "fail": 0
+        },
+        {
+          "s": 15,
+          "ok": 415,
+          "fail": 0
+        },
+        {
+          "s": 16,
+          "ok": 416,
+          "fail": 0
+        },
+        {
+          "s": 17,
+          "ok": 356,
+          "fail": 0
+        },
+        {
+          "s": 18,
+          "ok": 370,
+          "fail": 0
+        },
+        {
+          "s": 19,
+          "ok": 383,
+          "fail": 0
+        },
+        {
+          "s": 20,
+          "ok": 373,
+          "fail": 0
+        },
+        {
+          "s": 21,
+          "ok": 352,
+          "fail": 0
+        },
+        {
+          "s": 22,
+          "ok": 369,
+          "fail": 0
+        },
+        {
+          "s": 23,
+          "ok": 365,
+          "fail": 0
+        },
+        {
+          "s": 24,
+          "ok": 392,
+          "fail": 0
+        },
+        {
+          "s": 25,
+          "ok": 386,
+          "fail": 0
+        },
+        {
+          "s": 26,
+          "ok": 356,
+          "fail": 0
+        },
+        {
+          "s": 27,
+          "ok": 391,
+          "fail": 0
+        },
+        {
+          "s": 28,
+          "ok": 376,
+          "fail": 0
+        },
+        {
+          "s": 29,
+          "ok": 382,
+          "fail": 0
+        },
+        {
+          "s": 30,
+          "ok": 363,
+          "fail": 0
+        },
+        {
+          "s": 31,
+          "ok": 360,
+          "fail": 0
+        },
+        {
+          "s": 32,
+          "ok": 382,
+          "fail": 0
+        },
+        {
+          "s": 33,
+          "ok": 371,
+          "fail": 0
+        },
+        {
+          "s": 34,
+          "ok": 356,
+          "fail": 0
+        },
+        {
+          "s": 35,
+          "ok": 353,
+          "fail": 0
+        },
+        {
+          "s": 36,
+          "ok": 397,
+          "fail": 0
+        },
+        {
+          "s": 37,
+          "ok": 359,
+          "fail": 0
+        },
+        {
+          "s": 38,
+          "ok": 383,
+          "fail": 0
+        },
+        {
+          "s": 39,
+          "ok": 372,
+          "fail": 0
+        }
+      ],
+      "side": {
+        "action": "SIGHUP 进程管理器，逐个替换 4 个 API 进程",
+        "allReplacedMs": 5745
+      },
+      "id": "D1",
+      "expectation": "用户无感：旅程成功率 100%",
+      "reconcile": {
+        "rows": [
+          {
+            "item": "查询成功 ↔ 审计行",
+            "client": 2436,
+            "database": 2436,
+            "match": true
+          },
+          {
+            "item": "核验成功 ↔ 授权记录",
+            "client": 2436,
+            "database": 2436,
+            "match": true
+          },
+          {
+            "item": "支付确认（按订单去重）↔ 已支付订单",
+            "client": 335,
+            "database": 335,
+            "match": true
+          },
+          {
+            "item": "支付确认（按订单去重）↔ 解锁授权",
+            "client": 335,
+            "database": 335,
+            "match": true
+          },
+          {
+            "item": "预约创建 ↔ 预约单",
+            "client": 2436,
+            "database": 2436,
+            "match": true
+          },
+          {
+            "item": "预约撤回 ↔ 已撤回",
+            "client": 1176,
+            "database": 1176,
+            "match": true
+          }
+        ],
+        "allMatch": true
+      },
+      "integrity": {
+        "paidWithoutGrant": 0,
+        "grantWithoutPaidOrder": 0,
+        "duplicateTickets": 0,
+        "doublePaid": 0
+      },
+      "auditDrainedMs": 5
+    },
+    {
+      "name": "D2 强杀一个 API 进程",
+      "mode": "loop",
+      "vus": 300,
+      "durationMs": 40000,
+      "think": [
+        500,
+        1500
+      ],
+      "rampMs": 3000,
+      "loadThreads": 3,
+      "elapsedSeconds": 46.28,
+      "peakInFlight": 30,
+      "maxTimerGapMs": 503,
+      "suspended": false,
+      "total": {
+        "requests": 15303,
+        "ok": 15303,
+        "soft": 0,
+        "fail": 0,
+        "successRate": 1,
+        "rps": 330.7,
+        "p50": 1.1,
+        "p90": 173.3,
+        "p95": 279.6,
+        "p99": 362.1,
+        "max": 410.2,
+        "status": {
+          "200": 12872,
+          "201": 2431
+        },
+        "failKinds": {}
+      },
+      "metrics": {
+        "_setup": {
+          "requests": 0,
+          "ok": 0,
+          "soft": 0,
+          "fail": 0,
+          "successRate": null,
+          "rps": 0,
+          "p50": null,
+          "p90": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "status": {},
+          "failKinds": {}
+        },
+        "session": {
+          "requests": 2431,
+          "ok": 2431,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 52.5,
+          "p50": 0.7,
+          "p90": 1.3,
+          "p95": 1.7,
+          "p99": 2.9,
+          "max": 20.8,
+          "status": {
+            "200": 2431
+          },
+          "failKinds": {}
+        },
+        "step:session": {
+          "requests": 2431,
+          "ok": 2431,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 52.5,
+          "p50": 0.7,
+          "p90": 1.3,
+          "p95": 1.7,
+          "p99": 2.9,
+          "max": 20.8,
+          "status": {},
+          "failKinds": {}
+        },
+        "verify": {
+          "requests": 2431,
+          "ok": 2431,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 52.5,
+          "p50": 215.6,
+          "p90": 351.1,
+          "p95": 365.5,
+          "p99": 380.1,
+          "max": 410.2,
+          "status": {
+            "200": 2431
+          },
+          "failKinds": {}
+        },
+        "step:verify": {
+          "requests": 2431,
+          "ok": 2431,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 52.5,
+          "p50": 215.7,
+          "p90": 351.1,
+          "p95": 365.5,
+          "p99": 380.1,
+          "max": 410.2,
+          "status": {},
+          "failKinds": {}
+        },
+        "query": {
+          "requests": 2431,
+          "ok": 2431,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 52.5,
+          "p50": 1.4,
+          "p90": 2.3,
+          "p95": 2.7,
+          "p99": 4.6,
+          "max": 67.3,
+          "status": {
+            "200": 2431
+          },
+          "failKinds": {}
+        },
+        "step:query": {
+          "requests": 2431,
+          "ok": 2431,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 52.5,
+          "p50": 1.4,
+          "p90": 2.3,
+          "p95": 2.7,
+          "p99": 4.6,
+          "max": 67.4,
+          "status": {},
+          "failKinds": {}
+        },
+        "callback.create": {
+          "requests": 2431,
+          "ok": 2431,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 52.5,
+          "p50": 1.4,
+          "p90": 2.3,
+          "p95": 2.9,
+          "p99": 7.2,
+          "max": 65.5,
+          "status": {
+            "201": 2431
+          },
+          "failKinds": {}
+        },
+        "step:callback.create": {
+          "requests": 2431,
+          "ok": 2431,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 52.5,
+          "p50": 1.4,
+          "p90": 2.3,
+          "p95": 3,
+          "p99": 7.3,
+          "max": 66.2,
+          "status": {},
+          "failKinds": {}
+        },
+        "callback.list": {
+          "requests": 2431,
+          "ok": 2431,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 52.5,
+          "p50": 0.5,
+          "p90": 0.8,
+          "p95": 0.9,
+          "p99": 1.3,
+          "max": 14.8,
+          "status": {
+            "200": 2431
+          },
+          "failKinds": {}
+        },
+        "step:callback.list": {
+          "requests": 2431,
+          "ok": 2431,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 52.5,
+          "p50": 0.5,
+          "p90": 0.8,
+          "p95": 0.9,
+          "p99": 1.4,
+          "max": 14.8,
+          "status": {},
+          "failKinds": {}
+        },
+        "journey": {
+          "requests": 2431,
+          "ok": 2431,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 52.5,
+          "p50": 3867.9,
+          "p90": 5629.3,
+          "p95": 6416.6,
+          "p99": 7223.8,
+          "max": 8134.3,
+          "status": {},
+          "failKinds": {}
+        },
+        "order.create": {
+          "requests": 493,
+          "ok": 493,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 10.7,
+          "p50": 48.3,
+          "p90": 83.8,
+          "p95": 89.2,
+          "p99": 94.1,
+          "max": 107.6,
+          "status": {
+            "200": 493
+          },
+          "failKinds": {}
+        },
+        "step:order.create": {
+          "requests": 493,
+          "ok": 493,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 10.7,
+          "p50": 48.3,
+          "p90": 83.8,
+          "p95": 89.2,
+          "p99": 94.1,
+          "max": 107.6,
+          "status": {},
+          "failKinds": {}
+        },
+        "note:already_unlocked": {
+          "requests": 168,
+          "ok": 168,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 3.6,
+          "p50": 0,
+          "p90": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "status": {},
+          "failKinds": {}
+        },
+        "record": {
+          "requests": 493,
+          "ok": 493,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 10.7,
+          "p50": 0.5,
+          "p90": 0.8,
+          "p95": 1,
+          "p99": 1.4,
+          "max": 16.3,
+          "status": {
+            "200": 493
+          },
+          "failKinds": {}
+        },
+        "step:record": {
+          "requests": 493,
+          "ok": 493,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 10.7,
+          "p50": 0.5,
+          "p90": 0.8,
+          "p95": 1,
+          "p99": 1.4,
+          "max": 16.3,
+          "status": {},
+          "failKinds": {}
+        },
+        "order.pay": {
+          "requests": 325,
+          "ok": 325,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 7,
+          "p50": 1.2,
+          "p90": 1.9,
+          "p95": 2.3,
+          "p99": 4.1,
+          "max": 32.3,
+          "status": {
+            "200": 325
+          },
+          "failKinds": {}
+        },
+        "step:order.pay": {
+          "requests": 325,
+          "ok": 325,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 7,
+          "p50": 1.3,
+          "p90": 2,
+          "p95": 2.3,
+          "p99": 4.1,
+          "max": 32.4,
+          "status": {},
+          "failKinds": {}
+        },
+        "order.status": {
+          "requests": 655,
+          "ok": 655,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 14.2,
+          "p50": 0.6,
+          "p90": 1.1,
+          "p95": 1.3,
+          "p99": 2.1,
+          "max": 12,
+          "status": {
+            "200": 655
+          },
+          "failKinds": {}
+        },
+        "step:order.status": {
+          "requests": 655,
+          "ok": 655,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 14.2,
+          "p50": 0.6,
+          "p90": 1.1,
+          "p95": 1.3,
+          "p99": 2.1,
+          "max": 12,
+          "status": {},
+          "failKinds": {}
+        },
+        "step:pay.confirmed": {
+          "requests": 325,
+          "ok": 325,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 7,
+          "p50": 252,
+          "p90": 253.8,
+          "p95": 254.3,
+          "p99": 502.9,
+          "max": 504.6,
+          "status": {},
+          "failKinds": {}
+        },
+        "callback.withdraw": {
+          "requests": 1182,
+          "ok": 1182,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 25.5,
+          "p50": 1.3,
+          "p90": 2.4,
+          "p95": 3.1,
+          "p99": 8.9,
+          "max": 68.4,
+          "status": {
+            "200": 1182
+          },
+          "failKinds": {}
+        },
+        "step:callback.withdraw": {
+          "requests": 1182,
+          "ok": 1182,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 25.5,
+          "p50": 1.3,
+          "p90": 2.4,
+          "p95": 3.2,
+          "p99": 8.9,
+          "max": 68.4,
+          "status": {},
+          "failKinds": {}
+        },
+        "_stale_conn_retry": {
+          "requests": 1,
+          "ok": 0,
+          "soft": 1,
+          "fail": 0,
+          "successRate": null,
+          "rps": 0,
+          "p50": null,
+          "p90": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "status": {},
+          "failKinds": {}
+        }
+      },
+      "distinct": {
+        "paidOrders": 325
+      },
+      "timeline": [
+        {
+          "s": 0,
+          "ok": 105,
+          "fail": 0
+        },
+        {
+          "s": 1,
+          "ok": 182,
+          "fail": 0
+        },
+        {
+          "s": 2,
+          "ok": 298,
+          "fail": 0
+        },
+        {
+          "s": 3,
+          "ok": 344,
+          "fail": 0
+        },
+        {
+          "s": 4,
+          "ok": 406,
+          "fail": 0
+        },
+        {
+          "s": 5,
+          "ok": 399,
+          "fail": 0
+        },
+        {
+          "s": 6,
+          "ok": 377,
+          "fail": 0
+        },
+        {
+          "s": 7,
+          "ok": 360,
+          "fail": 0
+        },
+        {
+          "s": 8,
+          "ok": 368,
+          "fail": 0
+        },
+        {
+          "s": 9,
+          "ok": 415,
+          "fail": 0
+        },
+        {
+          "s": 10,
+          "ok": 378,
+          "fail": 0
+        },
+        {
+          "s": 11,
+          "ok": 359,
+          "fail": 0
+        },
+        {
+          "s": 12,
+          "ok": 344,
+          "fail": 0
+        },
+        {
+          "s": 13,
+          "ok": 347,
+          "fail": 0
+        },
+        {
+          "s": 14,
+          "ok": 413,
+          "fail": 0
+        },
+        {
+          "s": 15,
+          "ok": 380,
+          "fail": 0
+        },
+        {
+          "s": 16,
+          "ok": 368,
+          "fail": 0
+        },
+        {
+          "s": 17,
+          "ok": 389,
+          "fail": 0
+        },
+        {
+          "s": 18,
+          "ok": 368,
+          "fail": 0
+        },
+        {
+          "s": 19,
+          "ok": 392,
+          "fail": 0
+        },
+        {
+          "s": 20,
+          "ok": 375,
+          "fail": 0
+        },
+        {
+          "s": 21,
+          "ok": 342,
+          "fail": 0
+        },
+        {
+          "s": 22,
+          "ok": 372,
+          "fail": 0
+        },
+        {
+          "s": 23,
+          "ok": 336,
+          "fail": 0
+        },
+        {
+          "s": 24,
+          "ok": 399,
+          "fail": 0
+        },
+        {
+          "s": 25,
+          "ok": 398,
+          "fail": 0
+        },
+        {
+          "s": 26,
+          "ok": 352,
+          "fail": 0
+        },
+        {
+          "s": 27,
+          "ok": 373,
+          "fail": 0
+        },
+        {
+          "s": 28,
+          "ok": 381,
+          "fail": 0
+        },
+        {
+          "s": 29,
+          "ok": 369,
+          "fail": 0
+        },
+        {
+          "s": 30,
+          "ok": 405,
+          "fail": 0
+        },
+        {
+          "s": 31,
+          "ok": 350,
+          "fail": 0
+        },
+        {
+          "s": 32,
+          "ok": 345,
+          "fail": 0
+        },
+        {
+          "s": 33,
+          "ok": 345,
+          "fail": 0
+        },
+        {
+          "s": 34,
+          "ok": 379,
+          "fail": 0
+        },
+        {
+          "s": 35,
+          "ok": 405,
+          "fail": 0
+        },
+        {
+          "s": 36,
+          "ok": 376,
+          "fail": 0
+        },
+        {
+          "s": 37,
+          "ok": 361,
+          "fail": 0
+        },
+        {
+          "s": 38,
+          "ok": 382,
+          "fail": 0
+        },
+        {
+          "s": 39,
+          "ok": 374,
+          "fail": 0
+        }
+      ],
+      "side": {
+        "action": "SIGKILL local-api-1（pid 76663）",
+        "restartedMs": 615
+      },
+      "id": "D2",
+      "expectation": "在途请求由客户端重发；进程自动拉起",
+      "reconcile": {
+        "rows": [
+          {
+            "item": "查询成功 ↔ 审计行",
+            "client": 2431,
+            "database": 2431,
+            "match": true
+          },
+          {
+            "item": "核验成功 ↔ 授权记录",
+            "client": 2431,
+            "database": 2431,
+            "match": true
+          },
+          {
+            "item": "支付确认（按订单去重）↔ 已支付订单",
+            "client": 325,
+            "database": 325,
+            "match": true
+          },
+          {
+            "item": "支付确认（按订单去重）↔ 解锁授权",
+            "client": 325,
+            "database": 325,
+            "match": true
+          },
+          {
+            "item": "预约创建 ↔ 预约单",
+            "client": 2431,
+            "database": 2431,
+            "match": true
+          },
+          {
+            "item": "预约撤回 ↔ 已撤回",
+            "client": 1182,
+            "database": 1182,
+            "match": true
+          }
+        ],
+        "allMatch": true
+      },
+      "integrity": {
+        "paidWithoutGrant": 0,
+        "grantWithoutPaidOrder": 0,
+        "duplicateTickets": 0,
+        "doublePaid": 0
+      },
+      "auditDrainedMs": 4
+    },
+    {
+      "name": "D3 强杀后台进程",
+      "mode": "loop",
+      "vus": 300,
+      "durationMs": 40000,
+      "think": [
+        500,
+        1500
+      ],
+      "rampMs": 3000,
+      "loadThreads": 3,
+      "elapsedSeconds": 46.58,
+      "peakInFlight": 26,
+      "maxTimerGapMs": 504,
+      "suspended": false,
+      "total": {
+        "requests": 15265,
+        "ok": 15265,
+        "soft": 0,
+        "fail": 0,
+        "successRate": 1,
+        "rps": 327.7,
+        "p50": 1.2,
+        "p90": 164.8,
+        "p95": 269.4,
+        "p99": 357.3,
+        "max": 386,
+        "status": {
+          "200": 12830,
+          "201": 2435
+        },
+        "failKinds": {}
+      },
+      "metrics": {
+        "_setup": {
+          "requests": 0,
+          "ok": 0,
+          "soft": 0,
+          "fail": 0,
+          "successRate": null,
+          "rps": 0,
+          "p50": null,
+          "p90": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "status": {},
+          "failKinds": {}
+        },
+        "session": {
+          "requests": 2435,
+          "ok": 2435,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 52.3,
+          "p50": 0.7,
+          "p90": 1.2,
+          "p95": 1.6,
+          "p99": 2.6,
+          "max": 21,
+          "status": {
+            "200": 2435
+          },
+          "failKinds": {}
+        },
+        "step:session": {
+          "requests": 2435,
+          "ok": 2435,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 52.3,
+          "p50": 0.7,
+          "p90": 1.2,
+          "p95": 1.6,
+          "p99": 2.6,
+          "max": 21,
+          "status": {},
+          "failKinds": {}
+        },
+        "verify": {
+          "requests": 2435,
+          "ok": 2435,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 52.3,
+          "p50": 208.7,
+          "p90": 344.9,
+          "p95": 363,
+          "p99": 378.6,
+          "max": 386,
+          "status": {
+            "200": 2435
+          },
+          "failKinds": {}
+        },
+        "step:verify": {
+          "requests": 2435,
+          "ok": 2435,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 52.3,
+          "p50": 208.8,
+          "p90": 344.9,
+          "p95": 363,
+          "p99": 378.6,
+          "max": 386,
+          "status": {},
+          "failKinds": {}
+        },
+        "query": {
+          "requests": 2435,
+          "ok": 2435,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 52.3,
+          "p50": 1.4,
+          "p90": 2.2,
+          "p95": 2.6,
+          "p99": 3.9,
+          "max": 32.5,
+          "status": {
+            "200": 2435
+          },
+          "failKinds": {}
+        },
+        "step:query": {
+          "requests": 2435,
+          "ok": 2435,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 52.3,
+          "p50": 1.4,
+          "p90": 2.2,
+          "p95": 2.6,
+          "p99": 3.9,
+          "max": 32.5,
+          "status": {},
+          "failKinds": {}
+        },
+        "order.create": {
+          "requests": 500,
+          "ok": 500,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 10.7,
+          "p50": 39.9,
+          "p90": 84.9,
+          "p95": 88.6,
+          "p99": 92.2,
+          "max": 94.1,
+          "status": {
+            "200": 500
+          },
+          "failKinds": {}
+        },
+        "step:order.create": {
+          "requests": 500,
+          "ok": 500,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 10.7,
+          "p50": 39.9,
+          "p90": 84.9,
+          "p95": 88.6,
+          "p99": 92.2,
+          "max": 94.1,
+          "status": {},
+          "failKinds": {}
+        },
+        "callback.create": {
+          "requests": 2435,
+          "ok": 2435,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 52.3,
+          "p50": 1.5,
+          "p90": 2.4,
+          "p95": 2.9,
+          "p99": 5.7,
+          "max": 30.2,
+          "status": {
+            "201": 2435
+          },
+          "failKinds": {}
+        },
+        "step:callback.create": {
+          "requests": 2435,
+          "ok": 2435,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 52.3,
+          "p50": 1.5,
+          "p90": 2.4,
+          "p95": 2.9,
+          "p99": 5.8,
+          "max": 30.2,
+          "status": {},
+          "failKinds": {}
+        },
+        "callback.list": {
+          "requests": 2435,
+          "ok": 2435,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 52.3,
+          "p50": 0.5,
+          "p90": 0.8,
+          "p95": 0.9,
+          "p99": 1.5,
+          "max": 11.3,
+          "status": {
+            "200": 2435
+          },
+          "failKinds": {}
+        },
+        "step:callback.list": {
+          "requests": 2435,
+          "ok": 2435,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 52.3,
+          "p50": 0.5,
+          "p90": 0.8,
+          "p95": 1,
+          "p99": 1.5,
+          "max": 11.3,
+          "status": {},
+          "failKinds": {}
+        },
+        "journey": {
+          "requests": 2435,
+          "ok": 2435,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 52.3,
+          "p50": 3932.7,
+          "p90": 5584.3,
+          "p95": 6339.2,
+          "p99": 7365,
+          "max": 8517.5,
+          "status": {},
+          "failKinds": {}
+        },
+        "note:already_unlocked": {
+          "requests": 198,
+          "ok": 198,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 4.3,
+          "p50": 0,
+          "p90": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "status": {},
+          "failKinds": {}
+        },
+        "record": {
+          "requests": 500,
+          "ok": 500,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 10.7,
+          "p50": 0.5,
+          "p90": 0.8,
+          "p95": 1,
+          "p99": 1.4,
+          "max": 2.9,
+          "status": {
+            "200": 500
+          },
+          "failKinds": {}
+        },
+        "step:record": {
+          "requests": 500,
+          "ok": 500,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 10.7,
+          "p50": 0.5,
+          "p90": 0.8,
+          "p95": 1,
+          "p99": 1.5,
+          "max": 2.9,
+          "status": {},
+          "failKinds": {}
+        },
+        "order.pay": {
+          "requests": 302,
+          "ok": 302,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 6.5,
+          "p50": 1.3,
+          "p90": 2,
+          "p95": 2.3,
+          "p99": 3.1,
+          "max": 3.7,
+          "status": {
+            "200": 302
+          },
+          "failKinds": {}
+        },
+        "step:order.pay": {
+          "requests": 302,
+          "ok": 302,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 6.5,
+          "p50": 1.3,
+          "p90": 2,
+          "p95": 2.3,
+          "p99": 3.1,
+          "max": 3.7,
+          "status": {},
+          "failKinds": {}
+        },
+        "order.status": {
+          "requests": 607,
+          "ok": 607,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 13,
+          "p50": 0.5,
+          "p90": 1.1,
+          "p95": 1.3,
+          "p99": 2.1,
+          "max": 23.4,
+          "status": {
+            "200": 607
+          },
+          "failKinds": {}
+        },
+        "step:order.status": {
+          "requests": 607,
+          "ok": 607,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 13,
+          "p50": 0.5,
+          "p90": 1.1,
+          "p95": 1.3,
+          "p99": 2.1,
+          "max": 23.4,
+          "status": {},
+          "failKinds": {}
+        },
+        "step:pay.confirmed": {
+          "requests": 302,
+          "ok": 302,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 6.5,
+          "p50": 252.4,
+          "p90": 253.8,
+          "p95": 254.2,
+          "p99": 274.1,
+          "max": 505.4,
+          "status": {},
+          "failKinds": {}
+        },
+        "callback.withdraw": {
+          "requests": 1181,
+          "ok": 1181,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 25.4,
+          "p50": 1.4,
+          "p90": 2.2,
+          "p95": 2.7,
+          "p99": 4.4,
+          "max": 14.6,
+          "status": {
+            "200": 1181
+          },
+          "failKinds": {}
+        },
+        "step:callback.withdraw": {
+          "requests": 1181,
+          "ok": 1181,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 25.4,
+          "p50": 1.4,
+          "p90": 2.2,
+          "p95": 2.8,
+          "p99": 4.4,
+          "max": 14.6,
+          "status": {},
+          "failKinds": {}
+        }
+      },
+      "distinct": {
+        "paidOrders": 302
+      },
+      "timeline": [
+        {
+          "s": 0,
+          "ok": 107,
+          "fail": 0
+        },
+        {
+          "s": 1,
+          "ok": 184,
+          "fail": 0
+        },
+        {
+          "s": 2,
+          "ok": 296,
+          "fail": 0
+        },
+        {
+          "s": 3,
+          "ok": 339,
+          "fail": 0
+        },
+        {
+          "s": 4,
+          "ok": 413,
+          "fail": 0
+        },
+        {
+          "s": 5,
+          "ok": 397,
+          "fail": 0
+        },
+        {
+          "s": 6,
+          "ok": 363,
+          "fail": 0
+        },
+        {
+          "s": 7,
+          "ok": 349,
+          "fail": 0
+        },
+        {
+          "s": 8,
+          "ok": 402,
+          "fail": 0
+        },
+        {
+          "s": 9,
+          "ok": 396,
+          "fail": 0
+        },
+        {
+          "s": 10,
+          "ok": 414,
+          "fail": 0
+        },
+        {
+          "s": 11,
+          "ok": 335,
+          "fail": 0
+        },
+        {
+          "s": 12,
+          "ok": 327,
+          "fail": 0
+        },
+        {
+          "s": 13,
+          "ok": 348,
+          "fail": 0
+        },
+        {
+          "s": 14,
+          "ok": 370,
+          "fail": 0
+        },
+        {
+          "s": 15,
+          "ok": 423,
+          "fail": 0
+        },
+        {
+          "s": 16,
+          "ok": 365,
+          "fail": 0
+        },
+        {
+          "s": 17,
+          "ok": 369,
+          "fail": 0
+        },
+        {
+          "s": 18,
+          "ok": 357,
+          "fail": 0
+        },
+        {
+          "s": 19,
+          "ok": 375,
+          "fail": 0
+        },
+        {
+          "s": 20,
+          "ok": 392,
+          "fail": 0
+        },
+        {
+          "s": 21,
+          "ok": 359,
+          "fail": 0
+        },
+        {
+          "s": 22,
+          "ok": 323,
+          "fail": 0
+        },
+        {
+          "s": 23,
+          "ok": 371,
+          "fail": 0
+        },
+        {
+          "s": 24,
+          "ok": 358,
+          "fail": 0
+        },
+        {
+          "s": 25,
+          "ok": 389,
+          "fail": 0
+        },
+        {
+          "s": 26,
+          "ok": 394,
+          "fail": 0
+        },
+        {
+          "s": 27,
+          "ok": 396,
+          "fail": 0
+        },
+        {
+          "s": 28,
+          "ok": 389,
+          "fail": 0
+        },
+        {
+          "s": 29,
+          "ok": 367,
+          "fail": 0
+        },
+        {
+          "s": 30,
+          "ok": 350,
+          "fail": 0
+        },
+        {
+          "s": 31,
+          "ok": 378,
+          "fail": 0
+        },
+        {
+          "s": 32,
+          "ok": 355,
+          "fail": 0
+        },
+        {
+          "s": 33,
+          "ok": 347,
+          "fail": 0
+        },
+        {
+          "s": 34,
+          "ok": 376,
+          "fail": 0
+        },
+        {
+          "s": 35,
+          "ok": 379,
+          "fail": 0
+        },
+        {
+          "s": 36,
+          "ok": 366,
+          "fail": 0
+        },
+        {
+          "s": 37,
+          "ok": 382,
+          "fail": 0
+        },
+        {
+          "s": 38,
+          "ok": 355,
+          "fail": 0
+        },
+        {
+          "s": 39,
+          "ok": 370,
+          "fail": 0
+        }
+      ],
+      "side": {
+        "action": "SIGKILL 后台进程（pid 76668）",
+        "restartedMs": 1526
+      },
+      "id": "D3",
+      "expectation": "查询不受影响；审计留在事件流，进程拉起后补齐，不丢不重",
+      "reconcile": {
+        "rows": [
+          {
+            "item": "查询成功 ↔ 审计行",
+            "client": 2435,
+            "database": 2435,
+            "match": true
+          },
+          {
+            "item": "核验成功 ↔ 授权记录",
+            "client": 2435,
+            "database": 2435,
+            "match": true
+          },
+          {
+            "item": "支付确认（按订单去重）↔ 已支付订单",
+            "client": 302,
+            "database": 302,
+            "match": true
+          },
+          {
+            "item": "支付确认（按订单去重）↔ 解锁授权",
+            "client": 302,
+            "database": 302,
+            "match": true
+          },
+          {
+            "item": "预约创建 ↔ 预约单",
+            "client": 2435,
+            "database": 2435,
+            "match": true
+          },
+          {
+            "item": "预约撤回 ↔ 已撤回",
+            "client": 1181,
+            "database": 1181,
+            "match": true
+          }
+        ],
+        "allMatch": true
+      },
+      "integrity": {
+        "paidWithoutGrant": 0,
+        "grantWithoutPaidOrder": 0,
+        "duplicateTickets": 0,
+        "doublePaid": 0
+      },
+      "auditDrainedMs": 4
+    },
+    {
+      "name": "D4 Redis 假死 8 秒",
+      "mode": "loop",
+      "vus": 300,
+      "durationMs": 40000,
+      "think": [
+        500,
+        1500
+      ],
+      "rampMs": 3000,
+      "loadThreads": 3,
+      "elapsedSeconds": 46.76,
+      "peakInFlight": 127,
+      "maxTimerGapMs": 509,
+      "suspended": false,
+      "total": {
+        "requests": 15270,
+        "ok": 15270,
+        "soft": 0,
+        "fail": 0,
+        "successRate": 1,
+        "rps": 326.5,
+        "p50": 1.1,
+        "p90": 202.3,
+        "p95": 302,
+        "p99": 379,
+        "max": 1460.6,
+        "status": {
+          "200": 12832,
+          "201": 2438
+        },
+        "failKinds": {}
+      },
+      "metrics": {
+        "_setup": {
+          "requests": 0,
+          "ok": 0,
+          "soft": 0,
+          "fail": 0,
+          "successRate": null,
+          "rps": 0,
+          "p50": null,
+          "p90": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "status": {},
+          "failKinds": {}
+        },
+        "session": {
+          "requests": 2438,
+          "ok": 2438,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 52.1,
+          "p50": 0.7,
+          "p90": 1.3,
+          "p95": 2.1,
+          "p99": 301.9,
+          "max": 303.2,
+          "status": {
+            "200": 2438
+          },
+          "failKinds": {}
+        },
+        "step:session": {
+          "requests": 2438,
+          "ok": 2438,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 52.1,
+          "p50": 0.7,
+          "p90": 1.3,
+          "p95": 2.1,
+          "p99": 301.9,
+          "max": 303.2,
+          "status": {},
+          "failKinds": {}
+        },
+        "verify": {
+          "requests": 2438,
+          "ok": 2438,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 52.1,
+          "p50": 225.3,
+          "p90": 355.5,
+          "p95": 374.1,
+          "p99": 838.9,
+          "max": 1460.6,
+          "status": {
+            "200": 2438
+          },
+          "failKinds": {}
+        },
+        "step:verify": {
+          "requests": 2438,
+          "ok": 2438,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 52.1,
+          "p50": 225.3,
+          "p90": 355.6,
+          "p95": 374.1,
+          "p99": 838.9,
+          "max": 1460.6,
+          "status": {},
+          "failKinds": {}
+        },
+        "query": {
+          "requests": 2438,
+          "ok": 2438,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 52.1,
+          "p50": 1.4,
+          "p90": 2.3,
+          "p95": 2.8,
+          "p99": 26,
+          "max": 907.6,
+          "status": {
+            "200": 2438
+          },
+          "failKinds": {}
+        },
+        "step:query": {
+          "requests": 2438,
+          "ok": 2438,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 52.1,
+          "p50": 1.4,
+          "p90": 2.3,
+          "p95": 2.8,
+          "p99": 26,
+          "max": 907.6,
+          "status": {},
+          "failKinds": {}
+        },
+        "order.create": {
+          "requests": 501,
+          "ok": 501,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 10.7,
+          "p50": 44.7,
+          "p90": 84.1,
+          "p95": 90.5,
+          "p99": 642.3,
+          "max": 695.9,
+          "status": {
+            "200": 501
+          },
+          "failKinds": {}
+        },
+        "step:order.create": {
+          "requests": 501,
+          "ok": 501,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 10.7,
+          "p50": 44.7,
+          "p90": 84.1,
+          "p95": 90.5,
+          "p99": 642.3,
+          "max": 695.9,
+          "status": {},
+          "failKinds": {}
+        },
+        "note:already_unlocked": {
+          "requests": 202,
+          "ok": 202,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 4.3,
+          "p50": 0,
+          "p90": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "status": {},
+          "failKinds": {}
+        },
+        "record": {
+          "requests": 501,
+          "ok": 501,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 10.7,
+          "p50": 0.5,
+          "p90": 0.7,
+          "p95": 1,
+          "p99": 1.5,
+          "max": 2.9,
+          "status": {
+            "200": 501
+          },
+          "failKinds": {}
+        },
+        "step:record": {
+          "requests": 501,
+          "ok": 501,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 10.7,
+          "p50": 0.5,
+          "p90": 0.7,
+          "p95": 1,
+          "p99": 1.5,
+          "max": 2.9,
+          "status": {},
+          "failKinds": {}
+        },
+        "callback.create": {
+          "requests": 2438,
+          "ok": 2438,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 52.1,
+          "p50": 1.4,
+          "p90": 2.6,
+          "p95": 3.8,
+          "p99": 603.1,
+          "max": 606.5,
+          "status": {
+            "201": 2438
+          },
+          "failKinds": {}
+        },
+        "step:callback.create": {
+          "requests": 2438,
+          "ok": 2438,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 52.1,
+          "p50": 1.4,
+          "p90": 2.6,
+          "p95": 3.9,
+          "p99": 603.1,
+          "max": 606.5,
+          "status": {},
+          "failKinds": {}
+        },
+        "callback.list": {
+          "requests": 2438,
+          "ok": 2438,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 52.1,
+          "p50": 0.5,
+          "p90": 0.7,
+          "p95": 0.9,
+          "p99": 1.3,
+          "max": 8.9,
+          "status": {
+            "200": 2438
+          },
+          "failKinds": {}
+        },
+        "step:callback.list": {
+          "requests": 2438,
+          "ok": 2438,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 52.1,
+          "p50": 0.5,
+          "p90": 0.7,
+          "p95": 0.9,
+          "p99": 1.4,
+          "max": 8.9,
+          "status": {},
+          "failKinds": {}
+        },
+        "journey": {
+          "requests": 2438,
+          "ok": 2438,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 52.1,
+          "p50": 3923,
+          "p90": 5632.9,
+          "p95": 6256.8,
+          "p99": 7260.3,
+          "max": 8697.9,
+          "status": {},
+          "failKinds": {}
+        },
+        "order.pay": {
+          "requests": 299,
+          "ok": 299,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 6.4,
+          "p50": 1.2,
+          "p90": 1.8,
+          "p95": 2.3,
+          "p99": 3.4,
+          "max": 55.2,
+          "status": {
+            "200": 299
+          },
+          "failKinds": {}
+        },
+        "step:order.pay": {
+          "requests": 299,
+          "ok": 299,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 6.4,
+          "p50": 1.2,
+          "p90": 1.9,
+          "p95": 2.3,
+          "p99": 3.5,
+          "max": 55.2,
+          "status": {},
+          "failKinds": {}
+        },
+        "order.status": {
+          "requests": 601,
+          "ok": 601,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 12.9,
+          "p50": 0.5,
+          "p90": 1.1,
+          "p95": 1.3,
+          "p99": 1.9,
+          "max": 76,
+          "status": {
+            "200": 601
+          },
+          "failKinds": {}
+        },
+        "step:order.status": {
+          "requests": 601,
+          "ok": 601,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 12.9,
+          "p50": 0.5,
+          "p90": 1.1,
+          "p95": 1.3,
+          "p99": 1.9,
+          "max": 76,
+          "status": {},
+          "failKinds": {}
+        },
+        "step:pay.confirmed": {
+          "requests": 299,
+          "ok": 299,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 6.4,
+          "p50": 252.2,
+          "p90": 253.6,
+          "p95": 254.3,
+          "p99": 502.1,
+          "max": 504.8,
+          "status": {},
+          "failKinds": {}
+        },
+        "callback.withdraw": {
+          "requests": 1178,
+          "ok": 1178,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 25.2,
+          "p50": 1.4,
+          "p90": 2.2,
+          "p95": 2.8,
+          "p99": 4.1,
+          "max": 104.2,
+          "status": {
+            "200": 1178
+          },
+          "failKinds": {}
+        },
+        "step:callback.withdraw": {
+          "requests": 1178,
+          "ok": 1178,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 25.2,
+          "p50": 1.4,
+          "p90": 2.2,
+          "p95": 2.8,
+          "p99": 4.1,
+          "max": 104.2,
+          "status": {},
+          "failKinds": {}
+        }
+      },
+      "distinct": {
+        "paidOrders": 299
+      },
+      "timeline": [
+        {
+          "s": 0,
+          "ok": 105,
+          "fail": 0
+        },
+        {
+          "s": 1,
+          "ok": 189,
+          "fail": 0
+        },
+        {
+          "s": 2,
+          "ok": 290,
+          "fail": 0
+        },
+        {
+          "s": 3,
+          "ok": 370,
+          "fail": 0
+        },
+        {
+          "s": 4,
+          "ok": 410,
+          "fail": 0
+        },
+        {
+          "s": 5,
+          "ok": 413,
+          "fail": 0
+        },
+        {
+          "s": 6,
+          "ok": 359,
+          "fail": 0
+        },
+        {
+          "s": 7,
+          "ok": 344,
+          "fail": 0
+        },
+        {
+          "s": 8,
+          "ok": 384,
+          "fail": 0
+        },
+        {
+          "s": 9,
+          "ok": 393,
+          "fail": 0
+        },
+        {
+          "s": 10,
+          "ok": 246,
+          "fail": 0
+        },
+        {
+          "s": 11,
+          "ok": 367,
+          "fail": 0
+        },
+        {
+          "s": 12,
+          "ok": 352,
+          "fail": 0
+        },
+        {
+          "s": 13,
+          "ok": 358,
+          "fail": 0
+        },
+        {
+          "s": 14,
+          "ok": 360,
+          "fail": 0
+        },
+        {
+          "s": 15,
+          "ok": 393,
+          "fail": 0
+        },
+        {
+          "s": 16,
+          "ok": 408,
+          "fail": 0
+        },
+        {
+          "s": 17,
+          "ok": 359,
+          "fail": 0
+        },
+        {
+          "s": 18,
+          "ok": 375,
+          "fail": 0
+        },
+        {
+          "s": 19,
+          "ok": 374,
+          "fail": 0
+        },
+        {
+          "s": 20,
+          "ok": 390,
+          "fail": 0
+        },
+        {
+          "s": 21,
+          "ok": 376,
+          "fail": 0
+        },
+        {
+          "s": 22,
+          "ok": 357,
+          "fail": 0
+        },
+        {
+          "s": 23,
+          "ok": 359,
+          "fail": 0
+        },
+        {
+          "s": 24,
+          "ok": 377,
+          "fail": 0
+        },
+        {
+          "s": 25,
+          "ok": 357,
+          "fail": 0
+        },
+        {
+          "s": 26,
+          "ok": 368,
+          "fail": 0
+        },
+        {
+          "s": 27,
+          "ok": 409,
+          "fail": 0
+        },
+        {
+          "s": 28,
+          "ok": 392,
+          "fail": 0
+        },
+        {
+          "s": 29,
+          "ok": 358,
+          "fail": 0
+        },
+        {
+          "s": 30,
+          "ok": 376,
+          "fail": 0
+        },
+        {
+          "s": 31,
+          "ok": 366,
+          "fail": 0
+        },
+        {
+          "s": 32,
+          "ok": 367,
+          "fail": 0
+        },
+        {
+          "s": 33,
+          "ok": 346,
+          "fail": 0
+        },
+        {
+          "s": 34,
+          "ok": 368,
+          "fail": 0
+        },
+        {
+          "s": 35,
+          "ok": 369,
+          "fail": 0
+        },
+        {
+          "s": 36,
+          "ok": 373,
+          "fail": 0
+        },
+        {
+          "s": 37,
+          "ok": 411,
+          "fail": 0
+        },
+        {
+          "s": 38,
+          "ok": 383,
+          "fail": 0
+        },
+        {
+          "s": 39,
+          "ok": 382,
+          "fail": 0
+        }
+      ],
+      "side": {
+        "action": "SIGSTOP Redis 8 秒",
+        "limiterFallback": 2611,
+        "auditFallback": 471,
+        "forcedReconnect": 15
+      },
+      "id": "D4",
+      "expectation": "自动降级：本地限流 + 直连数据库 + 审计备用通道；审计不丢",
+      "reconcile": {
+        "rows": [
+          {
+            "item": "查询成功 ↔ 审计行",
+            "client": 2438,
+            "database": 2438,
+            "match": true
+          },
+          {
+            "item": "核验成功 ↔ 授权记录",
+            "client": 2438,
+            "database": 2438,
+            "match": true
+          },
+          {
+            "item": "支付确认（按订单去重）↔ 已支付订单",
+            "client": 299,
+            "database": 299,
+            "match": true
+          },
+          {
+            "item": "支付确认（按订单去重）↔ 解锁授权",
+            "client": 299,
+            "database": 299,
+            "match": true
+          },
+          {
+            "item": "预约创建 ↔ 预约单",
+            "client": 2438,
+            "database": 2438,
+            "match": true
+          },
+          {
+            "item": "预约撤回 ↔ 已撤回",
+            "client": 1178,
+            "database": 1178,
+            "match": true
+          }
+        ],
+        "allMatch": true
+      },
+      "integrity": {
+        "paidWithoutGrant": 0,
+        "grantWithoutPaidOrder": 0,
+        "duplicateTickets": 0,
+        "doublePaid": 0
+      },
+      "auditDrainedMs": 3
+    },
+    {
+      "name": "D5 MySQL 停顿 8 秒",
+      "mode": "loop",
+      "vus": 300,
+      "durationMs": 40000,
+      "think": [
+        500,
+        1500
+      ],
+      "rampMs": 3000,
+      "loadThreads": 3,
+      "elapsedSeconds": 48.05,
+      "peakInFlight": 201,
+      "maxTimerGapMs": 503,
+      "suspended": false,
+      "total": {
+        "requests": 12551,
+        "ok": 11791,
+        "soft": 760,
+        "fail": 0,
+        "successRate": 1,
+        "rps": 261.2,
+        "p50": 1.2,
+        "p90": 157.3,
+        "p95": 269.4,
+        "p99": 364.1,
+        "max": 8002.9,
+        "status": {
+          "200": 9914,
+          "201": 1877,
+          "503": 760
+        },
+        "failKinds": {}
+      },
+      "metrics": {
+        "_setup": {
+          "requests": 0,
+          "ok": 0,
+          "soft": 0,
+          "fail": 0,
+          "successRate": null,
+          "rps": 0,
+          "p50": null,
+          "p90": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "status": {},
+          "failKinds": {}
+        },
+        "session": {
+          "requests": 1877,
+          "ok": 1877,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 39.1,
+          "p50": 0.7,
+          "p90": 1.5,
+          "p95": 2.1,
+          "p99": 3,
+          "max": 17.9,
+          "status": {
+            "200": 1877
+          },
+          "failKinds": {}
+        },
+        "step:session": {
+          "requests": 1877,
+          "ok": 1877,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 39.1,
+          "p50": 0.7,
+          "p90": 1.5,
+          "p95": 2.1,
+          "p99": 3,
+          "max": 17.9,
+          "status": {},
+          "failKinds": {}
+        },
+        "verify": {
+          "requests": 2141,
+          "ok": 1877,
+          "soft": 264,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 44.6,
+          "p50": 199.2,
+          "p90": 344.8,
+          "p95": 366.8,
+          "p99": 380.2,
+          "max": 1938.2,
+          "status": {
+            "200": 1877,
+            "503": 264
+          },
+          "failKinds": {}
+        },
+        "step:verify": {
+          "requests": 1877,
+          "ok": 1877,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 39.1,
+          "p50": 220.2,
+          "p90": 369.4,
+          "p95": 7276.6,
+          "p99": 10822.5,
+          "max": 12473.7,
+          "status": {},
+          "failKinds": {}
+        },
+        "query": {
+          "requests": 1975,
+          "ok": 1877,
+          "soft": 98,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 41.1,
+          "p50": 1.5,
+          "p90": 2.4,
+          "p95": 3,
+          "p99": 9.7,
+          "max": 111.6,
+          "status": {
+            "200": 1877,
+            "503": 98
+          },
+          "failKinds": {}
+        },
+        "step:query": {
+          "requests": 1877,
+          "ok": 1877,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 39.1,
+          "p50": 1.5,
+          "p90": 2.6,
+          "p95": 3.7,
+          "p99": 10057.3,
+          "max": 12285.8,
+          "status": {},
+          "failKinds": {}
+        },
+        "callback.create": {
+          "requests": 2034,
+          "ok": 1877,
+          "soft": 157,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 42.3,
+          "p50": 1.5,
+          "p90": 2.7,
+          "p95": 3.8,
+          "p99": 27.2,
+          "max": 7993.1,
+          "status": {
+            "201": 1877,
+            "503": 157
+          },
+          "failKinds": {}
+        },
+        "step:callback.create": {
+          "requests": 1877,
+          "ok": 1877,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 39.1,
+          "p50": 1.5,
+          "p90": 3.3,
+          "p95": 10.3,
+          "p99": 10971,
+          "max": 12769.6,
+          "status": {},
+          "failKinds": {}
+        },
+        "callback.list": {
+          "requests": 1880,
+          "ok": 1877,
+          "soft": 3,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 39.1,
+          "p50": 0.5,
+          "p90": 0.8,
+          "p95": 0.9,
+          "p99": 1.6,
+          "max": 3.7,
+          "status": {
+            "200": 1877,
+            "503": 3
+          },
+          "failKinds": {}
+        },
+        "step:callback.list": {
+          "requests": 1877,
+          "ok": 1877,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 39.1,
+          "p50": 0.5,
+          "p90": 0.8,
+          "p95": 0.9,
+          "p99": 1.7,
+          "max": 2827.7,
+          "status": {},
+          "failKinds": {}
+        },
+        "journey": {
+          "requests": 1877,
+          "ok": 1877,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 39.1,
+          "p50": 3980.6,
+          "p90": 13322.5,
+          "p95": 15262.7,
+          "p99": 17605.8,
+          "max": 19950.7,
+          "status": {},
+          "failKinds": {}
+        },
+        "order.create": {
+          "requests": 423,
+          "ok": 392,
+          "soft": 31,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 8.8,
+          "p50": 46,
+          "p90": 83.1,
+          "p95": 86.7,
+          "p99": 91.9,
+          "max": 101,
+          "status": {
+            "200": 392,
+            "503": 31
+          },
+          "failKinds": {}
+        },
+        "step:order.create": {
+          "requests": 392,
+          "ok": 392,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 8.2,
+          "p50": 46.9,
+          "p90": 85,
+          "p95": 90.8,
+          "p99": 11801.3,
+          "max": 12377.7,
+          "status": {},
+          "failKinds": {}
+        },
+        "note:already_unlocked": {
+          "requests": 149,
+          "ok": 149,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 3.1,
+          "p50": 0,
+          "p90": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "status": {},
+          "failKinds": {}
+        },
+        "record": {
+          "requests": 392,
+          "ok": 392,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 8.2,
+          "p50": 0.5,
+          "p90": 0.9,
+          "p95": 1,
+          "p99": 1.8,
+          "max": 6,
+          "status": {
+            "200": 392
+          },
+          "failKinds": {}
+        },
+        "step:record": {
+          "requests": 392,
+          "ok": 392,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 8.2,
+          "p50": 0.5,
+          "p90": 0.9,
+          "p95": 1,
+          "p99": 1.8,
+          "max": 6,
+          "status": {},
+          "failKinds": {}
+        },
+        "order.pay": {
+          "requests": 265,
+          "ok": 243,
+          "soft": 22,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 5.5,
+          "p50": 1.3,
+          "p90": 2.3,
+          "p95": 3.1,
+          "p99": 58,
+          "max": 73.7,
+          "status": {
+            "200": 243,
+            "503": 22
+          },
+          "failKinds": {}
+        },
+        "step:order.pay": {
+          "requests": 243,
+          "ok": 243,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 5.1,
+          "p50": 1.3,
+          "p90": 2.8,
+          "p95": 21.7,
+          "p99": 11336.2,
+          "max": 12599.4,
+          "status": {},
+          "failKinds": {}
+        },
+        "order.status": {
+          "requests": 507,
+          "ok": 499,
+          "soft": 8,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 10.6,
+          "p50": 0.6,
+          "p90": 1.1,
+          "p95": 1.5,
+          "p99": 2.5,
+          "max": 6.1,
+          "status": {
+            "200": 499,
+            "503": 8
+          },
+          "failKinds": {}
+        },
+        "step:order.status": {
+          "requests": 499,
+          "ok": 499,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 10.4,
+          "p50": 0.6,
+          "p90": 1.1,
+          "p95": 1.5,
+          "p99": 3.6,
+          "max": 12549.9,
+          "status": {},
+          "failKinds": {}
+        },
+        "step:pay.confirmed": {
+          "requests": 243,
+          "ok": 243,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 5.1,
+          "p50": 252.2,
+          "p90": 253.7,
+          "p95": 255.2,
+          "p99": 8890.6,
+          "max": 12801.9,
+          "status": {},
+          "failKinds": {}
+        },
+        "callback.withdraw": {
+          "requests": 1057,
+          "ok": 880,
+          "soft": 177,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 22,
+          "p50": 1.3,
+          "p90": 2.4,
+          "p95": 3.4,
+          "p99": 6,
+          "max": 8002.9,
+          "status": {
+            "200": 880,
+            "503": 177
+          },
+          "failKinds": {}
+        },
+        "step:callback.withdraw": {
+          "requests": 880,
+          "ok": 880,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 18.3,
+          "p50": 1.4,
+          "p90": 3.8,
+          "p95": 9096.2,
+          "p99": 11820.6,
+          "max": 14165.6,
+          "status": {},
+          "failKinds": {}
+        }
+      },
+      "distinct": {
+        "paidOrders": 243
+      },
+      "timeline": [
+        {
+          "s": 0,
+          "ok": 106,
+          "fail": 0
+        },
+        {
+          "s": 1,
+          "ok": 190,
+          "fail": 0
+        },
+        {
+          "s": 2,
+          "ok": 286,
+          "fail": 0
+        },
+        {
+          "s": 3,
+          "ok": 353,
+          "fail": 0
+        },
+        {
+          "s": 4,
+          "ok": 419,
+          "fail": 0
+        },
+        {
+          "s": 5,
+          "ok": 417,
+          "fail": 0
+        },
+        {
+          "s": 6,
+          "ok": 347,
+          "fail": 0
+        },
+        {
+          "s": 7,
+          "ok": 354,
+          "fail": 0
+        },
+        {
+          "s": 8,
+          "ok": 397,
+          "fail": 0
+        },
+        {
+          "s": 9,
+          "ok": 413,
+          "fail": 0
+        },
+        {
+          "s": 10,
+          "ok": 62,
+          "fail": 0
+        },
+        {
+          "s": 11,
+          "ok": 9,
+          "fail": 0
+        },
+        {
+          "s": 12,
+          "ok": 0,
+          "fail": 0
+        },
+        {
+          "s": 13,
+          "ok": 0,
+          "fail": 0
+        },
+        {
+          "s": 14,
+          "ok": 0,
+          "fail": 0
+        },
+        {
+          "s": 15,
+          "ok": 0,
+          "fail": 0
+        },
+        {
+          "s": 16,
+          "ok": 0,
+          "fail": 0
+        },
+        {
+          "s": 17,
+          "ok": 0,
+          "fail": 0
+        },
+        {
+          "s": 18,
+          "ok": 100,
+          "fail": 0
+        },
+        {
+          "s": 19,
+          "ok": 129,
+          "fail": 0
+        },
+        {
+          "s": 20,
+          "ok": 238,
+          "fail": 0
+        },
+        {
+          "s": 21,
+          "ok": 313,
+          "fail": 0
+        },
+        {
+          "s": 22,
+          "ok": 366,
+          "fail": 0
+        },
+        {
+          "s": 23,
+          "ok": 400,
+          "fail": 0
+        },
+        {
+          "s": 24,
+          "ok": 342,
+          "fail": 0
+        },
+        {
+          "s": 25,
+          "ok": 384,
+          "fail": 0
+        },
+        {
+          "s": 26,
+          "ok": 403,
+          "fail": 0
+        },
+        {
+          "s": 27,
+          "ok": 364,
+          "fail": 0
+        },
+        {
+          "s": 28,
+          "ok": 378,
+          "fail": 0
+        },
+        {
+          "s": 29,
+          "ok": 355,
+          "fail": 0
+        },
+        {
+          "s": 30,
+          "ok": 354,
+          "fail": 0
+        },
+        {
+          "s": 31,
+          "ok": 374,
+          "fail": 0
+        },
+        {
+          "s": 32,
+          "ok": 389,
+          "fail": 0
+        },
+        {
+          "s": 33,
+          "ok": 381,
+          "fail": 0
+        },
+        {
+          "s": 34,
+          "ok": 369,
+          "fail": 0
+        },
+        {
+          "s": 35,
+          "ok": 376,
+          "fail": 0
+        },
+        {
+          "s": 36,
+          "ok": 361,
+          "fail": 0
+        },
+        {
+          "s": 37,
+          "ok": 385,
+          "fail": 0
+        },
+        {
+          "s": 38,
+          "ok": 378,
+          "fail": 0
+        },
+        {
+          "s": 39,
+          "ok": 371,
+          "fail": 0
+        }
+      ],
+      "side": {
+        "action": "SIGSTOP MySQL 8 秒",
+        "breakerOpened": 5,
+        "breakerRejected": 433
+      },
+      "id": "D5",
+      "expectation": "快速失败并提示\"暂不可用\"，绝不返回\"无记录\"；恢复后自动继续",
+      "reconcile": {
+        "rows": [
+          {
+            "item": "查询成功 ↔ 审计行",
+            "client": 1877,
+            "database": 1877,
+            "match": true
+          },
+          {
+            "item": "核验成功 ↔ 授权记录",
+            "client": 1877,
+            "database": 1877,
+            "match": true
+          },
+          {
+            "item": "支付确认（按订单去重）↔ 已支付订单",
+            "client": 243,
+            "database": 243,
+            "match": true
+          },
+          {
+            "item": "支付确认（按订单去重）↔ 解锁授权",
+            "client": 243,
+            "database": 243,
+            "match": true
+          },
+          {
+            "item": "预约创建 ↔ 预约单",
+            "client": 1877,
+            "database": 1877,
+            "match": true
+          },
+          {
+            "item": "预约撤回 ↔ 已撤回",
+            "client": 880,
+            "database": 880,
+            "match": true
+          }
+        ],
+        "allMatch": true
+      },
+      "integrity": {
+        "paidWithoutGrant": 0,
+        "grantWithoutPaidOrder": 0,
+        "duplicateTickets": 0,
+        "doublePaid": 0
+      },
+      "auditDrainedMs": 4
+    },
+    {
+      "name": "D6 核验供应商变慢（2–3 秒）持续 15 秒",
+      "mode": "loop",
+      "vus": 300,
+      "durationMs": 40000,
+      "think": [
+        500,
+        1500
+      ],
+      "rampMs": 3000,
+      "loadThreads": 3,
+      "elapsedSeconds": 46.91,
+      "peakInFlight": 128,
+      "maxTimerGapMs": 503,
+      "suspended": false,
+      "total": {
+        "requests": 10950,
+        "ok": 9728,
+        "soft": 1222,
+        "fail": 0,
+        "successRate": 1,
+        "rps": 233.5,
+        "p50": 1.2,
+        "p90": 170.9,
+        "p95": 293,
+        "p99": 2097.9,
+        "max": 2502.5,
+        "status": {
+          "200": 8174,
+          "201": 1554,
+          "503": 1222
+        },
+        "failKinds": {}
+      },
+      "metrics": {
+        "_setup": {
+          "requests": 0,
+          "ok": 0,
+          "soft": 0,
+          "fail": 0,
+          "successRate": null,
+          "rps": 0,
+          "p50": null,
+          "p90": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "status": {},
+          "failKinds": {}
+        },
+        "session": {
+          "requests": 1554,
+          "ok": 1554,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 33.1,
+          "p50": 0.8,
+          "p90": 1.6,
+          "p95": 2,
+          "p99": 2.6,
+          "max": 8.1,
+          "status": {
+            "200": 1554
+          },
+          "failKinds": {}
+        },
+        "step:session": {
+          "requests": 1554,
+          "ok": 1554,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 33.1,
+          "p50": 0.8,
+          "p90": 1.6,
+          "p95": 2,
+          "p99": 2.6,
+          "max": 8.1,
+          "status": {},
+          "failKinds": {}
+        },
+        "verify": {
+          "requests": 2776,
+          "ok": 1554,
+          "soft": 1222,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 59.2,
+          "p50": 219.5,
+          "p90": 371.6,
+          "p95": 2168.5,
+          "p99": 2425.7,
+          "max": 2502.5,
+          "status": {
+            "200": 1554,
+            "503": 1222
+          },
+          "failKinds": {}
+        },
+        "step:verify": {
+          "requests": 1554,
+          "ok": 1554,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 33.1,
+          "p50": 251.6,
+          "p90": 14605.6,
+          "p95": 18403.3,
+          "p99": 22209.7,
+          "max": 23854.4,
+          "status": {},
+          "failKinds": {}
+        },
+        "query": {
+          "requests": 1554,
+          "ok": 1554,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 33.1,
+          "p50": 1.5,
+          "p90": 2.5,
+          "p95": 3,
+          "p99": 4.1,
+          "max": 8.6,
+          "status": {
+            "200": 1554
+          },
+          "failKinds": {}
+        },
+        "step:query": {
+          "requests": 1554,
+          "ok": 1554,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 33.1,
+          "p50": 1.5,
+          "p90": 2.5,
+          "p95": 3,
+          "p99": 4.1,
+          "max": 8.6,
+          "status": {},
+          "failKinds": {}
+        },
+        "callback.create": {
+          "requests": 1554,
+          "ok": 1554,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 33.1,
+          "p50": 1.5,
+          "p90": 2.6,
+          "p95": 3.3,
+          "p99": 5.2,
+          "max": 15.2,
+          "status": {
+            "201": 1554
+          },
+          "failKinds": {}
+        },
+        "step:callback.create": {
+          "requests": 1554,
+          "ok": 1554,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 33.1,
+          "p50": 1.5,
+          "p90": 2.6,
+          "p95": 3.3,
+          "p99": 5.2,
+          "max": 15.2,
+          "status": {},
+          "failKinds": {}
+        },
+        "callback.list": {
+          "requests": 1554,
+          "ok": 1554,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 33.1,
+          "p50": 0.5,
+          "p90": 0.8,
+          "p95": 0.9,
+          "p99": 1.4,
+          "max": 5.5,
+          "status": {
+            "200": 1554
+          },
+          "failKinds": {}
+        },
+        "step:callback.list": {
+          "requests": 1554,
+          "ok": 1554,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 33.1,
+          "p50": 0.5,
+          "p90": 0.8,
+          "p95": 0.9,
+          "p99": 1.4,
+          "max": 5.5,
+          "status": {},
+          "failKinds": {}
+        },
+        "journey": {
+          "requests": 1554,
+          "ok": 1554,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 33.1,
+          "p50": 4318.4,
+          "p90": 18752.9,
+          "p95": 21775.8,
+          "p99": 25961.9,
+          "max": 30038.3,
+          "status": {},
+          "failKinds": {}
+        },
+        "order.create": {
+          "requests": 327,
+          "ok": 327,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 7,
+          "p50": 42.4,
+          "p90": 82.6,
+          "p95": 87.4,
+          "p99": 93.4,
+          "max": 94.3,
+          "status": {
+            "200": 327
+          },
+          "failKinds": {}
+        },
+        "step:order.create": {
+          "requests": 327,
+          "ok": 327,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 7,
+          "p50": 42.4,
+          "p90": 82.6,
+          "p95": 87.4,
+          "p99": 93.4,
+          "max": 94.3,
+          "status": {},
+          "failKinds": {}
+        },
+        "note:already_unlocked": {
+          "requests": 125,
+          "ok": 125,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 2.7,
+          "p50": 0,
+          "p90": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "status": {},
+          "failKinds": {}
+        },
+        "record": {
+          "requests": 327,
+          "ok": 327,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 7,
+          "p50": 0.5,
+          "p90": 0.9,
+          "p95": 1.1,
+          "p99": 1.5,
+          "max": 1.8,
+          "status": {
+            "200": 327
+          },
+          "failKinds": {}
+        },
+        "step:record": {
+          "requests": 327,
+          "ok": 327,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 7,
+          "p50": 0.5,
+          "p90": 0.9,
+          "p95": 1.1,
+          "p99": 1.6,
+          "max": 1.9,
+          "status": {},
+          "failKinds": {}
+        },
+        "order.pay": {
+          "requests": 202,
+          "ok": 202,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 4.3,
+          "p50": 1.3,
+          "p90": 2.4,
+          "p95": 3,
+          "p99": 3.9,
+          "max": 4,
+          "status": {
+            "200": 202
+          },
+          "failKinds": {}
+        },
+        "step:order.pay": {
+          "requests": 202,
+          "ok": 202,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 4.3,
+          "p50": 1.3,
+          "p90": 2.4,
+          "p95": 3,
+          "p99": 3.9,
+          "max": 4,
+          "status": {},
+          "failKinds": {}
+        },
+        "order.status": {
+          "requests": 405,
+          "ok": 405,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 8.6,
+          "p50": 0.6,
+          "p90": 1.2,
+          "p95": 1.5,
+          "p99": 2.4,
+          "max": 3.9,
+          "status": {
+            "200": 405
+          },
+          "failKinds": {}
+        },
+        "step:order.status": {
+          "requests": 405,
+          "ok": 405,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 8.6,
+          "p50": 0.6,
+          "p90": 1.3,
+          "p95": 1.5,
+          "p99": 2.4,
+          "max": 3.9,
+          "status": {},
+          "failKinds": {}
+        },
+        "step:pay.confirmed": {
+          "requests": 202,
+          "ok": 202,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 4.3,
+          "p50": 252.3,
+          "p90": 254.1,
+          "p95": 254.5,
+          "p99": 255.5,
+          "max": 501.9,
+          "status": {},
+          "failKinds": {}
+        },
+        "callback.withdraw": {
+          "requests": 697,
+          "ok": 697,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 14.9,
+          "p50": 1.4,
+          "p90": 2.5,
+          "p95": 3.3,
+          "p99": 4.7,
+          "max": 11.8,
+          "status": {
+            "200": 697
+          },
+          "failKinds": {}
+        },
+        "step:callback.withdraw": {
+          "requests": 697,
+          "ok": 697,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 14.9,
+          "p50": 1.4,
+          "p90": 2.5,
+          "p95": 3.3,
+          "p99": 4.7,
+          "max": 11.8,
+          "status": {},
+          "failKinds": {}
+        }
+      },
+      "distinct": {
+        "paidOrders": 202
+      },
+      "timeline": [
+        {
+          "s": 0,
+          "ok": 106,
+          "fail": 0
+        },
+        {
+          "s": 1,
+          "ok": 188,
+          "fail": 0
+        },
+        {
+          "s": 2,
+          "ok": 280,
+          "fail": 0
+        },
+        {
+          "s": 3,
+          "ok": 353,
+          "fail": 0
+        },
+        {
+          "s": 4,
+          "ok": 416,
+          "fail": 0
+        },
+        {
+          "s": 5,
+          "ok": 417,
+          "fail": 0
+        },
+        {
+          "s": 6,
+          "ok": 371,
+          "fail": 0
+        },
+        {
+          "s": 7,
+          "ok": 358,
+          "fail": 0
+        },
+        {
+          "s": 8,
+          "ok": 388,
+          "fail": 0
+        },
+        {
+          "s": 9,
+          "ok": 405,
+          "fail": 0
+        },
+        {
+          "s": 10,
+          "ok": 348,
+          "fail": 0
+        },
+        {
+          "s": 11,
+          "ok": 268,
+          "fail": 0
+        },
+        {
+          "s": 12,
+          "ok": 201,
+          "fail": 0
+        },
+        {
+          "s": 13,
+          "ok": 174,
+          "fail": 0
+        },
+        {
+          "s": 14,
+          "ok": 184,
+          "fail": 0
+        },
+        {
+          "s": 15,
+          "ok": 194,
+          "fail": 0
+        },
+        {
+          "s": 16,
+          "ok": 170,
+          "fail": 0
+        },
+        {
+          "s": 17,
+          "ok": 182,
+          "fail": 0
+        },
+        {
+          "s": 18,
+          "ok": 134,
+          "fail": 0
+        },
+        {
+          "s": 19,
+          "ok": 102,
+          "fail": 0
+        },
+        {
+          "s": 20,
+          "ok": 67,
+          "fail": 0
+        },
+        {
+          "s": 21,
+          "ok": 60,
+          "fail": 0
+        },
+        {
+          "s": 22,
+          "ok": 57,
+          "fail": 0
+        },
+        {
+          "s": 23,
+          "ok": 38,
+          "fail": 0
+        },
+        {
+          "s": 24,
+          "ok": 24,
+          "fail": 0
+        },
+        {
+          "s": 25,
+          "ok": 19,
+          "fail": 0
+        },
+        {
+          "s": 26,
+          "ok": 12,
+          "fail": 0
+        },
+        {
+          "s": 27,
+          "ok": 10,
+          "fail": 0
+        },
+        {
+          "s": 28,
+          "ok": 15,
+          "fail": 0
+        },
+        {
+          "s": 29,
+          "ok": 33,
+          "fail": 0
+        },
+        {
+          "s": 30,
+          "ok": 83,
+          "fail": 0
+        },
+        {
+          "s": 31,
+          "ok": 182,
+          "fail": 0
+        },
+        {
+          "s": 32,
+          "ok": 300,
+          "fail": 0
+        },
+        {
+          "s": 33,
+          "ok": 395,
+          "fail": 0
+        },
+        {
+          "s": 34,
+          "ok": 393,
+          "fail": 0
+        },
+        {
+          "s": 35,
+          "ok": 397,
+          "fail": 0
+        },
+        {
+          "s": 36,
+          "ok": 346,
+          "fail": 0
+        },
+        {
+          "s": 37,
+          "ok": 371,
+          "fail": 0
+        },
+        {
+          "s": 38,
+          "ok": 373,
+          "fail": 0
+        },
+        {
+          "s": 39,
+          "ok": 379,
+          "fail": 0
+        }
+      ],
+      "side": {
+        "action": "核验延迟调到 2–3 秒",
+        "breakerOpened": 4,
+        "queueTimeout": 0
+      },
+      "id": "D6",
+      "expectation": "核验排队或提示稍后重试；已核验用户的其他操作不受影响",
+      "reconcile": {
+        "rows": [
+          {
+            "item": "查询成功 ↔ 审计行",
+            "client": 1554,
+            "database": 1554,
+            "match": true
+          },
+          {
+            "item": "核验成功 ↔ 授权记录",
+            "client": 1554,
+            "database": 1554,
+            "match": true
+          },
+          {
+            "item": "支付确认（按订单去重）↔ 已支付订单",
+            "client": 202,
+            "database": 202,
+            "match": true
+          },
+          {
+            "item": "支付确认（按订单去重）↔ 解锁授权",
+            "client": 202,
+            "database": 202,
+            "match": true
+          },
+          {
+            "item": "预约创建 ↔ 预约单",
+            "client": 1554,
+            "database": 1554,
+            "match": true
+          },
+          {
+            "item": "预约撤回 ↔ 已撤回",
+            "client": 697,
+            "database": 697,
+            "match": true
+          }
+        ],
+        "allMatch": true
+      },
+      "integrity": {
+        "paidWithoutGrant": 0,
+        "grantWithoutPaidOrder": 0,
+        "duplicateTickets": 0,
+        "doublePaid": 0
+      },
+      "auditDrainedMs": 4
+    },
+    {
+      "name": "D7 核验供应商宕机 10 秒",
+      "mode": "loop",
+      "vus": 300,
+      "durationMs": 40000,
+      "think": [
+        500,
+        1500
+      ],
+      "rampMs": 3000,
+      "loadThreads": 3,
+      "elapsedSeconds": 47.44,
+      "peakInFlight": 41,
+      "maxTimerGapMs": 503,
+      "suspended": false,
+      "total": {
+        "requests": 12959,
+        "ok": 12120,
+        "soft": 839,
+        "fail": 0,
+        "successRate": 1,
+        "rps": 273.1,
+        "p50": 1.2,
+        "p90": 161.6,
+        "p95": 271.3,
+        "p99": 358.6,
+        "max": 384.6,
+        "status": {
+          "200": 10179,
+          "201": 1941,
+          "503": 839
+        },
+        "failKinds": {}
+      },
+      "metrics": {
+        "_setup": {
+          "requests": 0,
+          "ok": 0,
+          "soft": 0,
+          "fail": 0,
+          "successRate": null,
+          "rps": 0,
+          "p50": null,
+          "p90": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "status": {},
+          "failKinds": {}
+        },
+        "session": {
+          "requests": 1941,
+          "ok": 1941,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 40.9,
+          "p50": 0.7,
+          "p90": 1.5,
+          "p95": 2,
+          "p99": 3,
+          "max": 26.5,
+          "status": {
+            "200": 1941
+          },
+          "failKinds": {}
+        },
+        "step:session": {
+          "requests": 1941,
+          "ok": 1941,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 40.9,
+          "p50": 0.7,
+          "p90": 1.5,
+          "p95": 2,
+          "p99": 3,
+          "max": 26.5,
+          "status": {},
+          "failKinds": {}
+        },
+        "verify": {
+          "requests": 2780,
+          "ok": 1941,
+          "soft": 839,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 58.6,
+          "p50": 205.1,
+          "p90": 346.9,
+          "p95": 364,
+          "p99": 379.2,
+          "max": 384.6,
+          "status": {
+            "200": 1941,
+            "503": 839
+          },
+          "failKinds": {}
+        },
+        "step:verify": {
+          "requests": 1941,
+          "ok": 1941,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 40.9,
+          "p50": 227.4,
+          "p90": 8262.6,
+          "p95": 10652.8,
+          "p99": 13045.1,
+          "max": 14968.8,
+          "status": {},
+          "failKinds": {}
+        },
+        "query": {
+          "requests": 1941,
+          "ok": 1941,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 40.9,
+          "p50": 1.5,
+          "p90": 2.4,
+          "p95": 2.9,
+          "p99": 4.4,
+          "max": 41.7,
+          "status": {
+            "200": 1941
+          },
+          "failKinds": {}
+        },
+        "step:query": {
+          "requests": 1941,
+          "ok": 1941,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 40.9,
+          "p50": 1.5,
+          "p90": 2.4,
+          "p95": 2.9,
+          "p99": 4.4,
+          "max": 41.9,
+          "status": {},
+          "failKinds": {}
+        },
+        "callback.create": {
+          "requests": 1941,
+          "ok": 1941,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 40.9,
+          "p50": 1.5,
+          "p90": 2.5,
+          "p95": 3.2,
+          "p99": 6.5,
+          "max": 80.5,
+          "status": {
+            "201": 1941
+          },
+          "failKinds": {}
+        },
+        "step:callback.create": {
+          "requests": 1941,
+          "ok": 1941,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 40.9,
+          "p50": 1.5,
+          "p90": 2.5,
+          "p95": 3.2,
+          "p99": 6.5,
+          "max": 80.5,
+          "status": {},
+          "failKinds": {}
+        },
+        "callback.list": {
+          "requests": 1941,
+          "ok": 1941,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 40.9,
+          "p50": 0.5,
+          "p90": 0.8,
+          "p95": 0.9,
+          "p99": 1.4,
+          "max": 8,
+          "status": {
+            "200": 1941
+          },
+          "failKinds": {}
+        },
+        "step:callback.list": {
+          "requests": 1941,
+          "ok": 1941,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 40.9,
+          "p50": 0.5,
+          "p90": 0.8,
+          "p95": 0.9,
+          "p99": 1.4,
+          "max": 8.1,
+          "status": {},
+          "failKinds": {}
+        },
+        "journey": {
+          "requests": 1941,
+          "ok": 1941,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 40.9,
+          "p50": 4155.9,
+          "p90": 11781.1,
+          "p95": 14019.2,
+          "p99": 16855.5,
+          "max": 19799.1,
+          "status": {},
+          "failKinds": {}
+        },
+        "order.create": {
+          "requests": 395,
+          "ok": 395,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 8.3,
+          "p50": 43.6,
+          "p90": 80.8,
+          "p95": 88.6,
+          "p99": 92.4,
+          "max": 94.1,
+          "status": {
+            "200": 395
+          },
+          "failKinds": {}
+        },
+        "step:order.create": {
+          "requests": 395,
+          "ok": 395,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 8.3,
+          "p50": 43.7,
+          "p90": 80.8,
+          "p95": 88.6,
+          "p99": 92.5,
+          "max": 94.1,
+          "status": {},
+          "failKinds": {}
+        },
+        "note:already_unlocked": {
+          "requests": 160,
+          "ok": 160,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 3.4,
+          "p50": 0,
+          "p90": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "status": {},
+          "failKinds": {}
+        },
+        "record": {
+          "requests": 395,
+          "ok": 395,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 8.3,
+          "p50": 0.5,
+          "p90": 0.8,
+          "p95": 1.1,
+          "p99": 1.5,
+          "max": 3,
+          "status": {
+            "200": 395
+          },
+          "failKinds": {}
+        },
+        "step:record": {
+          "requests": 395,
+          "ok": 395,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 8.3,
+          "p50": 0.5,
+          "p90": 0.8,
+          "p95": 1.1,
+          "p99": 1.5,
+          "max": 3,
+          "status": {},
+          "failKinds": {}
+        },
+        "order.pay": {
+          "requests": 235,
+          "ok": 235,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 5,
+          "p50": 1.3,
+          "p90": 2.1,
+          "p95": 2.5,
+          "p99": 3.1,
+          "max": 3.8,
+          "status": {
+            "200": 235
+          },
+          "failKinds": {}
+        },
+        "step:order.pay": {
+          "requests": 235,
+          "ok": 235,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 5,
+          "p50": 1.3,
+          "p90": 2.1,
+          "p95": 2.6,
+          "p99": 3.1,
+          "max": 3.8,
+          "status": {},
+          "failKinds": {}
+        },
+        "order.status": {
+          "requests": 470,
+          "ok": 470,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 9.9,
+          "p50": 0.6,
+          "p90": 1.1,
+          "p95": 1.3,
+          "p99": 2.3,
+          "max": 8.7,
+          "status": {
+            "200": 470
+          },
+          "failKinds": {}
+        },
+        "step:order.status": {
+          "requests": 470,
+          "ok": 470,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 9.9,
+          "p50": 0.6,
+          "p90": 1.1,
+          "p95": 1.3,
+          "p99": 2.3,
+          "max": 8.7,
+          "status": {},
+          "failKinds": {}
+        },
+        "step:pay.confirmed": {
+          "requests": 235,
+          "ok": 235,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 5,
+          "p50": 252.3,
+          "p90": 253.8,
+          "p95": 254.3,
+          "p99": 255.7,
+          "max": 263.1,
+          "status": {},
+          "failKinds": {}
+        },
+        "callback.withdraw": {
+          "requests": 920,
+          "ok": 920,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 19.4,
+          "p50": 1.4,
+          "p90": 2.4,
+          "p95": 2.9,
+          "p99": 3.9,
+          "max": 7.5,
+          "status": {
+            "200": 920
+          },
+          "failKinds": {}
+        },
+        "step:callback.withdraw": {
+          "requests": 920,
+          "ok": 920,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 19.4,
+          "p50": 1.4,
+          "p90": 2.4,
+          "p95": 2.9,
+          "p99": 3.9,
+          "max": 7.5,
+          "status": {},
+          "failKinds": {}
+        }
+      },
+      "distinct": {
+        "paidOrders": 235
+      },
+      "timeline": [
+        {
+          "s": 0,
+          "ok": 105,
+          "fail": 0
+        },
+        {
+          "s": 1,
+          "ok": 175,
+          "fail": 0
+        },
+        {
+          "s": 2,
+          "ok": 291,
+          "fail": 0
+        },
+        {
+          "s": 3,
+          "ok": 339,
+          "fail": 0
+        },
+        {
+          "s": 4,
+          "ok": 406,
+          "fail": 0
+        },
+        {
+          "s": 5,
+          "ok": 408,
+          "fail": 0
+        },
+        {
+          "s": 6,
+          "ok": 358,
+          "fail": 0
+        },
+        {
+          "s": 7,
+          "ok": 356,
+          "fail": 0
+        },
+        {
+          "s": 8,
+          "ok": 390,
+          "fail": 0
+        },
+        {
+          "s": 9,
+          "ok": 411,
+          "fail": 0
+        },
+        {
+          "s": 10,
+          "ok": 366,
+          "fail": 0
+        },
+        {
+          "s": 11,
+          "ok": 272,
+          "fail": 0
+        },
+        {
+          "s": 12,
+          "ok": 217,
+          "fail": 0
+        },
+        {
+          "s": 13,
+          "ok": 136,
+          "fail": 0
+        },
+        {
+          "s": 14,
+          "ok": 115,
+          "fail": 0
+        },
+        {
+          "s": 15,
+          "ok": 81,
+          "fail": 0
+        },
+        {
+          "s": 16,
+          "ok": 56,
+          "fail": 0
+        },
+        {
+          "s": 17,
+          "ok": 33,
+          "fail": 0
+        },
+        {
+          "s": 18,
+          "ok": 17,
+          "fail": 0
+        },
+        {
+          "s": 19,
+          "ok": 8,
+          "fail": 0
+        },
+        {
+          "s": 20,
+          "ok": 18,
+          "fail": 0
+        },
+        {
+          "s": 21,
+          "ok": 69,
+          "fail": 0
+        },
+        {
+          "s": 22,
+          "ok": 182,
+          "fail": 0
+        },
+        {
+          "s": 23,
+          "ok": 309,
+          "fail": 0
+        },
+        {
+          "s": 24,
+          "ok": 403,
+          "fail": 0
+        },
+        {
+          "s": 25,
+          "ok": 411,
+          "fail": 0
+        },
+        {
+          "s": 26,
+          "ok": 374,
+          "fail": 0
+        },
+        {
+          "s": 27,
+          "ok": 332,
+          "fail": 0
+        },
+        {
+          "s": 28,
+          "ok": 356,
+          "fail": 0
+        },
+        {
+          "s": 29,
+          "ok": 411,
+          "fail": 0
+        },
+        {
+          "s": 30,
+          "ok": 396,
+          "fail": 0
+        },
+        {
+          "s": 31,
+          "ok": 352,
+          "fail": 0
+        },
+        {
+          "s": 32,
+          "ok": 351,
+          "fail": 0
+        },
+        {
+          "s": 33,
+          "ok": 383,
+          "fail": 0
+        },
+        {
+          "s": 34,
+          "ok": 380,
+          "fail": 0
+        },
+        {
+          "s": 35,
+          "ok": 417,
+          "fail": 0
+        },
+        {
+          "s": 36,
+          "ok": 390,
+          "fail": 0
+        },
+        {
+          "s": 37,
+          "ok": 369,
+          "fail": 0
+        },
+        {
+          "s": 38,
+          "ok": 387,
+          "fail": 0
+        },
+        {
+          "s": 39,
+          "ok": 342,
+          "fail": 0
+        }
+      ],
+      "side": {
+        "action": "核验接口直接断开连接",
+        "breakerOpened": 17,
+        "breakerRejected": 1772
+      },
+      "id": "D7",
+      "expectation": "断路器跳闸后立即提示稍后重试；恢复后自动闭合",
+      "reconcile": {
+        "rows": [
+          {
+            "item": "查询成功 ↔ 审计行",
+            "client": 1941,
+            "database": 1941,
+            "match": true
+          },
+          {
+            "item": "核验成功 ↔ 授权记录",
+            "client": 1941,
+            "database": 1941,
+            "match": true
+          },
+          {
+            "item": "支付确认（按订单去重）↔ 已支付订单",
+            "client": 235,
+            "database": 235,
+            "match": true
+          },
+          {
+            "item": "支付确认（按订单去重）↔ 解锁授权",
+            "client": 235,
+            "database": 235,
+            "match": true
+          },
+          {
+            "item": "预约创建 ↔ 预约单",
+            "client": 1941,
+            "database": 1941,
+            "match": true
+          },
+          {
+            "item": "预约撤回 ↔ 已撤回",
+            "client": 920,
+            "database": 920,
+            "match": true
+          }
+        ],
+        "allMatch": true
+      },
+      "integrity": {
+        "paidWithoutGrant": 0,
+        "grantWithoutPaidOrder": 0,
+        "duplicateTickets": 0,
+        "doublePaid": 0
+      },
+      "auditDrainedMs": 4
+    },
+    {
+      "name": "D8 支付渠道宕机 10 秒",
+      "mode": "loop",
+      "vus": 300,
+      "durationMs": 40000,
+      "think": [
+        500,
+        1500
+      ],
+      "rampMs": 3000,
+      "loadThreads": 3,
+      "elapsedSeconds": 46.64,
+      "peakInFlight": 27,
+      "maxTimerGapMs": 503,
+      "suspended": false,
+      "total": {
+        "requests": 14871,
+        "ok": 14651,
+        "soft": 220,
+        "fail": 0,
+        "successRate": 1,
+        "rps": 318.9,
+        "p50": 1.2,
+        "p90": 163.7,
+        "p95": 275.9,
+        "p99": 360.9,
+        "max": 383.6,
+        "status": {
+          "200": 12323,
+          "201": 2328,
+          "503": 220
+        },
+        "failKinds": {}
+      },
+      "metrics": {
+        "_setup": {
+          "requests": 0,
+          "ok": 0,
+          "soft": 0,
+          "fail": 0,
+          "successRate": null,
+          "rps": 0,
+          "p50": null,
+          "p90": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "status": {},
+          "failKinds": {}
+        },
+        "session": {
+          "requests": 2328,
+          "ok": 2328,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 49.9,
+          "p50": 0.7,
+          "p90": 1.3,
+          "p95": 1.7,
+          "p99": 2.5,
+          "max": 10.8,
+          "status": {
+            "200": 2328
+          },
+          "failKinds": {}
+        },
+        "step:session": {
+          "requests": 2328,
+          "ok": 2328,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 49.9,
+          "p50": 0.7,
+          "p90": 1.3,
+          "p95": 1.7,
+          "p99": 2.5,
+          "max": 10.8,
+          "status": {},
+          "failKinds": {}
+        },
+        "verify": {
+          "requests": 2328,
+          "ok": 2328,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 49.9,
+          "p50": 207.7,
+          "p90": 347.9,
+          "p95": 365.9,
+          "p99": 379.8,
+          "max": 383.6,
+          "status": {
+            "200": 2328
+          },
+          "failKinds": {}
+        },
+        "step:verify": {
+          "requests": 2328,
+          "ok": 2328,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 49.9,
+          "p50": 207.7,
+          "p90": 347.9,
+          "p95": 365.9,
+          "p99": 379.8,
+          "max": 383.6,
+          "status": {},
+          "failKinds": {}
+        },
+        "query": {
+          "requests": 2328,
+          "ok": 2328,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 49.9,
+          "p50": 1.5,
+          "p90": 2.3,
+          "p95": 2.6,
+          "p99": 3.9,
+          "max": 23.5,
+          "status": {
+            "200": 2328
+          },
+          "failKinds": {}
+        },
+        "step:query": {
+          "requests": 2328,
+          "ok": 2328,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 49.9,
+          "p50": 1.5,
+          "p90": 2.3,
+          "p95": 2.6,
+          "p99": 3.9,
+          "max": 23.5,
+          "status": {},
+          "failKinds": {}
+        },
+        "callback.create": {
+          "requests": 2328,
+          "ok": 2328,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 49.9,
+          "p50": 1.4,
+          "p90": 2.4,
+          "p95": 2.9,
+          "p99": 5.2,
+          "max": 29.8,
+          "status": {
+            "201": 2328
+          },
+          "failKinds": {}
+        },
+        "step:callback.create": {
+          "requests": 2328,
+          "ok": 2328,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 49.9,
+          "p50": 1.5,
+          "p90": 2.4,
+          "p95": 2.9,
+          "p99": 5.3,
+          "max": 29.8,
+          "status": {},
+          "failKinds": {}
+        },
+        "callback.list": {
+          "requests": 2328,
+          "ok": 2328,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 49.9,
+          "p50": 0.5,
+          "p90": 0.7,
+          "p95": 0.9,
+          "p99": 1.4,
+          "max": 20,
+          "status": {
+            "200": 2328
+          },
+          "failKinds": {}
+        },
+        "step:callback.list": {
+          "requests": 2328,
+          "ok": 2328,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 49.9,
+          "p50": 0.5,
+          "p90": 0.7,
+          "p95": 0.9,
+          "p99": 1.4,
+          "max": 20,
+          "status": {},
+          "failKinds": {}
+        },
+        "journey": {
+          "requests": 2328,
+          "ok": 2328,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 49.9,
+          "p50": 3892.3,
+          "p90": 5708,
+          "p95": 6967.2,
+          "p99": 14915.1,
+          "max": 25949.9,
+          "status": {},
+          "failKinds": {}
+        },
+        "order.create": {
+          "requests": 676,
+          "ok": 499,
+          "soft": 177,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 14.5,
+          "p50": 41.8,
+          "p90": 80.9,
+          "p95": 87.7,
+          "p99": 92.5,
+          "max": 94.6,
+          "status": {
+            "200": 499,
+            "503": 177
+          },
+          "failKinds": {}
+        },
+        "step:order.create": {
+          "requests": 499,
+          "ok": 499,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 10.7,
+          "p50": 46.4,
+          "p90": 3649,
+          "p95": 8186.8,
+          "p99": 12296.7,
+          "max": 17625.5,
+          "status": {},
+          "failKinds": {}
+        },
+        "note:already_unlocked": {
+          "requests": 201,
+          "ok": 201,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 4.3,
+          "p50": 0,
+          "p90": 0,
+          "p95": 0,
+          "p99": 0,
+          "max": 0,
+          "status": {},
+          "failKinds": {}
+        },
+        "record": {
+          "requests": 499,
+          "ok": 499,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 10.7,
+          "p50": 0.5,
+          "p90": 0.8,
+          "p95": 1.1,
+          "p99": 1.5,
+          "max": 2.4,
+          "status": {
+            "200": 499
+          },
+          "failKinds": {}
+        },
+        "step:record": {
+          "requests": 499,
+          "ok": 499,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 10.7,
+          "p50": 0.5,
+          "p90": 0.9,
+          "p95": 1.1,
+          "p99": 1.5,
+          "max": 2.5,
+          "status": {},
+          "failKinds": {}
+        },
+        "order.pay": {
+          "requests": 341,
+          "ok": 298,
+          "soft": 43,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 7.3,
+          "p50": 1.3,
+          "p90": 2,
+          "p95": 2.5,
+          "p99": 3.4,
+          "max": 3.7,
+          "status": {
+            "200": 298,
+            "503": 43
+          },
+          "failKinds": {}
+        },
+        "step:order.pay": {
+          "requests": 298,
+          "ok": 298,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 6.4,
+          "p50": 1.3,
+          "p90": 2.6,
+          "p95": 1900.4,
+          "p99": 13408.7,
+          "max": 16161.6,
+          "status": {},
+          "failKinds": {}
+        },
+        "order.status": {
+          "requests": 601,
+          "ok": 601,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 12.9,
+          "p50": 0.5,
+          "p90": 1.1,
+          "p95": 1.5,
+          "p99": 2.4,
+          "max": 12.4,
+          "status": {
+            "200": 601
+          },
+          "failKinds": {}
+        },
+        "step:order.status": {
+          "requests": 601,
+          "ok": 601,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 12.9,
+          "p50": 0.5,
+          "p90": 1.1,
+          "p95": 1.5,
+          "p99": 2.4,
+          "max": 12.4,
+          "status": {},
+          "failKinds": {}
+        },
+        "step:pay.confirmed": {
+          "requests": 298,
+          "ok": 298,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 6.4,
+          "p50": 252,
+          "p90": 254,
+          "p95": 254.7,
+          "p99": 505,
+          "max": 515,
+          "status": {},
+          "failKinds": {}
+        },
+        "callback.withdraw": {
+          "requests": 1114,
+          "ok": 1114,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 23.9,
+          "p50": 1.4,
+          "p90": 2.2,
+          "p95": 2.8,
+          "p99": 3.9,
+          "max": 23.3,
+          "status": {
+            "200": 1114
+          },
+          "failKinds": {}
+        },
+        "step:callback.withdraw": {
+          "requests": 1114,
+          "ok": 1114,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 23.9,
+          "p50": 1.4,
+          "p90": 2.3,
+          "p95": 2.8,
+          "p99": 3.9,
+          "max": 23.3,
+          "status": {},
+          "failKinds": {}
+        }
+      },
+      "distinct": {
+        "paidOrders": 298
+      },
+      "timeline": [
+        {
+          "s": 0,
+          "ok": 106,
+          "fail": 0
+        },
+        {
+          "s": 1,
+          "ok": 191,
+          "fail": 0
+        },
+        {
+          "s": 2,
+          "ok": 304,
+          "fail": 0
+        },
+        {
+          "s": 3,
+          "ok": 334,
+          "fail": 0
+        },
+        {
+          "s": 4,
+          "ok": 402,
+          "fail": 0
+        },
+        {
+          "s": 5,
+          "ok": 389,
+          "fail": 0
+        },
+        {
+          "s": 6,
+          "ok": 372,
+          "fail": 0
+        },
+        {
+          "s": 7,
+          "ok": 366,
+          "fail": 0
+        },
+        {
+          "s": 8,
+          "ok": 383,
+          "fail": 0
+        },
+        {
+          "s": 9,
+          "ok": 434,
+          "fail": 0
+        },
+        {
+          "s": 10,
+          "ok": 326,
+          "fail": 0
+        },
+        {
+          "s": 11,
+          "ok": 315,
+          "fail": 0
+        },
+        {
+          "s": 12,
+          "ok": 299,
+          "fail": 0
+        },
+        {
+          "s": 13,
+          "ok": 309,
+          "fail": 0
+        },
+        {
+          "s": 14,
+          "ok": 321,
+          "fail": 0
+        },
+        {
+          "s": 15,
+          "ok": 338,
+          "fail": 0
+        },
+        {
+          "s": 16,
+          "ok": 279,
+          "fail": 0
+        },
+        {
+          "s": 17,
+          "ok": 304,
+          "fail": 0
+        },
+        {
+          "s": 18,
+          "ok": 287,
+          "fail": 0
+        },
+        {
+          "s": 19,
+          "ok": 288,
+          "fail": 0
+        },
+        {
+          "s": 20,
+          "ok": 264,
+          "fail": 0
+        },
+        {
+          "s": 21,
+          "ok": 283,
+          "fail": 0
+        },
+        {
+          "s": 22,
+          "ok": 330,
+          "fail": 0
+        },
+        {
+          "s": 23,
+          "ok": 410,
+          "fail": 0
+        },
+        {
+          "s": 24,
+          "ok": 422,
+          "fail": 0
+        },
+        {
+          "s": 25,
+          "ok": 447,
+          "fail": 0
+        },
+        {
+          "s": 26,
+          "ok": 363,
+          "fail": 0
+        },
+        {
+          "s": 27,
+          "ok": 362,
+          "fail": 0
+        },
+        {
+          "s": 28,
+          "ok": 362,
+          "fail": 0
+        },
+        {
+          "s": 29,
+          "ok": 366,
+          "fail": 0
+        },
+        {
+          "s": 30,
+          "ok": 386,
+          "fail": 0
+        },
+        {
+          "s": 31,
+          "ok": 362,
+          "fail": 0
+        },
+        {
+          "s": 32,
+          "ok": 363,
+          "fail": 0
+        },
+        {
+          "s": 33,
+          "ok": 369,
+          "fail": 0
+        },
+        {
+          "s": 34,
+          "ok": 385,
+          "fail": 0
+        },
+        {
+          "s": 35,
+          "ok": 369,
+          "fail": 0
+        },
+        {
+          "s": 36,
+          "ok": 358,
+          "fail": 0
+        },
+        {
+          "s": 37,
+          "ok": 381,
+          "fail": 0
+        },
+        {
+          "s": 38,
+          "ok": 382,
+          "fail": 0
+        },
+        {
+          "s": 39,
+          "ok": 380,
+          "fail": 0
+        }
+      ],
+      "side": {
+        "action": "支付接口直接断开连接",
+        "breakerOpened": 9
+      },
+      "id": "D8",
+      "expectation": "下单提示稍后重试，查询与预约不受影响；恢复后可继续支付",
+      "reconcile": {
+        "rows": [
+          {
+            "item": "查询成功 ↔ 审计行",
+            "client": 2328,
+            "database": 2328,
+            "match": true
+          },
+          {
+            "item": "核验成功 ↔ 授权记录",
+            "client": 2328,
+            "database": 2328,
+            "match": true
+          },
+          {
+            "item": "支付确认（按订单去重）↔ 已支付订单",
+            "client": 298,
+            "database": 298,
+            "match": true
+          },
+          {
+            "item": "支付确认（按订单去重）↔ 解锁授权",
+            "client": 298,
+            "database": 298,
+            "match": true
+          },
+          {
+            "item": "预约创建 ↔ 预约单",
+            "client": 2328,
+            "database": 2328,
+            "match": true
+          },
+          {
+            "item": "预约撤回 ↔ 已撤回",
+            "client": 1114,
+            "database": 1114,
+            "match": true
+          }
+        ],
+        "allMatch": true
+      },
+      "integrity": {
+        "paidWithoutGrant": 0,
+        "grantWithoutPaidOrder": 0,
+        "duplicateTickets": 0,
+        "doublePaid": 0
+      },
+      "auditDrainedMs": 4
+    }
+  ]
+}

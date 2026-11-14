@@ -1,65 +1,66 @@
-# 3X 债权查询 Demo
+# 个人债权信息查询平台（Demo · V2 架构）
 
-3X 战队的债权信息查询原型。实现公告候选检索、自有台账查询、模拟解锁和人工回访预约。
+用户完成本人核验后，查询与自己相关的债权信息：已授权的债权台账、已核实的债权转让记录、公告线索；可付费解锁转让详情、预约人工回访。配套 H5、微信小程序和运营大盘。
 
-[打开 GitHub Pages 预览](https://zj85997-hash.github.io/3x-debt-query-demo/)
+**全部数据为程序生成的虚构数据**（证件号以 99 开头，不可能与真实身份证号重合）。演示环境在接口层就会拒绝真实证件号。
 
-Pages 预览在浏览器里查询虚构数据。完整应用由 H5、微信小程序客户端、Node.js API、MySQL 和负载均衡组成。
+完整的设计、实测数据与运维说明见 [开发文档](design/开发文档.md)。
 
-## 运行
+## 一分钟跑起来
 
-使用 Node.js 22 或以上版本，并将 MySQL 服务端命令 `mysqld` 加入 PATH。
+需要 Node.js 22 以上，以及已安装在 PATH 里的 `mysqld`（MySQL 8+）和 `redis-server`（Redis 6+）。
 
 ```sh
 npm ci
-npm run local
+npm run dev
 ```
 
-打开 <http://127.0.0.1:8930/>。启动器使用项目独立的数据目录和 Unix Socket，启动两个 API 实例及本地网关。首次启动自动导入样例。Ctrl+C 关闭本次进程。
+启动器会拉起项目私有的 MySQL 和 Redis（独立数据目录，只走本机套接字，不占用也不影响系统里已有的 3306 / 6379），建表并导入约 45 万笔虚构台账，再启动 4 个 API 进程和 1 个后台进程。终端会打印两个地址：
 
-```sh
-npm run verify
-node scripts/verify-candidates.mjs
-node scripts/verify-mini.mjs
-npm run load
+- 用户端 H5：<http://127.0.0.1:8800/>，页面下方有 9 张"演示身份"卡片，点选即可走完每一种结果
+- 运营大盘：`http://127.0.0.1:8800/ops#token=…`（令牌在终端输出里）
+
+`Ctrl+C` 全部优雅退出。小程序在微信开发者工具中导入 `mini/` 目录。
+
+## 常用命令
+
+| 命令 | 作用 |
+|---|---|
+| `npm test` | 单元测试（不需要启动环境） |
+| `npm run test:api` | 接口验收测试，含小程序页面逻辑联调（需先 `npm run dev`） |
+| `npm run bench` | 验收压测：500 人稳态、洪峰、高压、2 倍与 4 倍过载、恢复，逐阶段与数据库对账 |
+| `npm run drill` | 故障演练：滚动重启、杀进程、Redis 假死、MySQL 停顿、核验与支付供应商故障 |
+| `npm run bench:capacity` | 容量摸高：查询链路的吞吐上限 |
+| `npm run bench:abuse` | 滥用与枚举测试 |
+| `npm run dev:exec -- scripts/import.mjs --kind assets --file <csv> --source "来源"` | 导入一批数据（样例见 `fixtures/samples/`） |
+| `npm run dev:exec -- scripts/reset-activity.mjs` | 清空业务流水，保留台账（压测前使用） |
+
+macOS 上跑较长的压测时，请用 `caffeinate -is npm run bench` 防止系统中途休眠（压测引擎会检测休眠并把受影响的阶段标为无效）。
+
+## 目录
+
+```
+src/
+  config.mjs        全部配置的唯一入口（环境变量 → 默认值 → 校验）
+  supervisor.mjs    单节点进程管理器：N 个 API 进程 + 1 个后台进程，自动拉起、滚动重启
+  api/              接入与协议层：路由、准入、鉴权、参数校验、错误映射
+  modules/          业务模块：会话、核验、查询、解锁订单、预约、审计、统计、大盘
+  providers/        外部依赖适配：实名核验、支付（舱壁 + 断路器）
+  infra/            基础设施：MySQL、Redis、限流、舱壁、断路器、编号、密码学、指标、日志
+  domain/           领域规则：证件号校验、虚构人口生成
+  worker/           后台进程：审计批量落库、统计同步、超时订单关闭
+web/                H5 与运营大盘（原生 ES 模块，无构建步骤）
+mini/               微信小程序
+mocks/              第三方模拟器（实名核验 + 支付），可注入故障
+migrations/         数据库表结构
+scripts/            本机环境、迁移、数据生成、导入等工具
+test/               单元测试与接口验收测试
+bench/              压测引擎、场景、计划与实测报告（bench/reports/*.json）
+deploy/             配置项清单、告警规则
+design/             开发文档（图在 design/img/）
+docs/               旧版（V1）的 GitHub Pages 静态预览，仅含虚构数据，未随 V2 更新，V2 运行不依赖它
 ```
 
-压测命令在本机运行。默认500个活跃会话持续60秒，随后同时发起500次查询。数据、运行环境和性能报告以各次实测为准。
+## 提交约定
 
-## 样例数据
-
-`fixtures/债权转让通知-虚构样本.pdf` 是5条虚构记录的 PDF。用 `node scripts/build-candidate-fixture.mjs` 可重新提取文本并生成结构化数据，需要 Poppler。
-
-`docs/data/synthetic-bulk.json` 是10,000条程序生成的测试记录。姓名形如 `样例*00001`，证件字段保留14个星号和4个虚构尾号。每500行重复同一组合以验证冲突。运行 `node scripts/generate-synthetic-bulk.mjs` 可重新生成。两组样例可导入本地 MySQL。
-
-| 用例 | 姓名 | 尾号 | 预期 |
-|---|---|---|---|
-| 单条命中 | 样例甲 | 0067 | 1条候选，显示来源编号与页码 |
-| 批量数据单条 | 样例*00001 | 0001 | 1条候选 |
-| 批量数据冲突 | 样例*00000 | 0042 | 20条候选 |
-| 未命中 | 样例甲 | 9999 | 暂无匹配 |
-
-公开仓库及 Pages 只使用虚构资料。协作提交同样使用虚构数据，真实资料、业务凭据和个人信息应留在获准的受控环境。
-
-## 客户端与部署
-
-在微信开发者工具导入 `mini/` 并选择测试号或项目 AppID。开发者工具模拟器连接 `mini/config.js` 指定的本机 API。真机联调需要经配置的 HTTPS 域名和对应账号。
-
-`compose.yaml` 提供 MySQL 8.4、双 API 与 Nginx 编排。启动前在本机 `.env` 配置三个独立随机值，分别是 `DEMO_DB_ROOT_PASSWORD`、`DEMO_DB_PASSWORD` 和长度至少32字符的 `DEMO_SIGNING_KEY`。
-
-```sh
-docker compose up -d --build
-docker compose exec api-a node scripts/seed.mjs 450000
-```
-
-GitHub Pages 从 `main` 分支的 `docs/` 发布静态预览。API、数据库、真实身份核验和支付联调需要独立部署环境。
-
-## 团队协作
-
-```sh
-git clone https://github.com/zj85997-hash/3x-debt-query-demo.git
-cd 3x-debt-query-demo
-git switch -c feature/your-change
-```
-
-用分支提交改动，再向 `main` 发起 Pull Request。拥有写权限的协作者可在仓库内推送分支，其他队友可通过 Fork 提交改动。PR 请注明改动场景和验证方法。
+从 `main` 拉分支开发，提交 Pull Request。合入前必须：`npm test` 与 `npm run test:api` 全绿；涉及性能或稳定性的改动附上 `npm run bench` / `npm run drill` 的结果。仓库只接受虚构数据，真实资料、业务凭据和个人信息不得提交。
