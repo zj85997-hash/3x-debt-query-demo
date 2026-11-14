@@ -1,0 +1,787 @@
+{
+  "date": "2026-11-13T03:51:29.762Z",
+  "target": "V2 查询链路（限流放开、结果缓存关闭、4 个 API 进程）",
+  "host": {
+    "cpu": "Apple M4 · 10 核",
+    "mem": "16 GB",
+    "os": "darwin arm64",
+    "node": "v24.19.0"
+  },
+  "peakOkPerSecond": 16172,
+  "summary": [
+    {
+      "vus": 100,
+      "okPerSecond": 15595,
+      "p50": 5.4,
+      "p95": 14,
+      "p99": 22.3,
+      "rejected": 0,
+      "failed": 0
+    },
+    {
+      "vus": 250,
+      "okPerSecond": 16172,
+      "p50": 12.9,
+      "p95": 34.2,
+      "p99": 49.7,
+      "rejected": 0,
+      "failed": 0
+    },
+    {
+      "vus": 500,
+      "okPerSecond": 13451,
+      "p50": 28.1,
+      "p95": 90.5,
+      "p99": 137.7,
+      "rejected": 0,
+      "failed": 0
+    },
+    {
+      "vus": 1000,
+      "okPerSecond": 15047,
+      "p50": 50,
+      "p95": 157.6,
+      "p99": 230.5,
+      "rejected": 0,
+      "failed": 0
+    },
+    {
+      "vus": 2000,
+      "okPerSecond": 12667,
+      "p50": 81.7,
+      "p95": 263,
+      "p99": 442.2,
+      "rejected": 6900,
+      "failed": 0
+    }
+  ],
+  "phases": [
+    {
+      "name": "查询链路 · 100 个请求持续在途",
+      "mode": "loop",
+      "vus": 100,
+      "durationMs": 15000,
+      "think": [
+        0,
+        0
+      ],
+      "rampMs": 0,
+      "loadThreads": 4,
+      "elapsedSeconds": 15.01,
+      "peakInFlight": 100,
+      "maxTimerGapMs": 501,
+      "suspended": false,
+      "total": {
+        "requests": 234083,
+        "ok": 234083,
+        "soft": 0,
+        "fail": 0,
+        "successRate": 1,
+        "rps": 15599.3,
+        "p50": 5.4,
+        "p90": 11.1,
+        "p95": 14,
+        "p99": 22.3,
+        "max": 159.3,
+        "status": {
+          "200": 234083
+        },
+        "failKinds": {}
+      },
+      "metrics": {
+        "_setup": {
+          "requests": 0,
+          "ok": 0,
+          "soft": 0,
+          "fail": 0,
+          "successRate": null,
+          "rps": 0,
+          "p50": null,
+          "p90": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "status": {},
+          "failKinds": {}
+        },
+        "query": {
+          "requests": 234083,
+          "ok": 234083,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 15599.3,
+          "p50": 5.4,
+          "p90": 11.1,
+          "p95": 14,
+          "p99": 22.3,
+          "max": 159.3,
+          "status": {
+            "200": 234083
+          },
+          "failKinds": {}
+        }
+      },
+      "distinct": {},
+      "timeline": [
+        {
+          "s": 0,
+          "ok": 8684,
+          "fail": 0
+        },
+        {
+          "s": 1,
+          "ok": 12507,
+          "fail": 0
+        },
+        {
+          "s": 2,
+          "ok": 12697,
+          "fail": 0
+        },
+        {
+          "s": 3,
+          "ok": 13127,
+          "fail": 0
+        },
+        {
+          "s": 4,
+          "ok": 17526,
+          "fail": 0
+        },
+        {
+          "s": 5,
+          "ok": 13520,
+          "fail": 0
+        },
+        {
+          "s": 6,
+          "ok": 17135,
+          "fail": 0
+        },
+        {
+          "s": 7,
+          "ok": 14922,
+          "fail": 0
+        },
+        {
+          "s": 8,
+          "ok": 17965,
+          "fail": 0
+        },
+        {
+          "s": 9,
+          "ok": 16283,
+          "fail": 0
+        },
+        {
+          "s": 10,
+          "ok": 18262,
+          "fail": 0
+        },
+        {
+          "s": 11,
+          "ok": 15826,
+          "fail": 0
+        },
+        {
+          "s": 12,
+          "ok": 18273,
+          "fail": 0
+        },
+        {
+          "s": 13,
+          "ok": 18394,
+          "fail": 0
+        },
+        {
+          "s": 14,
+          "ok": 18862,
+          "fail": 0
+        }
+      ]
+    },
+    {
+      "name": "查询链路 · 250 个请求持续在途",
+      "mode": "loop",
+      "vus": 250,
+      "durationMs": 15000,
+      "think": [
+        0,
+        0
+      ],
+      "rampMs": 0,
+      "loadThreads": 4,
+      "elapsedSeconds": 15.01,
+      "peakInFlight": 250,
+      "maxTimerGapMs": 501,
+      "suspended": false,
+      "total": {
+        "requests": 242746,
+        "ok": 242746,
+        "soft": 0,
+        "fail": 0,
+        "successRate": 1,
+        "rps": 16168,
+        "p50": 12.9,
+        "p90": 27.4,
+        "p95": 34.2,
+        "p99": 49.7,
+        "max": 148.4,
+        "status": {
+          "200": 242746
+        },
+        "failKinds": {}
+      },
+      "metrics": {
+        "_setup": {
+          "requests": 0,
+          "ok": 0,
+          "soft": 0,
+          "fail": 0,
+          "successRate": null,
+          "rps": 0,
+          "p50": null,
+          "p90": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "status": {},
+          "failKinds": {}
+        },
+        "query": {
+          "requests": 242746,
+          "ok": 242746,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 16168,
+          "p50": 12.9,
+          "p90": 27.4,
+          "p95": 34.2,
+          "p99": 49.7,
+          "max": 148.4,
+          "status": {
+            "200": 242746
+          },
+          "failKinds": {}
+        }
+      },
+      "distinct": {},
+      "timeline": [
+        {
+          "s": 0,
+          "ok": 11142,
+          "fail": 0
+        },
+        {
+          "s": 1,
+          "ok": 12624,
+          "fail": 0
+        },
+        {
+          "s": 2,
+          "ok": 14203,
+          "fail": 0
+        },
+        {
+          "s": 3,
+          "ok": 14319,
+          "fail": 0
+        },
+        {
+          "s": 4,
+          "ok": 15080,
+          "fail": 0
+        },
+        {
+          "s": 5,
+          "ok": 16031,
+          "fail": 0
+        },
+        {
+          "s": 6,
+          "ok": 15757,
+          "fail": 0
+        },
+        {
+          "s": 7,
+          "ok": 17009,
+          "fail": 0
+        },
+        {
+          "s": 8,
+          "ok": 16223,
+          "fail": 0
+        },
+        {
+          "s": 9,
+          "ok": 17121,
+          "fail": 0
+        },
+        {
+          "s": 10,
+          "ok": 17527,
+          "fail": 0
+        },
+        {
+          "s": 11,
+          "ok": 17370,
+          "fail": 0
+        },
+        {
+          "s": 12,
+          "ok": 18206,
+          "fail": 0
+        },
+        {
+          "s": 13,
+          "ok": 20173,
+          "fail": 0
+        },
+        {
+          "s": 14,
+          "ok": 19711,
+          "fail": 0
+        }
+      ]
+    },
+    {
+      "name": "查询链路 · 500 个请求持续在途",
+      "mode": "loop",
+      "vus": 500,
+      "durationMs": 15000,
+      "think": [
+        0,
+        0
+      ],
+      "rampMs": 0,
+      "loadThreads": 4,
+      "elapsedSeconds": 15.03,
+      "peakInFlight": 500,
+      "maxTimerGapMs": 503,
+      "suspended": false,
+      "total": {
+        "requests": 202172,
+        "ok": 202172,
+        "soft": 0,
+        "fail": 0,
+        "successRate": 1,
+        "rps": 13451.2,
+        "p50": 28.1,
+        "p90": 70.1,
+        "p95": 90.5,
+        "p99": 137.7,
+        "max": 301.1,
+        "status": {
+          "200": 202172
+        },
+        "failKinds": {}
+      },
+      "metrics": {
+        "_setup": {
+          "requests": 0,
+          "ok": 0,
+          "soft": 0,
+          "fail": 0,
+          "successRate": null,
+          "rps": 0,
+          "p50": null,
+          "p90": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "status": {},
+          "failKinds": {}
+        },
+        "query": {
+          "requests": 202172,
+          "ok": 202172,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 13451.2,
+          "p50": 28.1,
+          "p90": 70.1,
+          "p95": 90.5,
+          "p99": 137.7,
+          "max": 301.1,
+          "status": {
+            "200": 202172
+          },
+          "failKinds": {}
+        }
+      },
+      "distinct": {},
+      "timeline": [
+        {
+          "s": 0,
+          "ok": 9000,
+          "fail": 0
+        },
+        {
+          "s": 1,
+          "ok": 13649,
+          "fail": 0
+        },
+        {
+          "s": 2,
+          "ok": 10738,
+          "fail": 0
+        },
+        {
+          "s": 3,
+          "ok": 13299,
+          "fail": 0
+        },
+        {
+          "s": 4,
+          "ok": 13899,
+          "fail": 0
+        },
+        {
+          "s": 5,
+          "ok": 13305,
+          "fail": 0
+        },
+        {
+          "s": 6,
+          "ok": 12832,
+          "fail": 0
+        },
+        {
+          "s": 7,
+          "ok": 15828,
+          "fail": 0
+        },
+        {
+          "s": 8,
+          "ok": 15042,
+          "fail": 0
+        },
+        {
+          "s": 9,
+          "ok": 14973,
+          "fail": 0
+        },
+        {
+          "s": 10,
+          "ok": 14987,
+          "fail": 0
+        },
+        {
+          "s": 11,
+          "ok": 12841,
+          "fail": 0
+        },
+        {
+          "s": 12,
+          "ok": 11595,
+          "fail": 0
+        },
+        {
+          "s": 13,
+          "ok": 11628,
+          "fail": 0
+        },
+        {
+          "s": 14,
+          "ok": 18056,
+          "fail": 0
+        }
+      ]
+    },
+    {
+      "name": "查询链路 · 1000 个请求持续在途",
+      "mode": "loop",
+      "vus": 1000,
+      "durationMs": 15000,
+      "think": [
+        0,
+        0
+      ],
+      "rampMs": 0,
+      "loadThreads": 4,
+      "elapsedSeconds": 15.03,
+      "peakInFlight": 1000,
+      "maxTimerGapMs": 506,
+      "suspended": false,
+      "total": {
+        "requests": 226149,
+        "ok": 226149,
+        "soft": 0,
+        "fail": 0,
+        "successRate": 1,
+        "rps": 15050.5,
+        "p50": 50,
+        "p90": 130.8,
+        "p95": 157.6,
+        "p99": 230.5,
+        "max": 816,
+        "status": {
+          "200": 226149
+        },
+        "failKinds": {}
+      },
+      "metrics": {
+        "_setup": {
+          "requests": 0,
+          "ok": 0,
+          "soft": 0,
+          "fail": 0,
+          "successRate": null,
+          "rps": 0,
+          "p50": null,
+          "p90": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "status": {},
+          "failKinds": {}
+        },
+        "query": {
+          "requests": 226149,
+          "ok": 226149,
+          "soft": 0,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 15050.5,
+          "p50": 50,
+          "p90": 130.8,
+          "p95": 157.6,
+          "p99": 230.5,
+          "max": 816,
+          "status": {
+            "200": 226149
+          },
+          "failKinds": {}
+        }
+      },
+      "distinct": {},
+      "timeline": [
+        {
+          "s": 0,
+          "ok": 8976,
+          "fail": 0
+        },
+        {
+          "s": 1,
+          "ok": 14070,
+          "fail": 0
+        },
+        {
+          "s": 2,
+          "ok": 10568,
+          "fail": 0
+        },
+        {
+          "s": 3,
+          "ok": 12804,
+          "fail": 0
+        },
+        {
+          "s": 4,
+          "ok": 16405,
+          "fail": 0
+        },
+        {
+          "s": 5,
+          "ok": 15709,
+          "fail": 0
+        },
+        {
+          "s": 6,
+          "ok": 16090,
+          "fail": 0
+        },
+        {
+          "s": 7,
+          "ok": 17487,
+          "fail": 0
+        },
+        {
+          "s": 8,
+          "ok": 13430,
+          "fail": 0
+        },
+        {
+          "s": 9,
+          "ok": 14861,
+          "fail": 0
+        },
+        {
+          "s": 10,
+          "ok": 16331,
+          "fail": 0
+        },
+        {
+          "s": 11,
+          "ok": 17565,
+          "fail": 0
+        },
+        {
+          "s": 12,
+          "ok": 19299,
+          "fail": 0
+        },
+        {
+          "s": 13,
+          "ok": 12912,
+          "fail": 0
+        },
+        {
+          "s": 14,
+          "ok": 18642,
+          "fail": 0
+        }
+      ]
+    },
+    {
+      "name": "查询链路 · 2000 个请求持续在途",
+      "mode": "loop",
+      "vus": 2000,
+      "durationMs": 15000,
+      "think": [
+        0,
+        0
+      ],
+      "rampMs": 0,
+      "loadThreads": 4,
+      "elapsedSeconds": 16.08,
+      "peakInFlight": 2000,
+      "maxTimerGapMs": 516,
+      "suspended": false,
+      "total": {
+        "requests": 210591,
+        "ok": 203691,
+        "soft": 6900,
+        "fail": 0,
+        "successRate": 1,
+        "rps": 13097.3,
+        "p50": 81.7,
+        "p90": 213.9,
+        "p95": 263,
+        "p99": 442.2,
+        "max": 1081.6,
+        "status": {
+          "200": 203691,
+          "503": 6900
+        },
+        "failKinds": {}
+      },
+      "metrics": {
+        "_setup": {
+          "requests": 0,
+          "ok": 0,
+          "soft": 0,
+          "fail": 0,
+          "successRate": null,
+          "rps": 0,
+          "p50": null,
+          "p90": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "status": {},
+          "failKinds": {}
+        },
+        "query": {
+          "requests": 210591,
+          "ok": 203691,
+          "soft": 6900,
+          "fail": 0,
+          "successRate": 1,
+          "rps": 13097.3,
+          "p50": 81.7,
+          "p90": 213.9,
+          "p95": 263,
+          "p99": 442.2,
+          "max": 1081.6,
+          "status": {
+            "200": 203691,
+            "503": 6900
+          },
+          "failKinds": {}
+        }
+      },
+      "distinct": {},
+      "timeline": [
+        {
+          "s": 0,
+          "ok": 11790,
+          "fail": 0
+        },
+        {
+          "s": 1,
+          "ok": 15938,
+          "fail": 0
+        },
+        {
+          "s": 2,
+          "ok": 13737,
+          "fail": 0
+        },
+        {
+          "s": 3,
+          "ok": 15159,
+          "fail": 0
+        },
+        {
+          "s": 4,
+          "ok": 17481,
+          "fail": 0
+        },
+        {
+          "s": 5,
+          "ok": 13042,
+          "fail": 0
+        },
+        {
+          "s": 6,
+          "ok": 16100,
+          "fail": 0
+        },
+        {
+          "s": 7,
+          "ok": 15572,
+          "fail": 0
+        },
+        {
+          "s": 8,
+          "ok": 15896,
+          "fail": 0
+        },
+        {
+          "s": 9,
+          "ok": 13498,
+          "fail": 0
+        },
+        {
+          "s": 10,
+          "ok": 13577,
+          "fail": 0
+        },
+        {
+          "s": 11,
+          "ok": 11551,
+          "fail": 0
+        },
+        {
+          "s": 12,
+          "ok": 9465,
+          "fail": 0
+        },
+        {
+          "s": 13,
+          "ok": 7398,
+          "fail": 0
+        },
+        {
+          "s": 14,
+          "ok": 11919,
+          "fail": 0
+        }
+      ]
+    }
+  ]
+}

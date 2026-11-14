@@ -1,0 +1,54 @@
+# Prometheus 告警规则（指标来自 /metrics）。原则：告警少而准，每一条都对应一个明确的处置动作（见开发文档第 12 节"可观测性"与第 16 节"运维手册"）。
+groups:
+  - name: debt-query
+    rules:
+      - alert: 可用性下降
+        expr: sum(rate(dq_http_requests_total{label=~".* /api/v1/.*,5.."}[2m])) / sum(rate(dq_http_requests_total{label=~".* /api/v1/.*"}[2m])) > 0.01
+        for: 2m
+        labels: {severity: P1}
+        annotations: {summary: "业务接口 5xx 比例超过 1%（含繁忙拒绝）", action: "看大盘'依赖与保护'：哪个依赖在断路/排队；按预案降级"}
+      - alert: 查询耗时升高
+        expr: histogram_quantile(0.95, sum by (le) (rate(dq_http_ms_bucket{label="POST /api/v1/query"}[5m]))) > 300
+        for: 5m
+        labels: {severity: P2}
+        annotations: {summary: "查询接口 P95 超过 300ms", action: "检查数据库慢查询、连接池排队（dq_bulkhead_queued{label=\"db\"}）"}
+      - alert: 容量预警
+        expr: sum(dq_in_flight) / (count(dq_in_flight) * 600) > 0.7
+        for: 3m
+        labels: {severity: P2}
+        annotations: {summary: "在途请求超过容量的 70%", action: "扩容 API 节点；确认是否有突发投放"}
+      - alert: 过载保护已启动
+        expr: sum(rate(dq_shed_total[1m])) > 0
+        for: 1m
+        labels: {severity: P1}
+        annotations: {summary: "系统正在拒绝请求以自保", action: "立即扩容；必要时打开'暂停新用户进入'开关保障存量用户"}
+      - alert: 依赖断路
+        expr: max(dq_breaker_open) == 1
+        for: 30s
+        labels: {severity: P1}
+        annotations: {summary: "数据库 / 核验 / 支付 至少一个断路器处于跳闸状态", action: "确认对应依赖状态；联系供应商或切换备用"}
+      - alert: 核验长时间排队
+        expr: sum(dq_bulkhead_queued{label="verify"}) > 200
+        for: 2m
+        labels: {severity: P2}
+        annotations: {summary: "核验排队超过 200 人持续 2 分钟", action: "向供应商申请提额后调大 VERIFY_CONCURRENCY；检查是否被刷"}
+      - alert: 审计流水积压
+        expr: max(dq_audit_fallback_pending) > 1000
+        for: 1m
+        labels: {severity: P1}
+        annotations: {summary: "审计暂存超过 1000 条", action: "检查后台进程与数据库写入；积压到上限会拒绝新查询"}
+      - alert: 后台进程缺失
+        expr: absent(dq_worker_persisted{role="worker"})
+        for: 1m
+        labels: {severity: P1}
+        annotations: {summary: "后台进程没有上报", action: "检查进程管理器日志；审计会留在事件流中不丢失，但需尽快恢复"}
+      - alert: Redis 不可用
+        expr: min(dq_redis_ready) == 0
+        for: 1m
+        labels: {severity: P2}
+        annotations: {summary: "至少一个进程连不上 Redis，系统处于降级模式", action: "恢复 Redis；降级期间限流为进程内近似值"}
+      - alert: 限流拦截激增
+        expr: sum(rate(dq_errors_total{label="RATE_LIMITED"}[5m])) > 5
+        for: 5m
+        labels: {severity: P3}
+        annotations: {summary: "限流拦截持续偏高", action: "区分攻击与误伤：若来自共用出口 IP 的正常用户，调整 RL_VERIFY_IP_*"}

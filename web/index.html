@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#123a8f">
+  <title>债权信息查询</title>
+  <link rel="stylesheet" href="/assets/app.css">
+  <script type="module" src="/assets/app.js"></script>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="/" aria-label="债权信息查询 首页">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <rect width="32" height="32" rx="9" fill="#123a8f"/>
+        <circle cx="14.5" cy="14.5" r="6" fill="none" stroke="#fff" stroke-width="2.4"/>
+        <path d="M19 19l5.2 5.2" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M11.8 14.7l1.9 1.9 3.5-3.6" fill="none" stroke="#7fd3b5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>债权信息查询</span>
+    </a>
+    <span class="env-tag" id="env-tag" hidden>演示环境 · 虚构数据</span>
+  </div>
+</header>
+
+<div class="layout">
+  <main class="app" id="app">
+    <ol class="steps" id="steps" aria-label="办理进度">
+      <li data-step="1" class="is-current"><span>1</span>核验身份</li>
+      <li data-step="2"><span>2</span>查看结果</li>
+      <li data-step="3"><span>3</span>人工协助</li>
+    </ol>
+
+    <!-- 第一步：核验 -->
+    <section id="view-verify" class="view">
+      <div class="hero">
+        <h1>查询本人债权信息</h1>
+        <p>核对已授权的债权台账与债权转让记录，查清楚"我的这笔欠款现在归谁、该联系谁"。</p>
+        <ul class="trust">
+          <li>仅限本人查询</li>
+          <li>不保存明文证件号</li>
+          <li>每次查询留痕可追溯</li>
+        </ul>
+      </div>
+      <form class="card" id="verify-form" novalidate>
+        <h2>本人身份核验</h2>
+        <label class="field">
+          <span>姓名</span>
+          <input id="name" name="name" autocomplete="off" maxlength="20" placeholder="与证件一致的姓名" required>
+        </label>
+        <label class="field">
+          <span>居民身份证号码</span>
+          <input id="idno" name="idno" autocomplete="off" inputmode="text" maxlength="18" placeholder="18 位证件号码" required>
+        </label>
+        <label class="check">
+          <input id="accept" type="checkbox">
+          <span>我已阅读并同意<button type="button" class="link" id="open-policy">《查询说明与授权》</button></span>
+        </label>
+        <p class="form-error" id="verify-error" role="alert"></p>
+        <button class="btn btn-primary btn-block" id="verify-submit" type="submit">核验并查询</button>
+        <p class="fineprint" id="demo-fineprint" hidden>演示环境只接受下方"演示身份"，请勿输入真实姓名或证件号码。</p>
+      </form>
+      <section class="card personas" id="personas-card" hidden>
+        <div class="card-head">
+          <h2>演示身份</h2>
+          <span class="muted">点选即可自动填写</span>
+        </div>
+        <div class="persona-grid" id="personas"></div>
+      </section>
+    </section>
+
+    <!-- 第二步、第三步：结果与人工协助 -->
+    <section id="view-result" class="view" hidden>
+      <div class="identity" id="identity"></div>
+      <div id="result" aria-live="polite"></div>
+      <section class="card" id="assist" hidden></section>
+      <section class="card" id="tickets" hidden></section>
+      <button class="btn btn-ghost btn-block" id="restart" type="button">退出并重新查询</button>
+    </section>
+
+    <footer class="foot">
+      <p id="operator"></p>
+      <p>本页面不代表任何官方登记或征信机构。查询结果限于已收录范围，未查到不代表不存在欠款或未发生转让。</p>
+    </footer>
+  </main>
+
+  <aside class="side" id="side" aria-label="技术面板">
+    <div class="side-card">
+      <div class="card-head">
+        <h2>技术面板</h2>
+        <span class="muted">每一次接口调用</span>
+      </div>
+      <p class="side-note">"实例"一列是处理该请求的 API 进程。登录令牌是无状态签名的，任何一个进程都能独立校验，所以可以随时加进程、加机器。浏览器会复用连接，同一页面的请求通常落在同一个进程，刷新后可能换一个。</p>
+      <div class="calls-wrap">
+        <table class="calls">
+          <thead><tr><th>接口</th><th>状态</th><th>耗时</th><th>实例</th></tr></thead>
+          <tbody id="calls"><tr class="calls-empty"><td colspan="4">还没有调用，先在左侧发起一次查询</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="side-card">
+      <div class="card-head"><h2>这一版改了什么</h2></div>
+      <ul class="side-list">
+        <li><b>只能查本人</b>查询接口不接受姓名和证件号参数，身份只来自核验后签发的令牌。</li>
+        <li><b>慢依赖有闸门</b>实名核验限并发、可排队、会熔断，高峰时提示"排队中"而不是报错。</li>
+        <li><b>审计不拖累查询</b>查询审计先进事件流，再由后台批量落库，不丢不重。</li>
+        <li><b>付费解锁可对账</b>订单状态机、下单幂等、回调验签与幂等。</li>
+      </ul>
+    </div>
+  </aside>
+</div>
+
+<!-- 底部弹层：查询说明 / 模拟收银台 -->
+<div class="sheet-backdrop" id="sheet" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+    <div class="sheet-head">
+      <h2 id="sheet-title"></h2>
+      <button type="button" class="icon-btn" id="sheet-close" aria-label="关闭">×</button>
+    </div>
+    <div class="sheet-body" id="sheet-body"></div>
+  </div>
+</div>
+<div class="busy" id="busy" hidden>
+  <div class="busy-box">
+    <div class="spinner" aria-hidden="true"></div>
+    <p id="busy-text">处理中…</p>
+    <p class="busy-sub" id="busy-sub"></p>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" hidden></div>
+</body>
+</html>

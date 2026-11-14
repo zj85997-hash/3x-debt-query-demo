@@ -1,0 +1,57 @@
+{
+  "date": "2026-11-13T04:07:25.325Z",
+  "target": "V2",
+  "base": "http://127.0.0.1:8800",
+  "seconds": 2.667,
+  "cases": [
+    {
+      "name": "遍历\"姓名 + 证件尾号\"（旧版 1 万次全部成功）",
+      "attempts": 200,
+      "allowed": 0,
+      "outcome": {
+        "404 NOT_FOUND": 200
+      },
+      "expect": "接口已不存在，放行 0 次"
+    },
+    {
+      "name": "单个会话批量核验 200 个身份",
+      "attempts": 200,
+      "allowed": 5,
+      "outcome": {
+        "放行": 5,
+        "429 RATE_LIMITED": 195
+      },
+      "expect": "最多放行 5 次（会话维度）"
+    },
+    {
+      "name": "不断换会话、同一出口 IP 核验 500 个身份",
+      "attempts": 500,
+      "allowed": 29,
+      "outcome": {
+        "放行": 29,
+        "429 RATE_LIMITED": 471
+      },
+      "expect": "被 IP 维度限制，放行远小于 500（默认每 IP 每 10 分钟 60 次，且领会话每分钟 30 次）"
+    },
+    {
+      "name": "已核验账号连续查询 1000 次",
+      "attempts": 1000,
+      "allowed": 10,
+      "outcome": {
+        "放行": 10,
+        "429 RATE_LIMITED": 990
+      },
+      "expect": "放行约 10 次（每人每分钟 10 次），且查到的始终只是本人"
+    },
+    {
+      "name": "换 IP 换会话，对同一证件号猜 100 个姓名",
+      "attempts": 100,
+      "allowed": 10,
+      "outcome": {
+        "422 VERIFY_MISMATCH": 10,
+        "429 RATE_LIMITED": 90
+      },
+      "expect": "最多 10 次真正打到核验供应商（证件维度），其余直接拒绝"
+    }
+  ]
+}

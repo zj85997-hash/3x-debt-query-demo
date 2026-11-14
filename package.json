@@ -1,19 +1,29 @@
 {
-  "name": "debt-query-demo",
-  "version": "1.0.0",
+  "name": "debt-query-platform",
+  "version": "2.0.0",
   "private": true,
+  "description": "个人债权信息查询平台（Demo）· V2 架构",
   "type": "module",
   "engines": {
     "node": ">=22"
   },
   "scripts": {
-    "start": "node server.mjs",
-    "local": "node scripts/local.mjs",
+    "dev": "node scripts/dev.mjs",
+    "dev:exec": "node scripts/dev-exec.mjs",
+    "start": "node src/supervisor.mjs",
+    "migrate": "node scripts/migrate.mjs",
     "seed": "node scripts/seed.mjs",
-    "verify": "node scripts/verify.mjs",
-    "load": "node scripts/load.mjs"
+    "import": "node scripts/import.mjs",
+    "test": "node --test \"test/unit/*.test.mjs\"",
+    "test:api": "node --test --test-concurrency=1 \"test/api/*.test.mjs\"",
+    "bench": "node bench/plans/v2-acceptance.mjs",
+    "bench:capacity": "node bench/plans/v2-capacity.mjs",
+    "bench:abuse": "node bench/plans/v2-abuse.mjs",
+    "drill": "node bench/plans/v2-drills.mjs"
   },
   "dependencies": {
+    "fastify": "5.12.8",
+    "ioredis": "6.0.0",
     "mysql2": "3.24.6"
   }
 }
